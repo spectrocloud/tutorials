@@ -22,11 +22,11 @@ When creating a tutorial folder, ensure you review the following task list:
 
 - [ ] Added a README.md file that explains the tutorial code and links to the respective tutorial page. 
 
-- [ ] All Terraform variables have descriptions
+- [ ] Verified all Terraform variables have helpful descriptions.
 
 - [ ] Formatted all code with proper `fmt` command such as `go fmt`, or `terraform fmt`.
 
-- [ ] If Terrraform, run the following command in the tutorial folder to generate Terrform documentation for the code.
+- [ ] If Terrraform, run the following command in the tutorial folder to generate Terrform documentation.
 
   ```shell
   terraform-docs markdown table . >> README.md`
