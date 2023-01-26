@@ -6,13 +6,13 @@ variable "cluster-group-name" {
 
 variable "scenario-one-cluster-name" {
   type        = string
-  default = "cluster-1"
+  default     = "new-cluster"
   description = "The name of the cluster to use for the virtual cluster"
 }
 
 variable "scenario-two-cluster-name" {
   type        = string
-  default = "cluster-2"
+  default     = "cluster-2"
   description = "The name of the cluster to use for the virtual cluster in the second scenario"
 }
 
@@ -23,17 +23,40 @@ variable "single-container-image" {
 }
 
 variable "multiple_container_images" {
-  type = map(string)
+  type        = map(string)
   description = "The name of the container images to use for the virtual cluster in a multiple scenario"
   default = {
-    ui = "ghcr.io/spectrocloud/hello-universe:1.0.8-proxy"
+    ui  = "ghcr.io/spectrocloud/hello-universe:1.0.8-proxy"
     api = "ghcr.io/spectrocloud/hello-universe-api:1.0.6"
   }
+}
+
+variable "database-name" {
+  type        = string
+  description = "The name of the database"
+  default     = "counter"
+}
+
+variable "database-user" {
+  type        = string
+  description = "The name of the database user"
+  default     = "pguser"
+}
+
+variable "database-ssl-mode" {
+  type        = string
+  description = "The SSL mode to use for the database"
+  default     = "require"
+}
+
+variable "token" {
+  type        = string
+  description = "The anonymous token to use for the Spectro Cloud API"
 }
 
 
 variable "tags" {
   type        = list(string)
   description = "The default tags to apply to Palette resources"
-  default     = ["scenario-1", "spectro-cloud-education", "app:hello-universe"]
+  default     = ["spectro-cloud-education", "app:hello-universe", "repository:spectrocloud/tutorials/", "terraform_managed:true"]
 }

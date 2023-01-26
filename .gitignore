@@ -29,5 +29,6 @@ override.tf.json
 # example: *tfplan*
 
 .DS_Store
+my.*.tfvars
 
 
