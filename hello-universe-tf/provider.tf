@@ -8,5 +8,6 @@ terraform {
 }
 
 provider "spectrocloud" {
+  // API key set though the environment variable SPECTROCLOUD_API_KEY
   project_name = "Default"
 }
