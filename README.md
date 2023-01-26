@@ -16,15 +16,19 @@ The following tutorial code is available:
 
 # Contribution
 
-When creating a tutorial folder, ensure you review the following check list:
+When creating a tutorial folder, ensure you review the following task list:
+
+- [ ] Initialized the repository by issuing the command `make init` in the root context.
 
 - [ ] Added a README.md file that explains the tutorial code and links to the respective tutorial page. 
 
 - [ ] All Terraform variables have descriptions
 
+- [ ] Formatted all code with proper `fmt` command such as `go fmt`, or `terraform fmt`.
+
 - [ ] If Terrraform, run the following command in the tutorial folder to generate Terrform documentation for the code.
 
   ```shell
-  `terraform-docs markdown table . >> README.md`
+  terraform-docs markdown table . >> README.md`
   ```
 - [ ] Use a semantic release message in the commit message, such as `"fix: your change here"`, to create a new release. 
