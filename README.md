@@ -4,7 +4,7 @@
 A collection of Spectro Cloud tutorials and their respective sample code.
 
 <p align="center">
-  <img src="/static/images/spectro_wizard.png" alt="drawing" width="500"/>
+  <img src="/static/img/spectro-wizard.png" alt="drawing" width="500"/>
 </p>
 
 
