@@ -31,6 +31,12 @@ variable "multiple_container_images" {
   }
 }
 
+variable "database-version" {
+  type        = string
+  description = "The version of Postgres to use"
+  default     = "14"
+}
+
 variable "database-name" {
   type        = string
   description = "The name of the database"

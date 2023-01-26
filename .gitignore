@@ -5,6 +5,10 @@
 *.tfstate
 *.tfstate.*
 
+
+# Node Modules
+node_modules/
+
 # Crash log files
 crash.log
 

@@ -38,7 +38,7 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
       "dbUserName"         = var.database-user
       "databaseName"       = var.database-name
       "databaseVolumeSize" = "8"
-      "version"            = "14"
+      "version"            = var.database-version
     }
   }
   pack {

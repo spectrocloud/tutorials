@@ -3,7 +3,6 @@
 This folder contains the demo code for the [Deploy an Application using Palette Dev Engine](https://docs.spectrocloud.com/devx/apps/deploy-app).
 The code is intended to be used with the tutorial and as a result may not execute if invoked directly with `terraform apply`.
 
-
 ## Requirements
 
 | Name | Version |
@@ -40,6 +39,7 @@ No modules.
 | <a name="input_database-name"></a> [database-name](#input\_database-name) | The name of the database | `string` | `"counter"` | no |
 | <a name="input_database-ssl-mode"></a> [database-ssl-mode](#input\_database-ssl-mode) | The SSL mode to use for the database | `string` | `"require"` | no |
 | <a name="input_database-user"></a> [database-user](#input\_database-user) | The name of the database user | `string` | `"pguser"` | no |
+| <a name="input_database-version"></a> [database-version](#input\_database-version) | The version of Postgres to use | `string` | `"14"` | no |
 | <a name="input_multiple_container_images"></a> [multiple\_container\_images](#input\_multiple\_container\_images) | The name of the container images to use for the virtual cluster in a multiple scenario | `map(string)` | <pre>{<br>  "api": "ghcr.io/spectrocloud/hello-universe-api:1.0.6",<br>  "ui": "ghcr.io/spectrocloud/hello-universe:1.0.8-proxy"<br>}</pre> | no |
 | <a name="input_scenario-one-cluster-name"></a> [scenario-one-cluster-name](#input\_scenario-one-cluster-name) | The name of the cluster to use for the virtual cluster | `string` | `"new-cluster"` | no |
 | <a name="input_scenario-two-cluster-name"></a> [scenario-two-cluster-name](#input\_scenario-two-cluster-name) | The name of the cluster to use for the virtual cluster in the second scenario | `string` | `"cluster-2"` | no |

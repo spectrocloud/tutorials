@@ -11,3 +11,20 @@ A collection of Spectro Cloud tutorials and their respective sample code.
 
 The following tutorial code is available:
 - [hello-universe-tf](./hello-universe-tf/README.md) - Deploy the Hello Universe application into two Palette Virtual Clusters.
+
+
+
+# Contribution
+
+When creating a tutorial folder, ensure you review the following check list:
+
+- [ ] Added a README.md file that explains the tutorial code and links to the respective tutorial page. 
+
+- [ ] All Terraform variables have descriptions
+
+- [ ] If Terrraform, run the following command in the tutorial folder to generate Terrform documentation for the code.
+
+  ```shell
+  `terraform-docs markdown table . >> README.md`
+  ```
+- [ ] Use a semantic release message in the commit message, such as `"fix: your change here"`, to create a new release. 
