@@ -6,7 +6,7 @@ variable "cluster-group-name" {
 
 variable "scenario-one-cluster-name" {
   type        = string
-  default     = "new-cluster"
+  default     = "cluster-1"
   description = "The name of the cluster to use for the virtual cluster"
 }
 

@@ -6,13 +6,14 @@ resource "spectrocloud_application_profile" "hello-universe-ui" {
   description = "Hello Universe as a single UI instance"
   version     = "1.0.0"
   pack {
-    name            = "hello-universe-ui"
+    name            = "ui"
     type            = data.spectrocloud_pack_simple.container_pack.type
     registry_uid    = data.spectrocloud_registry.container_registry.id
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
         containerService:
-            serviceName: "ui"
+            serviceName: "{{.spectro.system.appdeployment.tiername}}-svc"
+            registryUrl: ""
             image: ${var.single-container-image}
             access: public
             ports:
@@ -49,7 +50,8 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
           containerService:
-            serviceName: "api"
+            serviceName: "{{.spectro.system.appdeployment.tiername}}-svc"
+            registryUrl: ""
             image: ${var.multiple_container_images["api"]}
             access: private
             ports:
@@ -79,7 +81,8 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
         containerService:
-            serviceName: "ui"
+            serviceName: "{{.spectro.system.appdeployment.tiername}}-svc"
+            registryUrl: ""
             image: ${var.multiple_container_images["ui"]}
             access: public
             ports:
