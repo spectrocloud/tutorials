@@ -27,6 +27,7 @@ resource "spectrocloud_application_profile" "hello-universe-ui" {
 ##########################################
 
 resource "spectrocloud_application_profile" "hello-universe-complete" {
+  count       = var.enable-second-scenario == true ? 1 : 0
   name        = "hello-universe-complete"
   description = "Hello Universe as a three-tier application"
   version     = "1.0.0"

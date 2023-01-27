@@ -25,23 +25,26 @@ resource "spectrocloud_virtual_cluster" "cluster-1" {
 # ##########################################
 # # Scenario 2: Multiple Applications
 # ##########################################
-# resource "spectrocloud_virtual_cluster" "cluster-2" {
-#   name              = var.scenario-two-cluster-name
-#   cluster_group_uid = data.spectrocloud_cluster_group.beehive.id
+resource "spectrocloud_virtual_cluster" "cluster-2" {
 
-#   resources {
-#     max_cpu           = 8
-#     max_mem_in_mb     = 12288
-#     min_cpu           = 0
-#     min_mem_in_mb     = 0
-#     max_storage_in_gb = "8"
-#     min_storage_in_gb = "0"
-#   }
+  count = var.enable-second-scenario == true ? 1 : 0
 
-#   tags = concat(var.tags, ["scenario-2"])
+  name              = var.scenario-two-cluster-name
+  cluster_group_uid = data.spectrocloud_cluster_group.beehive.id
 
-#   timeouts {
-#     create = "15m"
-#     delete = "15m"
-#   }
-# }
+  resources {
+    max_cpu           = 8
+    max_mem_in_mb     = 12288
+    min_cpu           = 0
+    min_mem_in_mb     = 0
+    max_storage_in_gb = "8"
+    min_storage_in_gb = "0"
+  }
+
+  tags = concat(var.tags, ["scenario-2"])
+
+  timeouts {
+    create = "15m"
+    delete = "15m"
+  }
+}

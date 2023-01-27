@@ -57,9 +57,15 @@ variable "database-ssl-mode" {
 
 variable "token" {
   type        = string
+  default     = null
   description = "The anonymous token to use for the Spectro Cloud API"
 }
 
+variable "enable-second-scenario" {
+  type        = bool
+  description = "Whether to enable the second scenario"
+  default     = false
+}
 
 variable "tags" {
   type        = list(string)
