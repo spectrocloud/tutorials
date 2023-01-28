@@ -8,7 +8,7 @@ resource "spectrocloud_application_profile" "hello-universe-ui" {
   pack {
     name            = "ui"
     type            = data.spectrocloud_pack_simple.container_pack.type
-    registry_uid    = data.spectrocloud_registry.container_registry.id
+    registry_uid    = data.spectrocloud_registry.public_registry.id
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
         pack:
@@ -81,7 +81,7 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
   pack {
     name            = "api"
     type            = data.spectrocloud_pack_simple.container_pack.type
-    registry_uid    = data.spectrocloud_registry.container_registry.id
+    registry_uid    = data.spectrocloud_registry.public_registry.id
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
         pack:
@@ -146,7 +146,7 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
   pack {
     name            = "ui"
     type            = data.spectrocloud_pack_simple.container_pack.type
-    registry_uid    = data.spectrocloud_registry.container_registry.id
+    registry_uid    = data.spectrocloud_registry.public_registry.id
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
         pack:

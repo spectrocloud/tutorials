@@ -15,7 +15,7 @@ resource "spectrocloud_application" "scenario-1" {
 ##########################################
 # Scenario 2: Multiple Applications
 ##########################################
-resource "spectrocloud_application" "hello-universe-complete" {
+resource "spectrocloud_application" "scenario-2" {
   count = var.enable-second-scenario == true ? 1 : 0
 
   name                    = "scenario-2"
