@@ -84,7 +84,42 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
     registry_uid    = data.spectrocloud_registry.container_registry.id
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
-          containerService:
+        pack:
+          namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+          releaseNameOverride: "{{.spectro.system.appdeployment.tiername}}"
+        postReadinessHooks:
+          outputParameters:
+            - name: CONTAINER_NAMESPACE
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: metadata.namespace
+            - name: CONTAINER_SVC
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: metadata.annotations["spectrocloud.com/service-fqdn"]
+            - name: CONTAINER_SVC_PORT
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: spec.ports[0].port
+        containerService:
             serviceName: "{{.spectro.system.appdeployment.tiername}}-svc"
             registryUrl: ""
             image: ${var.multiple_container_images["api"]}
@@ -106,7 +141,6 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
                 value: "${var.database-ssl-mode}"
               - name: "AUTHORIZATION"
                 value: "true"
-
     EOT
   }
   pack {
@@ -115,6 +149,41 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
     registry_uid    = data.spectrocloud_registry.container_registry.id
     source_app_tier = data.spectrocloud_pack_simple.container_pack.id
     values          = <<-EOT
+        pack:
+          namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+          releaseNameOverride: "{{.spectro.system.appdeployment.tiername}}"
+        postReadinessHooks:
+          outputParameters:
+            - name: CONTAINER_NAMESPACE
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: metadata.namespace
+            - name: CONTAINER_SVC
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: metadata.annotations["spectrocloud.com/service-fqdn"]
+            - name: CONTAINER_SVC_PORT
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: spec.ports[0].port
         containerService:
             serviceName: "{{.spectro.system.appdeployment.tiername}}-svc"
             registryUrl: ""

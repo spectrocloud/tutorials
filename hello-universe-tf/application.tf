@@ -18,7 +18,7 @@ resource "spectrocloud_application" "scenario-1" {
 resource "spectrocloud_application" "hello-universe-complete" {
   count = var.enable-second-scenario == true ? 1 : 0
 
-  name                    = "hello-universe"
+  name                    = "scenario-2"
   application_profile_uid = spectrocloud_application_profile.hello-universe-complete[0].id
 
   config {

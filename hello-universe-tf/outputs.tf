@@ -9,7 +9,3 @@
 # output "hello-universie-ui-app-profile-registry-id" {
 #   value = spectrocloud_application_profile.hello-universe-ui.pack[0].registry_uid
 # }
-
-# output "single-scenario-app-url" {
-#   value = "Visit the following URL to access the application: http://google.com"
-# }
