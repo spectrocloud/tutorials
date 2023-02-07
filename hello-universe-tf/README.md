@@ -1,7 +1,9 @@
 # Hello Universe TF
 
 This folder contains the demo code for the [Deploy an Application using Palette Dev Engine](https://docs.spectrocloud.com/devx/apps/deploy-app).
-The code is intended to be used with the tutorial and as a result may not execute if invoked directly with `terraform apply`.## Requirements
+The code is intended to be used with the tutorial and as a result may not execute if invoked directly with `terraform apply`.
+
+## Requirements
 
 | Name | Version |
 |------|---------|
@@ -11,7 +13,7 @@ The code is intended to be used with the tutorial and as a result may not execut
 
 | Name | Version |
 |------|---------|
-| <a name="provider_spectrocloud"></a> [spectrocloud](#provider\_spectrocloud) | 0.11.0 |
+| <a name="provider_spectrocloud"></a> [spectrocloud](#provider\_spectrocloud) | >= 0.11.0 |
 
 ## Modules
 

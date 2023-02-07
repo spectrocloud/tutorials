@@ -194,7 +194,7 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
               - "3000"
             env:
               - name: "API_URI"
-                value: "?????"
+                value: "http://{{.spectro.app.$appDeploymentName.api.CONTAINER_SVC_EXTERNALIP}}"
               - name: "SVC_URI"
                 value: "http://{{.spectro.app.$appDeploymentName.api.CONTAINER_SVC}}:{{.spectro.app.$appDeploymentName.api.CONTAINER_SVC_PORT}}"
               - name: "TOKEN"
