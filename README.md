@@ -10,11 +10,19 @@ A collection of Spectro Cloud tutorials and their respective sample code.
 
 
 The following tutorial code is available:
-- [hello-universe-tf](./hello-universe-tf/README.md) - Deploy the Hello Universe application into two Palette Virtual Clusters.
+- [hello-universe-tf](./hello-universe-tf/README.md) - Deploy the Hello Universe application into two Palette Virtual Clusters. [Link](https://docs.spectrocloud.com/devx/apps/deploy-app) to the tutorial.
 
 
 
 # Contribution
+
+## Prerequisites
+
+- NodeJS v18 or greater.
+- Terraform v1.3.0 or greater.
+- [Terraform-docs](https://terraform-docs.io/) 
+
+## Checklist
 
 When creating a tutorial folder, ensure you review the following task list:
 

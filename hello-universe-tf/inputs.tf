@@ -64,7 +64,7 @@ variable "token" {
 variable "enable-second-scenario" {
   type        = bool
   description = "Whether to enable the second scenario"
-  default     = false
+  default     = true
 }
 
 variable "tags" {

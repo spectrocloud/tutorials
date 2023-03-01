@@ -12,8 +12,8 @@ resource "spectrocloud_application" "scenario-1" {
   tags = concat(var.tags, ["scenario-1"])
 
   timeouts {
-    create = "5m"
-    update = "5m"
+    create = "10m"
+    update = "10m"
   }
 }
 
@@ -33,7 +33,7 @@ resource "spectrocloud_application" "scenario-2" {
   tags = concat(var.tags, ["scenario-2"])
 
   timeouts {
-    create = "5m"
-    update = "5m"
+    create = "10m"
+    update = "10m"
   }
 }
