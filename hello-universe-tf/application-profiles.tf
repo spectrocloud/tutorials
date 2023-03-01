@@ -36,6 +36,28 @@ resource "spectrocloud_application_profile" "hello-universe-ui" {
                   kind: Service
                   name: "{{.spectro.system.appdeployment.tiername}}-svc"
                 keyToCheck: metadata.annotations["spectrocloud.com/service-fqdn"]
+            - name: CONTAINER_SVC_EXTERNALHOSTNAME
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: status.loadBalancer.ingress[0].hostname
+                conditional: true
+            - name: CONTAINER_SVC_EXTERNALIP
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: status.loadBalancer.ingress[0].ip
+                conditional: true
             - name: CONTAINER_SVC_PORT
               type: lookupSecret
               spec:
@@ -123,7 +145,7 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
             serviceName: "{{.spectro.system.appdeployment.tiername}}-svc"
             registryUrl: ""
             image: ${var.multiple_container_images["api"]}
-            access: private
+            access: public
             ports:
               - "3000"
             env:
@@ -141,6 +163,7 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
                 value: "${var.database-ssl-mode}"
               - name: "AUTHORIZATION"
                 value: "true"
+            serviceType: LoadBalancer
     EOT
   }
   pack {
@@ -152,6 +175,7 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
         pack:
           namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
           releaseNameOverride: "{{.spectro.system.appdeployment.tiername}}"
+          spectrocloud.com/install-priority: "1"
         postReadinessHooks:
           outputParameters:
             - name: CONTAINER_NAMESPACE
@@ -174,6 +198,28 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
                   kind: Service
                   name: "{{.spectro.system.appdeployment.tiername}}-svc"
                 keyToCheck: metadata.annotations["spectrocloud.com/service-fqdn"]
+            - name: CONTAINER_SVC_EXTERNALHOSTNAME
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: status.loadBalancer.ingress[0].hostname
+                conditional: true
+            - name: CONTAINER_SVC_EXTERNALIP
+              type: lookupSecret
+              spec:
+                namespace: "{{.spectro.system.appdeployment.tiername}}-ns"
+                secretName: "{{.spectro.system.appdeployment.tiername}}-custom-secret"
+                ownerReference:
+                  apiVersion: v1
+                  kind: Service
+                  name: "{{.spectro.system.appdeployment.tiername}}-svc"
+                keyToCheck: status.loadBalancer.ingress[0].ip
+                conditional: true
             - name: CONTAINER_SVC_PORT
               type: lookupSecret
               spec:
@@ -191,12 +237,9 @@ resource "spectrocloud_application_profile" "hello-universe-complete" {
             access: public
             ports:
               - "8080"
-              - "3000"
             env:
               - name: "API_URI"
-                value: "http://{{.spectro.app.$appDeploymentName.api.CONTAINER_SVC_EXTERNALIP}}"
-              - name: "SVC_URI"
-                value: "http://{{.spectro.app.$appDeploymentName.api.CONTAINER_SVC}}:{{.spectro.app.$appDeploymentName.api.CONTAINER_SVC_PORT}}"
+                value: "http://{{.spectro.app.$appDeploymentName.api.CONTAINER_SVC_EXTERNALHOSTNAME}}:3000"
               - name: "TOKEN"
                 value: "${var.token}"
             serviceType: LoadBalancer

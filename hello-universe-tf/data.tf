@@ -10,7 +10,7 @@ data "spectrocloud_registry" "public_registry" {
 data "spectrocloud_pack_simple" "container_pack" {
   type         = "container"
   name         = "container"
-  version      = "1.0.0" // Update to 1.0.2 after bug fix
+  version      = "1.0.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 

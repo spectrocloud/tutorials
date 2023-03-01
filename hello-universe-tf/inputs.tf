@@ -19,15 +19,15 @@ variable "scenario-two-cluster-name" {
 variable "single-container-image" {
   type        = string
   description = "The name of the container image to use for the virtual cluster in a single scenario"
-  default     = "ghcr.io/spectrocloud/hello-universe:1.0.8"
+  default     = "ghcr.io/spectrocloud/hello-universe:1.0.10"
 }
 
 variable "multiple_container_images" {
   type        = map(string)
   description = "The name of the container images to use for the virtual cluster in a multiple scenario"
   default = {
-    ui  = "ghcr.io/spectrocloud/hello-universe:1.0.8-proxy"
-    api = "ghcr.io/spectrocloud/hello-universe-api:1.0.6"
+    ui  = "ghcr.io/spectrocloud/hello-universe:1.0.10"
+    api = "ghcr.io/spectrocloud/hello-universe-api:1.0.8"
   }
 }
 

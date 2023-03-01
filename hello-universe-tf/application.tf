@@ -10,6 +10,11 @@ resource "spectrocloud_application" "scenario-1" {
     cluster_uid  = spectrocloud_virtual_cluster.cluster-1.id
   }
   tags = concat(var.tags, ["scenario-1"])
+
+  timeouts {
+    create = "5m"
+    update = "5m"
+  }
 }
 
 ##########################################
@@ -26,4 +31,9 @@ resource "spectrocloud_application" "scenario-2" {
     cluster_uid  = spectrocloud_virtual_cluster.cluster-2[0].id
   }
   tags = concat(var.tags, ["scenario-2"])
+
+  timeouts {
+    create = "5m"
+    update = "5m"
+  }
 }
