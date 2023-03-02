@@ -42,13 +42,13 @@ No modules.
 | <a name="input_database-ssl-mode"></a> [database-ssl-mode](#input\_database-ssl-mode) | The SSL mode to use for the database | `string` | `"require"` | no |
 | <a name="input_database-user"></a> [database-user](#input\_database-user) | The name of the database user | `string` | `"pguser"` | no |
 | <a name="input_database-version"></a> [database-version](#input\_database-version) | The version of Postgres to use | `string` | `"14"` | no |
-| <a name="input_enable-second-scenario"></a> [enable-second-scenario](#input\_enable-second-scenario) | Whether to enable the second scenario | `bool` | `true` | no |
+| <a name="input_enable-second-scenario"></a> [enable-second-scenario](#input\_enable-second-scenario) | Whether to enable the second scenario | `bool` | `false` | no |
 | <a name="input_multiple_container_images"></a> [multiple\_container\_images](#input\_multiple\_container\_images) | The name of the container images to use for the virtual cluster in a multiple scenario | `map(string)` | <pre>{<br>  "api": "ghcr.io/spectrocloud/hello-universe-api:1.0.8",<br>  "ui": "ghcr.io/spectrocloud/hello-universe:1.0.10"<br>}</pre> | no |
 | <a name="input_scenario-one-cluster-name"></a> [scenario-one-cluster-name](#input\_scenario-one-cluster-name) | The name of the cluster to use for the virtual cluster | `string` | `"cluster-1"` | no |
 | <a name="input_scenario-two-cluster-name"></a> [scenario-two-cluster-name](#input\_scenario-two-cluster-name) | The name of the cluster to use for the virtual cluster in the second scenario | `string` | `"cluster-2"` | no |
 | <a name="input_single-container-image"></a> [single-container-image](#input\_single-container-image) | The name of the container image to use for the virtual cluster in a single scenario | `string` | `"ghcr.io/spectrocloud/hello-universe:1.0.10"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | The default tags to apply to Palette resources | `list(string)` | <pre>[<br>  "spectro-cloud-education",<br>  "app:hello-universe",<br>  "repository:spectrocloud/tutorials/",<br>  "terraform_managed:true"<br>]</pre> | no |
-| <a name="input_token"></a> [token](#input\_token) | The anonymous token to use for the Spectro Cloud API | `string` | `null` | no |
+| <a name="input_token"></a> [token](#input\_token) | The anonymous token to use for the Spectro Cloud API. Token can be found in the Hello Universe API [repository](https://github.com/spectrocloud/hello-universe-api#authorization) README. | `string` | `null` | no |
 
 ## Outputs
 

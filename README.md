@@ -40,3 +40,19 @@ When creating a tutorial folder, ensure you review the following task list:
   terraform-docs markdown table . >> README.md`
   ```
 - [ ] Use a semantic release message in the commit message, such as `"fix: your change here"`, to create a new release. 
+
+
+- [ ] Ensure the required education tags are added to Terraform resources. 
+  - `spectro-cloud-education`
+  - `app:<name of app>`
+  - `repository:spectrocloud/tutorials/`
+  - `terraform_managed:true`
+
+  Example: 
+  ```terraform
+  variable "tags" {
+    type        = list(string)
+    description = "The default tags to apply to Palette resources"
+    default     = ["spectro-cloud-education", "app:hello-universe", "repository:spectrocloud/tutorials/", "terraform_managed:true"]
+  }
+  ```
