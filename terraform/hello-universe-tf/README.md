@@ -2,6 +2,7 @@
 
 This folder contains the demo code for the [Deploy an Application using Palette Dev Engine](https://docs.spectrocloud.com/devx/apps/deploy-app).
 The code is intended to be used with the tutorial and as a result may not execute if invoked directly with `terraform apply`.
+
 ## Requirements
 
 | Name | Version |
@@ -48,8 +49,10 @@ No modules.
 | <a name="input_scenario-two-cluster-name"></a> [scenario-two-cluster-name](#input\_scenario-two-cluster-name) | The name of the cluster to use for the virtual cluster in the second scenario | `string` | `"cluster-2"` | no |
 | <a name="input_single-container-image"></a> [single-container-image](#input\_single-container-image) | The name of the container image to use for the virtual cluster in a single scenario | `string` | `"ghcr.io/spectrocloud/hello-universe:1.0.10"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | The default tags to apply to Palette resources | `list(string)` | <pre>[<br>  "spectro-cloud-education",<br>  "app:hello-universe",<br>  "repository:spectrocloud/tutorials/",<br>  "terraform_managed:true"<br>]</pre> | no |
-| <a name="input_token"></a> [token](#input\_token) | The anonymous token to use for the Spectro Cloud API. Token can be found in the Hello Universe API [repository](https://github.com/spectrocloud/hello-universe-api#authorization) README. | `string` | `null` | no |
+| <a name="input_token"></a> [token](#input\_token) | The anonymous token to use for the Spectro Cloud API | `string` | `null` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_Advisory"></a> [Advisory](#output\_Advisory) | n/a |
