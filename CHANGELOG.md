@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/spectrocloud/tutorials/compare/v1.0.0...v1.0.1) (2023-03-03)
+
+
+### Bug Fixes
+
+* updated folder structure to allow tutorials for non terraform scenarios ([14bca18](https://github.com/spectrocloud/tutorials/commit/14bca1848417e72ae495f82bae6c018c8d0c53e3))
+
 # 1.0.0 (2023-03-02)
 
 
