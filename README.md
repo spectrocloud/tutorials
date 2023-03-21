@@ -16,6 +16,8 @@ The following tutorial code is available:
 
 # Contribution
 
+Review the [Contribution](./docs/CONTRIBUTION.md) docs before creating a PR.
+
 ## Prerequisites
 
 - NodeJS v18 or greater.
