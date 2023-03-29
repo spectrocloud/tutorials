@@ -1,0 +1,1 @@
+spectrocloud_api_key    =   "j54xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
