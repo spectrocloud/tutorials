@@ -1,0 +1,1 @@
+spectrocloud_api_key    =   "j54AsdjnSP2YU9jJF1K5dVYeURWzO4qd"
