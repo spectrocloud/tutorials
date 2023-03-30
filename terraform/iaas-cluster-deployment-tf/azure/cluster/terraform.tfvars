@@ -1,8 +1,12 @@
+spectrocloud_api_key    =   "j54xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 azure-cloud-account-name  = "azure-palette"
 resource_group            = "palette_rg"
 cluster_profile           = "tf-azure-profile"
 region                    = "eastus"
 cluster_ssh_public_key    = "azure-key"
+tenant-id               = "0fexxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+client-id               = "bfcxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+client-secret           = "Modxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 master_nodes = {
     count            = "1"

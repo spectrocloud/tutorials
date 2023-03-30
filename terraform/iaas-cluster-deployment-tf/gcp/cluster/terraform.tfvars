@@ -1,3 +1,4 @@
+spectrocloud_api_key    = "j54xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 cluster_profile         = "tf-gcp-profile"
 region                  = "us-east1"
 

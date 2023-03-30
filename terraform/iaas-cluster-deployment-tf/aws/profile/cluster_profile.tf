@@ -38,7 +38,7 @@ resource "spectrocloud_cluster_profile" "profile" {
     uid    = data.spectrocloud_pack.proxy.id
     values = data.spectrocloud_pack.proxy.values
   }
-
+/*
   pack {
     name = "hello-universe"
     type = "manifest"
@@ -47,5 +47,5 @@ resource "spectrocloud_cluster_profile" "profile" {
       name    = "hello-universe"
       content = file("manifest.yaml")
     }
-  }
+  }*/
 }

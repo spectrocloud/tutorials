@@ -9,6 +9,9 @@ variable "azure-cloud-account-name" {
     type = string
     description = "The name of your Azure account as assigned in Palette"
 }
+variable "azure_tenant_id" {}
+variable "azure_client_id" {}
+variable "azure_client_secret" {}
 
 variable "master_nodes" {
     type = object({
