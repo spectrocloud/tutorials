@@ -12,7 +12,7 @@ resource "spectrocloud_cluster_gcp" "cluster" {
   cloud_account_id = data.spectrocloud_cloudaccount_gcp.account.id
 
   cloud_config {
-    project = "Default"
+    project = var.gcp-cloud-account-name
     region  = var.region
   }
 

@@ -1,12 +1,9 @@
 data "spectrocloud_cloudaccount_azure" "account" {
-  name                = var.azure-cloud-account-name
-  azure_tenant_id     = var.azure_tenant_id
-  azure_client_id     = var.azure_client_id
-  azure_client_secret = var.azure_client_secret
+  name = var.azure-cloud-account-name
 }
 
 data "spectrocloud_cluster_profile" "profile" {
-  name                = var.cluster_profile
+  name = var.cluster_profile
 }
 
 resource "spectrocloud_cluster_azure" "cluster" {
