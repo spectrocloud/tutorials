@@ -32,12 +32,7 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/v$SPECTRO_CLI_VERSI
         rm -rf ngrok-v3-stable-linux-amd64.tgz && \
         curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
         chmod +x ./kubectl && \
-        mv ./kubectl /usr/local/bin/kubectl && \
-        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-        && unzip awscliv2.zip \
-        && ./aws/install \
-        && aws --version && \
-        rm -rf /var/cache/apk/*
+        mv ./kubectl /usr/local/bin/kubectl
 
 
 

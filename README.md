@@ -34,7 +34,6 @@ All the tutorials are available in a Docker that you can use to get started with
 
 | Tool          | Description                                                    |
 |---------------|----------------------------------------------------------------|
-| `aws cli`     | AWS Command Line Interface (CLI)                               |
 | `terraform`   | Infrastructure as code tool                                    |
 | `spectro cli` | Spectro Cloud command-line interface                           |
 | `spectro registry server` | Spectro Cloud Registry Server                      |
