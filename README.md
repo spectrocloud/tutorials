@@ -27,10 +27,26 @@ Review the [Contribution](./docs/CONTRIBUTION.md) docs before creating a PR.
 
 ## Docker
 
-All the tutorials are available in a Docker that you can use to get started with the tutorials easily. The Docker file includes the following tools.
+All the tutorials are available in a Docker that you can use to get started with the tutorials easily. 
+
+
+To download the image issue the following commnad. Change the version tag as needed.
+
+```shell
+docker pull ghcr.io/spectrocloud/tutorials:1.0.2
+```
+
+You can start the container using the following command.
+
+```shell
+docker run -p 5000:5000 --rm -it ghcr.io/spectrocloud/tutorials:1.0.2 bash
+```
+
 
 > The Docker file is build for a Linux environment. You can use this on a Mac and Windows. Windows users will require the usage of WSL2.
 
+
+The Docker image includes the following tools.
 
 | Tool          | Description                                                    |
 |---------------|----------------------------------------------------------------|
