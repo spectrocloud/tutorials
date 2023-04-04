@@ -24,6 +24,35 @@ Review the [Contribution](./docs/CONTRIBUTION.md) docs before creating a PR.
 - Terraform v1.3.0 or greater.
 - [Terraform-docs](https://terraform-docs.io/) 
 
+
+## Docker
+
+All the tutorials are available in a Docker that you can use to get started with the tutorials easily. The Docker file includes the following tools.
+
+> The Docker file is build for a Linux environment. You can use this on a Mac and Windows. Windows users will require the usage of WSL2.
+
+
+| Tool          | Description                                                    |
+|---------------|----------------------------------------------------------------|
+| `aws cli`     | AWS Command Line Interface (CLI)                               |
+| `terraform`   | Infrastructure as code tool                                    |
+| `spectro cli` | Spectro Cloud command-line interface                           |
+| `spectro registry server` | Spectro Cloud Registry Server                      |
+| `ngrok`       | Secure tunnels to localhost                                    |
+| `kubectl`     | Kubernetes command-line tool                                   |
+| `bash`        | Unix shell                                                     |
+| `curl`        | Command line tool and library for transferring data with URLs  |
+| `git`         | Distributed version control system                             |
+| `openssl`     | Toolkit for the Transport Layer Security (TLS) protocol        |
+| `jq`          | Lightweight and flexible command-line JSON processor           |
+| `bind-tools`  | Collection of DNS utilities, including dig, nslookup, and host |
+| `wget`        | Free utility for non-interactive download of files from the Web|
+| `ca-certificates` | Common set of CA certificates                              |
+
+
+
+
+
 ## Checklist
 
 When creating a tutorial folder, ensure you review the following task list:
