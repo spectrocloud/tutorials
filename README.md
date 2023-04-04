@@ -50,7 +50,11 @@ All the tutorials are available in a Docker that you can use to get started with
 | `ca-certificates` | Common set of CA certificates                              |
 
 
+The Spectro Cloud registry server has the following credentials:
 
+- `username`: `admin`
+
+- `password`: `admin`
 
 
 ## Checklist

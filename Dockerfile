@@ -1,24 +1,5 @@
 FROM gcr.io/spectro-images-public/release/spectro-registry:3.3.0 as server
 
-FROM python:3.8-alpine AS aws-builder
-
-ENV AWSCLI_VERSION=2.11.4
-
-RUN apk add --no-cache \
-    curl \
-    make \
-    cmake \
-    gcc \
-    g++ \
-    libc-dev \
-    libffi-dev \
-    openssl-dev \
-    && curl https://awscli.amazonaws.com/awscli-${AWSCLI_VERSION}.tar.gz | tar -xz \
-    && cd awscli-${AWSCLI_VERSION} \
-    && ./configure --prefix=/opt/aws-cli/ --with-download-deps && \
-    make \
-    && make install
-
 FROM alpine:latest
 
 LABEL org.opencontainers.image.source="https://github.com/spectrocloud/tutorials"
@@ -36,7 +17,6 @@ ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd-basic
 
 COPY --from=server /registry /usr/local/bin/
 COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
-COPY --from=aws-builder /opt/aws-cli/bin/aws /usr/local/bin/
 
 
 RUN adduser -H -u 1002 -D appuser appuser && \
@@ -53,6 +33,10 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/v$SPECTRO_CLI_VERSI
         curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
         chmod +x ./kubectl && \
         mv ./kubectl /usr/local/bin/kubectl && \
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+        && unzip awscliv2.zip \
+        && ./aws/install \
+        && aws --version && \
         rm -rf /var/cache/apk/*
 
 
