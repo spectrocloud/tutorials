@@ -1,0 +1,8 @@
+.github/
+.husky.
+docs/
+node_modules/
+static/*png
+.releaserc.yaml
+package*.json
+Makefile
