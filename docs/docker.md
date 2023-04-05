@@ -33,6 +33,7 @@ The Docker image includes the following tools.
 | `bind-tools`  | Collection of DNS utilities, including dig, nslookup, and host |
 | `wget`        | Free utility for non-interactive download of files from the Web|
 | `ca-certificates` | Common set of CA certificates                              |
+| `nano`        | A text editior for Unix-like computing systems or operating environments using a command line interface|
 
 ### Spectro Cloud Pack Registry Server
 
