@@ -1,3 +1,14 @@
+## [1.0.2](https://github.com/spectrocloud/tutorials/compare/v1.0.1...v1.0.2) (2023-04-05)
+
+
+### Bug Fixes
+
+* added docker image to the repository ([b7987cd](https://github.com/spectrocloud/tutorials/commit/b7987cdd4866e50bcaa0515b63c89e8ae1c29f7d))
+* added docker image to the repository ([d0d7b1e](https://github.com/spectrocloud/tutorials/commit/d0d7b1ea18753c243e3fd31ae87fc3fb87fa2c25))
+* added docker image to the repository ([ee4cad1](https://github.com/spectrocloud/tutorials/commit/ee4cad145f299483825a06a17d33226b557352f3))
+* added docker image to the repository ([18a7dae](https://github.com/spectrocloud/tutorials/commit/18a7daef1a42292dc50739c9233757d5aa5afe68))
+* added docker image to the repository ([95fdcda](https://github.com/spectrocloud/tutorials/commit/95fdcda2a6ca5015958c4951467ac1d73632e00b))
+
 ## [1.0.1](https://github.com/spectrocloud/tutorials/compare/v1.0.0...v1.0.1) (2023-03-03)
 
 
