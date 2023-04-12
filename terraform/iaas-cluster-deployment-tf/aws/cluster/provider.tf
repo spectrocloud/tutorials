@@ -9,5 +9,4 @@ terraform {
 
 provider "spectrocloud" {
   project_name = "Default"
-  api_key = var.spectrocloud_api_key
 }
