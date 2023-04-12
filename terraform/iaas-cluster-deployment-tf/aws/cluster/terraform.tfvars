@@ -1,4 +1,3 @@
-spectrocloud_api_key    = "j54xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 aws_ssh_key_name        = "aws-key"
 aws-cloud-account-name  = "82xxxxxxxxxx"
 cluster_profile         = "tf-aws-profile"

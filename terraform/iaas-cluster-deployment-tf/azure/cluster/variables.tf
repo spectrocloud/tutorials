@@ -1,4 +1,3 @@
-variable "spectrocloud_api_key" {}
 variable "subscription_id" {}
 variable "resource_group" {}
 variable "region" {}

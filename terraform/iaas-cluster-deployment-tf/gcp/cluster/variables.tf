@@ -1,4 +1,3 @@
-variable "spectrocloud_api_key" {}
 variable "cluster_profile" {}
 variable "region" {}
 

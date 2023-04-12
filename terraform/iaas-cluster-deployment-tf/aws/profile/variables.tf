@@ -1,1 +1,0 @@
-variable "spectrocloud_api_key" {}

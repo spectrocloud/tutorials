@@ -1,4 +1,3 @@
-spectrocloud_api_key    =   "j54xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 azure-cloud-account-name  = "azure-palette"
 resource_group            = "palette_rg"
 cluster_profile           = "tf-azure-profile"
