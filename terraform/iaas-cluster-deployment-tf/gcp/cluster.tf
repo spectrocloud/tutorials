@@ -1,23 +1,19 @@
-data "spectrocloud_cloudaccount_aws" "account" {
-  name = var.aws-cloud-account-name
+data "spectrocloud_cloudaccount_gcp" "account" {
+  name = var.gcp-cloud-account-name
 }
 
-data "spectrocloud_cluster_profile" "profile" {
-  name = var.cluster_profile
-}
-
-resource "spectrocloud_cluster_aws" "cluster" {
-  name             = "aws-cluster"
-  tags             = ["aws", "tutorial"]
-  cloud_account_id = data.spectrocloud_cloudaccount_aws.account.id
+resource "spectrocloud_cluster_gcp" "cluster" {
+  name             = "gcp-cluster"
+  tags             = ["gcp", "tutorial"]
+  cloud_account_id = data.spectrocloud_cloudaccount_gcp.account.id
 
   cloud_config {
-    region        = var.region
-    ssh_key_name  = var.aws_ssh_key_name
+    project = var.gcp-cloud-account-name
+    region  = var.region
   }
 
   cluster_profile {
-    id = data.spectrocloud_cluster_profile.profile.id
+    id = spectrocloud_cluster_profile.profile.name
   }
 
   machine_pool {

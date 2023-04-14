@@ -1,10 +1,10 @@
-variable "cluster_profile" {}
 variable "region" {}
-variable "aws_ssh_key_name" {}
-variable "aws-cloud-account-name" {
+
+variable "gcp-cloud-account-name" {
     type = string
-    description = "The name of your AWS account as assigned in Palette"
+    description = "The name of your GCP account as assigned in Palette"
 }
+
 variable "master_nodes" {
     type = object({
         count           = string
@@ -14,6 +14,7 @@ variable "master_nodes" {
     })
     description = "Master nodes configuration."
 }
+
 variable "worker_nodes" {
     type = object({
         count           = string

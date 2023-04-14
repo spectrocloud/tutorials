@@ -1,8 +1,11 @@
 variable "subscription_id" {}
+variable "tenant_id" {}
+variable client-id {}
+variable client-secret {} 
 variable "resource_group" {}
 variable "region" {}
-variable "cluster_ssh_public_key" {}
-variable "cluster_profile" {}
+variable ssh_key_name {}
+variable ssh_public_key {}
 
 variable "azure-cloud-account-name" {
     type = string

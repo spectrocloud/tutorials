@@ -1,7 +1,7 @@
 resource "spectrocloud_cluster_profile" "profile" {
-  name  = "tf-azure-profile"
-  tags  = ["ms-azure", "tutorial"]
-  cloud = "azure"
+  name  = "tf-aws-profile"
+  tags  = ["aws", "tutorial"]
+  cloud = "aws"
   type  = "cluster"
 
   pack {
@@ -38,7 +38,7 @@ resource "spectrocloud_cluster_profile" "profile" {
     uid    = data.spectrocloud_pack.proxy.id
     values = data.spectrocloud_pack.proxy.values
   }
-/*
+
   pack {
     name = "hello-universe"
     type = "manifest"
@@ -48,5 +48,4 @@ resource "spectrocloud_cluster_profile" "profile" {
       content = file("manifest.yaml")
     }
   }
-*/
 }

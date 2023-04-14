@@ -2,10 +2,6 @@ data "spectrocloud_cloudaccount_azure" "account" {
   name = var.azure-cloud-account-name
 }
 
-data "spectrocloud_cluster_profile" "profile" {
-  name = var.cluster_profile
-}
-
 resource "spectrocloud_cluster_azure" "cluster" {
   name             = "azure-cluster"
   tags             = ["ms-azure", "tutorial"]
@@ -15,11 +11,11 @@ resource "spectrocloud_cluster_azure" "cluster" {
     subscription_id = var.subscription_id
     resource_group  = var.resource_group
     region          = var.region
-    ssh_key         = var.cluster_ssh_public_key
+    ssh_key         = azurerm_ssh_public_key.tutorial-key.name
   }
 
   cluster_profile {
-    id = data.spectrocloud_cluster_profile.profile.id
+    id = spectrocloud_cluster_profile.profile.name
   }
 
   machine_pool {
