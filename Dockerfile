@@ -6,6 +6,7 @@ LABEL org.opencontainers.image.source="https://github.com/spectrocloud/tutorials
 LABEL org.opencontainers.image.description "An image containing all the Spectro Cloud tutorials and required tools."
 
 ADD  terraform/ /terraform
+ADD  packs/ /packs
 ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
 
 ARG SPECTRO_CLI_VERSION=3.3.0
