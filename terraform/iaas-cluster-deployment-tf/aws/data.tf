@@ -1,6 +1,6 @@
 data "spectrocloud_pack" "csi" {
-  name    = "csi-aws"
-  version = "1.0.0"
+  name    = "csi-aws-ebs"
+  version = "1.16.0"
 }
 
 data "spectrocloud_pack" "cni" {
@@ -10,7 +10,7 @@ data "spectrocloud_pack" "cni" {
 
 data "spectrocloud_pack" "k8s" {
   name    = "kubernetes"
-  version = "1.21.14"
+  version = "1.24.10"
 }
 
 data "spectrocloud_pack" "ubuntu" {
