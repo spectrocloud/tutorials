@@ -1,6 +1,6 @@
 resource "spectrocloud_cluster_aws" "cluster" {
   name              = var.cluster_name
-  tags              = ["pack_tutorial", "docs"]
+  tags              = ["spectro-cloud-education", "app:hello-universe", "terraform_managed:true"]
   cloud_account_id  = data.spectrocloud_cloudaccount_aws.account.id
   depends_on        = [spectrocloud_cluster_profile.profile]
 
@@ -45,8 +45,9 @@ resource "spectrocloud_cluster_aws" "cluster" {
     count                   = 1
     instance_type           = "m4.large"
     disk_size_gb            = 60
-    azs                     = ["us-east-2a"]     # ["eu-east-2a","eu-west-2b"]
-    # Syntax for specifying AZs in static deployment. 
+    azs                     = ["us-east-2a"]     
+    # For multi-Az deployment, use ["eu-east-2a","eu-west-2b"]
+    # Syntax for specifying AZs in static deployment: 
     # az_subnets = {
     #   "eu-west-1c" = "subnet-039c3beb3da69172f"
     #   "eu-west-1a" = "subnet-04dbeac9aba098d0e"

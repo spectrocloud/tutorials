@@ -7,7 +7,7 @@ variable "cluster_profile_name" {
 variable "cluster_profile_description" {
   type        = string
   description = "Provide a description."
-  default     = "My cluster profile as part of the packs tutorial"
+  default     = "My cluster profile as part of the packs tutorial."
 }
 
 variable "cluster_name" {
@@ -49,5 +49,7 @@ variable "private_pack_registry" {
 variable "tags" {
   type        = list(string)
   description = "The default tags to apply to Palette resources"
-  default     = ["spectro-cloud-education", "app:hello-universe", "repository:spectrocloud/tutorials/", "terraform_managed:true"]
+  # Value and key must be 63 characters or less, must start and end with an alphanumeric character, and can contain only alphanumeric characters, dots, dashes or underscores. 
+  # No slashes `\` are allowed.
+  default     = ["spectro-cloud-education", "app:hello-universe", "terraform_managed:true"]
 }
