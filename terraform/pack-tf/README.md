@@ -1,13 +1,20 @@
 # Hello Universe TF
 
 This folder contains the demo code for the [Create and Deploy a Custom Add-On Pack](https://docs.spectrocloud.com/registries-and-packs/create-pack) tutorial.
-The code is intended to be used with the tutorial and as a result may not execute if invoked directly with `terraform apply`.
+Use the code in this directory with the tutorial. 
 
-Note that the Terraform code in the **data.tf** and **profile.tf** uses the data resources, the core infrastructure layers, for deployment to AWS cloud service provider. To deploy your resource to Azure or Google Cloud, use the specific layer details outlined in the **Cloud Service Provider Configurations** section below.
+## Prerequisites
+You will need the following things before getting started:
+1. Spectro Cloud API key generated from the Palette.
+2. A cloud account added to your Palette project settings. 
+3. An SSH key created in the region where you will deploy the cluster.
+
+Note that the Terraform code, when executed, will deploy the resources to the **AWS** cloud service provider. 
+To deploy your resource to Azure or Google Cloud, use the specific layer details outlined in the **Cloud Service Provider Configurations** section below.
+
 
 ## Cloud Service Provider Configurations
-
-Here are the details of the core infrastructure layers to use in the `spectrocloud_cluster_profile.profile` resource definition for AWS, Azure, and Google Cloud.  
+The code uses the data resources, the core infrastructure layers, defined in the **data.tf** to deploy the `spectrocloud_cluster_profile.profile` resource to the AWS. Here are the pack details for each infrastructure layer. 
 
 ### AWS Config
 
