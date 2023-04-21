@@ -1,4 +1,6 @@
-FROM gcr.io/spectro-images-public/release/spectro-registry:3.3.0 as server
+ARG PALETTE_VERSION
+
+FROM gcr.io/spectro-images-public/release/spectro-registry:${PALETTE_VERSION} as server
 
 FROM alpine:latest
 
@@ -9,7 +11,7 @@ ADD  terraform/ /terraform
 ADD  packs/ /packs
 ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
 
-ARG SPECTRO_CLI_VERSION=3.3.0
+ARG PALETTE_CLI_VERSION
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
@@ -21,9 +23,9 @@ COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 
 
 RUN adduser -H -u 1002 -D appuser appuser && \
-    apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates
+    apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano
 
-RUN  wget https://software.spectrocloud.com/spectro-registry/v$SPECTRO_CLI_VERSION/cli/linux/spectro && \
+RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSION/cli/linux/spectro && \
         mv spectro /usr/local/bin/spectro && \
         chmod +x /usr/local/bin/spectro && \
         wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && \

@@ -6,10 +6,13 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ github.token }}
+  PALETTE_VERSION: 3.3.0
+  PALETTE_CLI_VERSION: 3.3.0
 
 concurrency:
   group: docker-${{ github.ref }}
   cancel-in-progress: true
+
 
 
 jobs:
@@ -59,10 +62,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push Docker Image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4.0.0
         with:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/${{ github.repository }}:dev
+          build-args: |
+            PALETTE_VERSION=${{env.PALETTE_VERSION}}
+            PALETTE_CLI_VERSION=${{env.PALETTE_CLI_VERSION}}
+          
 

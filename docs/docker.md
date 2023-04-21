@@ -33,6 +33,7 @@ The Docker image includes the following tools.
 | `bind-tools`  | Collection of DNS utilities, including dig, nslookup, and host |
 | `wget`        | Free utility for non-interactive download of files from the Web|
 | `ca-certificates` | Common set of CA certificates                              |
+| `nano`        | A text editior for Unix-like computing systems or operating environments using a command line interface|
 
 ### Spectro Cloud Pack Registry Server
 
@@ -48,3 +49,20 @@ Keep in mind that the registry server is started in HTTP mode. For additional gu
 ```shell
 registry serve /etc/spectro/config.yml > /var/log/registry.log 2>&1 &
 ```
+
+
+# Local Builds
+
+If you are wanting to build the docker image locally you must provide the the build arguments for `PALETTE_VERSION` and `PALETTE_CLI_VERSION`.  Use the following command to build a local image. Replace the versions as needed.
+
+
+```shell
+make build-docker VERSION=3.3.0
+```
+
+OR
+
+```shell
+docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.3.0 -t tutorials .
+```
+

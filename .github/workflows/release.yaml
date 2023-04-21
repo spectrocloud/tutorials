@@ -6,6 +6,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PALETTE_VERSION: 3.3.0
+  PALETTE_CLI_VERSION: 3.3.0
 
 
 jobs:    
@@ -58,10 +60,13 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        build-args: VERSION=${{steps.dependencies.outputs.VERSION}}
+        build-args: |
+          PALETTE_VERSION=${{env.PALETTE_VERSION}}
+          PALETTE_CLI_VERSION=${{env.PALETTE_CLI_VERSION}}
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}
+          
 
   release:
     name: "Release"
