@@ -6,23 +6,12 @@ resource "spectrocloud_cluster_aws" "cluster" {
 
   cloud_config {
     ssh_key_name = var.ssh_key_name         
-    region       = var.aws_region_name      
-    # vpc_id      = "vpc-0a38a86f3bf3c6cf5"                    # Dynamic placement    
+    region       = var.aws_region_name
   }
   
   cluster_profile {
     id = spectrocloud_cluster_profile.profile.id
   }
-
-  # Optional
-  # backup_policy {
-    # schedule                  = "0 0 * * SUN"
-    # backup_location_id        = data.spectrocloud_backup_storage_location.bsl.id
-    # prefix                    = "prod-backup"
-    # expiry_in_hour            = 7200
-    # include_disks             = true
-    # include_cluster_resources = true
-  # }
 
   scan_policy {
     configuration_scan_schedule = "0 0 * * SUN"
@@ -46,12 +35,6 @@ resource "spectrocloud_cluster_aws" "cluster" {
     instance_type           = "m4.large"
     disk_size_gb            = 60
     azs                     = ["us-east-2a"]     
-    # For multi-Az deployment, use ["eu-east-2a","eu-west-2b"]
-    # Syntax for specifying AZs in static deployment: 
-    # az_subnets = {
-    #   "eu-west-1c" = "subnet-039c3beb3da69172f"
-    #   "eu-west-1a" = "subnet-04dbeac9aba098d0e"
-    # }
   }
 
   ##############################
