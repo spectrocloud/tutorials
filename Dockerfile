@@ -21,7 +21,7 @@ COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 
 
 RUN adduser -H -u 1002 -D appuser appuser && \
-    apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates
+    apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano
 
 RUN  wget https://software.spectrocloud.com/spectro-registry/v$SPECTRO_CLI_VERSION/cli/linux/spectro && \
         mv spectro /usr/local/bin/spectro && \
