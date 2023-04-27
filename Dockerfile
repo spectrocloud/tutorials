@@ -10,6 +10,7 @@ LABEL org.opencontainers.image.description "An image containing all the Spectro 
 ADD  terraform/ /terraform
 ADD  packs/ /packs
 ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
+ADD  static/defaults/ngrok.yml /auth/ngrok.yml
 
 ARG PALETTE_CLI_VERSION
 
@@ -19,7 +20,6 @@ ENV REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
 ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd-basic
 
 COPY --from=server /registry /usr/local/bin/
-COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 
 
 RUN adduser -H -u 1002 -D appuser appuser && \
@@ -35,11 +35,11 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSI
         rm -rf ngrok-v3-stable-linux-amd64.tgz && \
         curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
         chmod +x ./kubectl && \
-        mv ./kubectl /usr/local/bin/kubectl
+        mv ./kubectl /usr/local/bin/kubectl && \
+        mkdir -p ~/.config/ngrok && \ 
+        cp /auth/ngrok.yml ~/.config/ngrok/ngrok.yml    
 
 
-
-EXPOSE 5000 
-
+EXPOSE 5000
 
 CMD ["/bin/bash"]
