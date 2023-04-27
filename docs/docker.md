@@ -32,6 +32,7 @@ The Docker image includes the following tools.
 | `jq`          | Lightweight and flexible command-line JSON processor           |
 | `bind-tools`  | Collection of DNS utilities, including dig, nslookup, and host |
 | `wget`        | Free utility for non-interactive download of files from the Web|
+| `nani`        | A text editior alternative to Vi.                              |
 | `ca-certificates` | Common set of CA certificates                              |
 | `nano`        | A text editior for Unix-like computing systems or operating environments using a command line interface|
 

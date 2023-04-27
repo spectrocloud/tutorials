@@ -3,7 +3,6 @@ resource "spectrocloud_cluster_profile" "profile" {
   name        = var.cluster_profile_name
   description = var.cluster_profile_description
   tags        = var.tags
-  # tags        = ["dev", "department:docs"]
   cloud       = "aws"                     # Possible values: "aws", "azure", "gcp" 
   type        = "cluster"                 # Possible values: "cluster", "add-on"
 

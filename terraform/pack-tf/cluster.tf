@@ -1,6 +1,6 @@
 resource "spectrocloud_cluster_aws" "cluster" {
   name              = var.cluster_name
-  tags              = ["spectro-cloud-education", "app:hello-universe", "terraform_managed:true"]
+  tags              = var.tags
   cloud_account_id  = data.spectrocloud_cloudaccount_aws.account.id
   depends_on        = [spectrocloud_cluster_profile.profile]
 

@@ -18,20 +18,17 @@ variable "cluster_name" {
 
 variable "cluster_cloud_account_aws_name" {
   type        = string
-  description = "Choose the AWS account integrated with Spektro Palette."
-  default     = "spectro-cloud"           # ToDo: Replace this value with the actual  cloud account added to your Palette project settings.
+  description = "Choose the AWS account integrated with Spektro Palette."   # ToDo: Replace this value with the actual  cloud account added to your Palette project settings.
 }
 
 variable "aws_region_name" {
   type        = string
-  description = "Choose the AWS region."
-  default     = "us-east-2"               # ToDo: [Optional] Change the value if you want to deploy to another region.
+  description = "Choose the AWS region."    # ToDo: [Optional] Change the value if you want to deploy to another region.
 }
 
 variable "ssh_key_name" {
   type        = string
-  description = "Choose the AWS region."
-  default     = "aws_key_sk_us_east_2"    # ToDo: Replace this value with the SSH key created in the AWS region where you will deploy the cluster.
+  description = "Choose the AWS region."    # ToDo: Replace this value with the SSH key created in the AWS region where you will deploy the cluster.
 }
 
 variable "custom_addon_pack" {
