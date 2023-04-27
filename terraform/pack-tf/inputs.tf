@@ -16,19 +16,30 @@ variable "cluster_name" {
   default     = "pack-tutorial-cluster"
 }
 
+# ToDo: Provide a value for the variable below. The value will be the actual cloud account name added to your Palette project settings.
 variable "cluster_cloud_account_aws_name" {
   type        = string
-  description = "Choose the AWS account integrated with Spektro Palette."   # ToDo: Replace this value with the actual  cloud account added to your Palette project settings.
+  description = "Choose the AWS account integrated with Spektro Palette."   
 }
 
+# ToDo: Provide a value for the variable below. The value will be one of the [AWS regions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)
+# The tutorial example uses "us-east-2" region. 
 variable "aws_region_name" {
   type        = string
-  description = "Choose the AWS region."    # ToDo: [Optional] Change the value if you want to deploy to another region.
+  description = "Choose the AWS region."    
 }
 
+# ToDo: Provide a value for the variable below. The value will be the SSH key created in the AWS region where you will deploy the cluster.
 variable "ssh_key_name" {
   type        = string
-  description = "Choose the AWS region."    # ToDo: Replace this value with the SSH key created in the AWS region where you will deploy the cluster.
+  description = "Choose the AWS region."    
+}
+
+# ToDo: Provide the name of your private registry server.
+# The tutorial example uses "private-pack-registry". 
+variable "private_pack_registry" {
+  type        = string
+  description = "Private pack registry server name." 
 }
 
 variable "custom_addon_pack" {
@@ -41,11 +52,6 @@ variable "custom_addon_pack_version" {
   type        = string
   description = "Custom add-on pack version."
   default     = "1.0.0"           
-}
-variable "private_pack_registry" {
-  type        = string
-  description = "Private pack registry server name."
-  default     = "private-pack-registry"     # ToDo: Provide the name of your private registry server.
 }
 
 variable "tags" {
