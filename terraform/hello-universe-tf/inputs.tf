@@ -70,5 +70,11 @@ variable "enable-second-scenario" {
 variable "tags" {
   type        = list(string)
   description = "The default tags to apply to Palette resources"
-  default     = ["spectro-cloud-education", "app:hello-universe", "repository:spectrocloud/tutorials/", "terraform_managed:true"]
+  default = [
+    "spectro-cloud-education",
+    "app:hello-universe",
+    "repository:spectrocloud/tutorials/",
+    "terraform_managed:true",
+    "tutorial:hello-universe-tf"
+  ]
 }

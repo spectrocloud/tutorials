@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: hello-universe
-        image: ghcr.io/spectrocloud/hello-universe:1.0.10
+        image: ghcr.io/spectrocloud/hello-universe:1.0.11
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
