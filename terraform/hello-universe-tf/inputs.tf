@@ -26,7 +26,7 @@ variable "multiple_container_images" {
   type        = map(string)
   description = "The name of the container images to use for the virtual cluster in a multiple scenario"
   default = {
-    ui  = "ghcr.io/spectrocloud/hello-universe:1.0.10"
+    ui  = "sudkul/hello-universe-ui:1.0.12"
     api = "ghcr.io/spectrocloud/hello-universe-api:1.0.8"
   }
 }
@@ -57,7 +57,7 @@ variable "database-ssl-mode" {
 
 variable "token" {
   type        = string
-  default     = null
+  default     = "931A3B02-8DCC-543F-A1B2-69423D1A0B94"
   description = "The anonymous token to use for the Spectro Cloud API"
 }
 
