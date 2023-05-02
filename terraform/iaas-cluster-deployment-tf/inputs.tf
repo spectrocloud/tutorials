@@ -15,10 +15,10 @@ variable "azure-cloud-account-name" {
   default     = ""
 }
 
-variable "add-spectro-proxy" {
-  type        = bool
-  description = "A flag for enabling a Spectro Cloud proxy"
-  default     = false
+variable "gcp_project_name" {
+  type        = string
+  description = "The name of your GCP project"
+  default     = ""
 }
 
 variable "deploy-aws" {
@@ -64,14 +64,6 @@ variable "azure-region" {
   description = "Azure region"
   default     = "eastus"
 }
-
-
-variable "azure-key-pair-name" {
-  type        = string
-  description = "The name of the Azure key pair to use for SSH access to the cluster. Refer to [Azure Key Pairs](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys) to learn more."
-  default     = ""
-}
-
 
 variable "aws-key-pair-name" {
   type        = string
@@ -120,15 +112,15 @@ variable "azure_master_nodes" {
     control_plane       = bool
     instance_type       = string
     disk_size_gb        = string
-    availability_zones  = list(string)
+    azs                 = list(string)
     is_system_node_pool = bool
   })
   default = {
-    count              = "1"
-    control_plane      = true
-    instance_type      = "Standard_A8_v2."
-    disk_size_gb       = "60"
-    availability_zones = ["1"]
+    count         = "1"
+    control_plane = true
+    instance_type = "Standard_A8_v2"
+    disk_size_gb  = "60"
+    azs           = ["1"]
   is_system_node_pool = false }
   description = "Azure master nodes configuration."
 }
@@ -139,15 +131,15 @@ variable "azure_worker_nodes" {
     control_plane       = bool
     instance_type       = string
     disk_size_gb        = string
-    availability_zones  = list(string)
+    azs                 = list(string)
     is_system_node_pool = bool
   })
   default = {
-    count              = "1"
-    control_plane      = false
-    instance_type      = "Standard_A8_v2."
-    disk_size_gb       = "60"
-    availability_zones = ["1"]
+    count         = "1"
+    control_plane = false
+    instance_type = "Standard_A8_v2"
+    disk_size_gb  = "60"
+    azs           = []
   is_system_node_pool = false }
   description = "Azure worker nodes configuration."
 }
@@ -192,7 +184,7 @@ variable "tags" {
   default = [
     "spectro-cloud-education",
     "app:hello-universe",
-    "repository:spectrocloud/tutorials/",
+    "repository:spectrocloud:tutorials",
     "terraform_managed:true",
     "tutorial:iaas-cluster-deployment-tf"
   ]

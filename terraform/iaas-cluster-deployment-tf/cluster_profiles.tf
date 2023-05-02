@@ -4,11 +4,11 @@
 resource "spectrocloud_cluster_profile" "aws-profile" {
   count = var.deploy-aws ? 1 : 0
 
-  name  = "tf-aws-profile"
+  name        = "tf-aws-profile"
   description = "A basic cluster profile for AWS"
-  tags  = concat(var.tags, ["aws"])
-  cloud = "aws"
-  type  = "cluster"
+  tags        = concat(var.tags, ["env:aws"])
+  cloud       = "aws"
+  type        = "cluster"
 
   pack {
     name   = data.spectrocloud_pack.aws_ubuntu.name
@@ -56,11 +56,11 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
 resource "spectrocloud_cluster_profile" "azure-profile" {
   count = var.deploy-azure ? 1 : 0
 
-  name  = "tf-azure-profile"
+  name        = "tf-azure-profile"
   description = "A basic cluster profile for Azure"
-  tags  = concat(var.tags, ["azure"])
-  cloud = "azure"
-  type  = "cluster"
+  tags        = concat(var.tags, ["env:azure"])
+  cloud       = "azure"
+  type        = "cluster"
 
   pack {
     name   = data.spectrocloud_pack.azure_ubuntu.name
@@ -109,11 +109,11 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
 resource "spectrocloud_cluster_profile" "gcp-profile" {
   count = var.deploy-gcp ? 1 : 0
 
-  name  = "tf-gcp-profile"
+  name        = "tf-gcp-profile"
   description = "A basic cluster profile for GCP"
-  tags  = concat(var.tags, ["gcp"])
-  cloud = "gcp"
-  type  = "cluster"
+  tags        = concat(var.tags, ["env:azure"])
+  cloud       = "gcp"
+  type        = "cluster"
 
   pack {
     name   = data.spectrocloud_pack.gcp_ubuntu.name
