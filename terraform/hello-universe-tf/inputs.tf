@@ -19,7 +19,7 @@ variable "scenario-two-cluster-name" {
 variable "single-container-image" {
   type        = string
   description = "The name of the container image to use for the virtual cluster in a single scenario"
-  default     = "ghcr.io/spectrocloud/hello-universe:1.0.10"
+  default     = "ghcr.io/spectrocloud/hello-universe:1.0.12"
 }
 
 variable "multiple_container_images" {
