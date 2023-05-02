@@ -2,7 +2,7 @@ name: Release to Production
 
 on:
   push:
-    branches-ignore: [ main ]
+    branches: [ main ]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
