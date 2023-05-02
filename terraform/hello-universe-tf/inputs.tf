@@ -26,7 +26,7 @@ variable "multiple_container_images" {
   type        = map(string)
   description = "The name of the container images to use for the virtual cluster in a multiple scenario"
   default = {
-    ui  = "sudkul/hello-universe-ui:1.0.12"
+    ui  = "ghcr.io/spectrocloud/hello-universe:1.0.12"
     api = "ghcr.io/spectrocloud/hello-universe-api:1.0.8"
   }
 }
