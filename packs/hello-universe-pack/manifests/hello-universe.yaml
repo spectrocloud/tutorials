@@ -28,7 +28,7 @@ spec:
       containers:
       - name: hello-universe  
         image: {{ .Values.registry }}/{{ .Values.repository }}:{{ .Values.tag }}
-        # image: ghcr.io/spectrocloud/hello-universe:1.0.10     # Static image 
+        # image: ghcr.io/spectrocloud/hello-universe:1.0.12     # Static image 
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
