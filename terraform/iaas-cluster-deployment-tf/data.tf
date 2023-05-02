@@ -2,7 +2,8 @@
 # AWS
 #############
 data "spectrocloud_cloudaccount_aws" "account" {
-  name = var.aws-cloud-account-name
+  count = var.deploy-aws ? 1 : 0
+  name  = var.aws-cloud-account-name
 }
 
 data "spectrocloud_pack" "aws_csi" {
@@ -26,7 +27,8 @@ data "spectrocloud_pack" "aws_ubuntu" {
 # Azure
 #############
 data "spectrocloud_cloudaccount_azure" "account" {
-  name = var.azure-cloud-account-name
+  count = var.deploy-azure ? 1 : 0
+  name  = var.azure-cloud-account-name
 }
 
 data "spectrocloud_pack" "azure_csi" {
@@ -49,7 +51,8 @@ data "spectrocloud_pack" "azure_ubuntu" {
 # GCP
 #############
 data "spectrocloud_cloudaccount_gcp" "account" {
-  name = var.gcp-cloud-account-name
+  count = var.deploy-gcp ? 1 : 0
+  name  = var.gcp-cloud-account-name
 }
 
 data "spectrocloud_pack" "gcp_csi" {
@@ -67,4 +70,12 @@ data "spectrocloud_pack" "gcp_k8s" {
 data "spectrocloud_pack" "gcp_ubuntu" {
   name    = "ubuntu-gcp"
   version = "20.04"
+}
+#############
+# Universal
+#############
+
+data "spectrocloud_pack" "proxy" {
+  name    = "spectro-proxy"
+  version = "1.3.0"
 }

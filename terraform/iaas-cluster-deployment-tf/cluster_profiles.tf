@@ -5,6 +5,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
   count = var.deploy-aws ? 1 : 0
 
   name  = "tf-aws-profile"
+  description = "A basic cluster profile for AWS"
   tags  = concat(var.tags, ["aws"])
   cloud = "aws"
   type  = "cluster"
@@ -44,7 +45,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     values = ""
     manifest {
       name    = "hello-universe"
-      content = file("manifest.yaml")
+      content = file("manifests/hello-universe.yaml")
     }
   }
 }
@@ -56,6 +57,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
   count = var.deploy-azure ? 1 : 0
 
   name  = "tf-azure-profile"
+  description = "A basic cluster profile for Azure"
   tags  = concat(var.tags, ["azure"])
   cloud = "azure"
   type  = "cluster"
@@ -95,7 +97,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     values = ""
     manifest {
       name    = "hello-universe"
-      content = file("manifest.yaml")
+      content = file("manifests/hello-universe.yaml")
     }
   }
 }
@@ -108,6 +110,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
   count = var.deploy-gcp ? 1 : 0
 
   name  = "tf-gcp-profile"
+  description = "A basic cluster profile for GCP"
   tags  = concat(var.tags, ["gcp"])
   cloud = "gcp"
   type  = "cluster"
@@ -147,7 +150,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     values = ""
     manifest {
       name    = "hello-universe"
-      content = file("manifest.yaml")
+      content = file("manifests/hello-universe.yaml")
     }
   }
 }

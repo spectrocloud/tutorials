@@ -15,6 +15,12 @@ variable "azure-cloud-account-name" {
   default     = ""
 }
 
+variable "add-spectro-proxy" {
+  type        = bool
+  description = "A flag for enabling a Spectro Cloud proxy"
+  default     = false
+}
+
 variable "deploy-aws" {
   type        = bool
   description = "A flag for enabling a deployment on AWS"
@@ -76,12 +82,14 @@ variable "aws-key-pair-name" {
 variable "aws_master_nodes" {
   type = object({
     count              = string
+    control_plane      = bool
     instance_type      = string
     disk_size_gb       = string
     availability_zones = list(string)
   })
   default = {
     count              = "1"
+    control_plane      = true
     instance_type      = "m4.2xlarge"
     disk_size_gb       = "60"
     availability_zones = ["us-east-1a"]
@@ -91,12 +99,14 @@ variable "aws_master_nodes" {
 variable "aws_worker_nodes" {
   type = object({
     count              = string
+    control_plane      = bool
     instance_type      = string
     disk_size_gb       = string
     availability_zones = list(string)
   })
   default = {
     count              = "1"
+    control_plane      = false
     instance_type      = "m4.2xlarge"
     disk_size_gb       = "60"
     availability_zones = ["us-east-1a"]
@@ -107,6 +117,7 @@ variable "aws_worker_nodes" {
 variable "azure_master_nodes" {
   type = object({
     count               = string
+    control_plane       = bool
     instance_type       = string
     disk_size_gb        = string
     availability_zones  = list(string)
@@ -114,6 +125,7 @@ variable "azure_master_nodes" {
   })
   default = {
     count              = "1"
+    control_plane      = true
     instance_type      = "Standard_A8_v2."
     disk_size_gb       = "60"
     availability_zones = ["1"]
@@ -124,6 +136,7 @@ variable "azure_master_nodes" {
 variable "azure_worker_nodes" {
   type = object({
     count               = string
+    control_plane       = bool
     instance_type       = string
     disk_size_gb        = string
     availability_zones  = list(string)
@@ -131,6 +144,7 @@ variable "azure_worker_nodes" {
   })
   default = {
     count              = "1"
+    control_plane      = false
     instance_type      = "Standard_A8_v2."
     disk_size_gb       = "60"
     availability_zones = ["1"]
@@ -141,12 +155,14 @@ variable "azure_worker_nodes" {
 variable "gcp_master_nodes" {
   type = object({
     count              = string
+    control_plane      = bool
     instance_type      = string
     disk_size_gb       = string
     availability_zones = list(string)
   })
   default = {
     count         = "1"
+    control_plane = true
     instance_type = "n1-standard-4"
     disk_size_gb  = "60"
   availability_zones = ["us-central1-a"] }
@@ -156,12 +172,14 @@ variable "gcp_master_nodes" {
 variable "gcp_worker_nodes" {
   type = object({
     count              = string
+    control_plane      = bool
     instance_type      = string
     disk_size_gb       = string
     availability_zones = list(string)
   })
   default = {
     count         = "1"
+    control_plane = false
     instance_type = "n1-standard-4"
     disk_size_gb  = "60"
   availability_zones = ["us-central1-a"] }

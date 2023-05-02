@@ -1,10 +1,12 @@
 #########################
 # AWS Cluster Profile
-#########################
+########################
 resource "spectrocloud_cluster_aws" "aws-cluster" {
+  count = var.deploy-aws ? 1 : 0
+
   name             = "aws-cluster"
   tags             = concat(var.tags, ["aws"])
-  cloud_account_id = data.spectrocloud_cloudaccount_aws.account.id
+  cloud_account_id = data.spectrocloud_cloudaccount_aws.account[0].id
 
   cloud_config {
     region       = var.aws-region
@@ -12,7 +14,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.aws-profile[0].name
+    id = spectrocloud_cluster_profile.aws-profile[0].id
   }
 
   machine_pool {
@@ -32,14 +34,21 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
     disk_size_gb  = var.aws_worker_nodes.disk_size_gb
     azs           = var.aws_worker_nodes.availability_zones
   }
+
+  timeouts {
+    create = "30m"
+    delete = "15m"
+  }
 }
 #########################
 # Azure Cluster Profile
 #########################
 resource "spectrocloud_cluster_azure" "cluster" {
+  count = var.deploy-azure ? 1 : 0
+
   name             = "azure-cluster"
   tags             = concat(var.tags, ["azure"])
-  cloud_account_id = data.spectrocloud_cloudaccount_azure.account.id
+  cloud_account_id = data.spectrocloud_cloudaccount_azure.account[0].id
 
   cloud_config {
     subscription_id = var.azure_subscription_id
@@ -49,7 +58,7 @@ resource "spectrocloud_cluster_azure" "cluster" {
   }
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.azure-profile[0].name
+    id = spectrocloud_cluster_profile.azure-profile[0].id
   }
 
   machine_pool {
@@ -73,6 +82,11 @@ resource "spectrocloud_cluster_azure" "cluster" {
     azs                 = var.azure_worker_nodes.availability_zones
     is_system_node_pool = var.azure_worker_nodes.is_system_node_pool
   }
+
+  timeouts {
+    create = "30m"
+    delete = "15m"
+  }
 }
 
 #########################
@@ -83,7 +97,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
 
   name             = "gcp-cluster"
   tags             = concat(var.tags, ["gcp"])
-  cloud_account_id = data.spectrocloud_cloudaccount_gcp.account.id
+  cloud_account_id = data.spectrocloud_cloudaccount_gcp.account[0].id
 
   cloud_config {
     project = var.gcp-cloud-account-name
@@ -91,7 +105,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.gcp-profile[0].name
+    id = spectrocloud_cluster_profile.gcp-profile[0].id
   }
 
   machine_pool {
@@ -110,5 +124,10 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
     instance_type = var.gcp_worker_nodes.instance_type
     disk_size_gb  = var.gcp_worker_nodes.disk_size_gb
     azs           = var.gcp_worker_nodes.availability_zones
+  }
+
+  timeouts {
+    create = "30m"
+    delete = "15m"
   }
 }
