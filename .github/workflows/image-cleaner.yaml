@@ -1,8 +1,12 @@
 name: Delete old container images
 
+# on:
+#   schedule:
+#     - cron: "0 6 * * 6"  # every Saturday at 6am UTC
+
 on:
-  schedule:
-    - cron: "0 6 * * 6"  # every Saturday at 6am UTC
+  pull_request:
+    branches: [main]
 
 
 jobs:
