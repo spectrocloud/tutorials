@@ -6,3 +6,5 @@ static/*png
 .releaserc.yaml
 package*.json
 Makefile
+.terraform
+.terraform.locl.hcl

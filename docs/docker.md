@@ -1,6 +1,6 @@
 ## Docker
 
-To download the image issue the following commnad. Change the version tag as needed.
+To download the image issue the following command. Change the version tag as needed.
 
 ```shell
 docker pull ghcr.io/spectrocloud/tutorials:1.0.2
@@ -12,9 +12,7 @@ You can start the container using the following command.
 docker run -p 5000:5000 --rm -it ghcr.io/spectrocloud/tutorials:1.0.2 bash
 ```
 
-
 > The Docker file is build for a Linux environment. You can use this on a Mac and Windows. Windows users will require the usage of WSL2.
-
 
 The Docker image includes the following tools.
 
@@ -34,6 +32,8 @@ The Docker image includes the following tools.
 | `wget`        | Free utility for non-interactive download of files from the Web|
 | `ca-certificates` | Common set of CA certificates                              |
 | `nano`        | A text editior for Unix-like computing systems or operating environments using a command line interface|
+| `packer`      | Hashicorp Image Builder for building Edge Native images
+| `GOVC`        | Tool for interracting with VMware Vsphere via API
 
 ### Spectro Cloud Pack Registry Server
 
@@ -54,7 +54,6 @@ registry serve /etc/spectro/config.yml > /var/log/registry.log 2>&1 &
 # Local Builds
 
 If you are wanting to build the docker image locally you must provide the the build arguments for `PALETTE_VERSION` and `PALETTE_CLI_VERSION`.  Use the following command to build a local image. Replace the versions as needed.
-
 
 ```shell
 make build-docker VERSION=3.3.0

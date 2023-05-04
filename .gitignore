@@ -36,3 +36,5 @@ override.tf.json
 my.*.tfvars
 
 
+tutorials/edge-native/vmware/clone_vm_template/setenv.sh
+tutorials/edge-native/vmware/packer/vsphere.hcl

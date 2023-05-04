@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#GOVC Properties
+#VCenter Endpoint
+export GOVC_URL=                # https://vcenter.company.com
+export GOVC_USERNAME=
+export GOVC_PASSWORD=
+export GOVC_INSECURE=1 #1 if insecure
+export GOVC_DATACENTER=
+export GOVC_DATASTORE=
+export GOVC_NETWORK=
+export GOVC_RESOURCE_POOL=
+export GOVC_FOLDER=
+
+export NO_OF_VMS=3
+export VM_PREFIX=
+export INSTALLER_TEMPLATE="palette-edge-template" 
+
