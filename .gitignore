@@ -35,5 +35,6 @@ override.tf.json
 
 .DS_Store
 my.*.tfvars
+.terraform.lock.hcl
 
 

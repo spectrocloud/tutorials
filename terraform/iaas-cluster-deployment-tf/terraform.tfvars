@@ -12,7 +12,7 @@ aws_master_nodes = {
   control_plane      = true
   instance_type      = "m4.2xlarge"
   disk_size_gb       = "60"
-  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here
+  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"]
 }
 
 aws_worker_nodes = {
@@ -20,7 +20,7 @@ aws_worker_nodes = {
   control_plane      = false
   instance_type      = "m4.2xlarge"
   disk_size_gb       = "60"
-  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here
+  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"]
 }
 
 ###########################
@@ -65,7 +65,7 @@ gcp_master_nodes = {
   control_plane      = true
   instance_type      = "n1-standard-4"
   disk_size_gb       = "60"
-  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here
+  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here. Example: ["central1-a", "central1-b"]
 }
 
 gcp_worker_nodes = {
@@ -73,5 +73,5 @@ gcp_worker_nodes = {
   control_plane      = false
   instance_type      = "n1-standard-4"
   disk_size_gb       = "60"
-  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here
+  availability_zones = ["REPLACE_ME"] # If you want to deploy to multiple AZs, add them here. Example: ["central1-a", "central1-b"]
 }
