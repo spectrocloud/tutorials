@@ -3,6 +3,14 @@
 
 ### Bug Fixes
 
+* deployed tutorial code ([e83051f](https://github.com/spectrocloud/tutorials/commit/e83051f314ad8d1c08778bb6320362323b3d3189))
+* deployed tutorial code ([6995532](https://github.com/spectrocloud/tutorials/commit/6995532ee515cd32ef9b5d0069c613c814939b50))
+
+## [1.0.4](https://github.com/spectrocloud/tutorials/compare/v1.0.3...v1.0.4) (2023-05-05)
+
+
+### Bug Fixes
+
 * deployed tutorial code ([6995532](https://github.com/spectrocloud/tutorials/commit/6995532ee515cd32ef9b5d0069c613c814939b50))
 
 ## [1.0.3](https://github.com/spectrocloud/tutorials/compare/v1.0.2...v1.0.3) (2023-04-28)
