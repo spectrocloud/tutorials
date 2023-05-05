@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.source="https://github.com/spectrocloud/tutorials
 LABEL org.opencontainers.image.description "An image containing all the Spectro Cloud tutorials and required tools."
 
 ADD  terraform/ /terraform
-ADD tutorials /tutorials
+ADD  edge-native /edge-native
 ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
 
 ARG PALETTE_CLI_VERSION
