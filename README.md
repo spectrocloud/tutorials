@@ -10,7 +10,10 @@ A collection of Spectro Cloud tutorials and their respective sample code.
 
 The following tutorial code is available:
 - [hello-universe-tf](./terraform/hello-universe-tf/README.md) - Deploy the Hello Universe application into two Palette Virtual Clusters. [Link](https://docs.spectrocloud.com/devx/apps/deploy-app) to the tutorial.
+
 - [pack-tf](./terraform/pack-tf/README.md) - Learn how to create a custom pack. [Link](https://docs.spectrocloud.com/registries-and-packs/deploy-pack)
+
+- [terraform-cluster-deployment-tf](./terraform/iaas-cluster-deployment-tf/README.md) - Learn how to deploy a cluster to a cloud provider with Palette. [Link](https://docs.spectrocloud.com/clusters/public-cloud/deploy-k8s-cluster)
 
 ## Docker
 
