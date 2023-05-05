@@ -199,7 +199,7 @@ source "vsphere-iso" "edge-template" {
   boot_order   = "disk,cdrom"
   ssh_username = "kairos"
   ssh_password = "kairos"
-  ssh_timeout  = "20m"
+  ssh_timeout  = "5m"
   cd_files     = ["${path.cwd}/meta-data", "${path.cwd}/user-data"]
   cd_label     = "cidata"
 }
