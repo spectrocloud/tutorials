@@ -65,36 +65,11 @@ variable "vcenter_folder" {
 }
 
 # ISO Objects
-
-variable "iso_path" {
+variable "iso" {
   type        = string
-  description = "The path on the source vSphere datastore for ISO images."
-  default     = ""
+  description = "Filename of the local ISO file"
 }
 
-variable "iso_url" {
-  type        = string
-  description = "The url to retrieve the iso image"
-  default     = ""
-}
-
-variable "iso_file" {
-  type        = string
-  description = "The file name of the guest operating system ISO image installation media."
-  default     = ""
-}
-
-variable "iso_checksum" {
-  type        = string
-  description = "The checksum of the ISO image."
-  default     = ""
-}
-
-variable "iso_checksum_type" {
-  type        = string
-  description = "The checksum type of the ISO image. Ex: sha256"
-  default     = ""
-}
 # Virtual Machine Settings
 
 variable "vm_name" {
@@ -219,8 +194,8 @@ source "vsphere-iso" "edge-template" {
     network      = var.vcenter_network
     network_card = var.vm_network_card
   }
-  iso_url      = var.iso_url
-  iso_checksum = "${var.iso_checksum_type}:${var.iso_checksum}"
+  iso_url      = "${path.cwd}/${var.iso}"
+  iso_checksum = "none"
   boot_order   = "disk,cdrom"
   ssh_username = "kairos"
   ssh_password = "kairos"

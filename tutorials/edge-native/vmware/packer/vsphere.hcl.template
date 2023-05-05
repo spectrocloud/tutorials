@@ -36,7 +36,4 @@ vm_boot_wait            = "5s"
 
 # ISO Objects
 
-// iso_file          = "palette-edge-installer.iso"
-iso_checksum      = "ad08bf82308746e719eacc42a7d8a771551e788fca3e11e97bd381de0e9072dc"
-iso_checksum_type = "sha256"
-iso_url           = "https://edgeforge.s3.us-east-2.amazonaws.com/images/palette-edge-installer.iso"
+iso        = "palette-edge-installer.iso"
