@@ -183,7 +183,7 @@ source "vsphere-iso" "edge-template" {
   RAM_hot_plug         = false
   cdrom_type           = var.vm_cdrom_type
   disk_controller_type = var.vm_disk_controller_type
-  disable_shutdown     = true
+
   storage {
     disk_size             = var.vm_disk_size
     disk_controller_index = 0
@@ -194,6 +194,8 @@ source "vsphere-iso" "edge-template" {
     network      = var.vcenter_network
     network_card = var.vm_network_card
   }
+  disable_shutdown     = true
+  # shutdown_timeout     = "10m"
   iso_url      = "${path.cwd}/${var.iso}"
   iso_checksum = "none"
   boot_order   = "disk,cdrom"
