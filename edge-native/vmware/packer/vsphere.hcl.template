@@ -36,4 +36,4 @@ vm_boot_wait            = "5s"
 
 # ISO Objects
 
-iso        = "palette-edge-installer.iso"
+iso        = "build/palette-edge-installer.iso"
