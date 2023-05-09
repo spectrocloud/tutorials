@@ -70,6 +70,11 @@ variable "iso" {
   description = "Filename of the local ISO file"
 }
 
+variable "iso_checksum" {
+  type        = string
+  description = "Filename of the local ISO Checksum File"
+}
+
 # Virtual Machine Settings
 
 variable "vm_name" {
@@ -195,13 +200,14 @@ source "vsphere-iso" "edge-template" {
     network_card = var.vm_network_card
   }
   disable_shutdown     = true
-  # shutdown_timeout     = "10m"
+  shutdown_timeout     = "10m"
+  communicator         = "none"
   iso_url      = "${path.cwd}/${var.iso}"
-  iso_checksum = "none"
+  iso_checksum = "sha256:${path.cwd}/${var.iso_checksum}" 
   boot_order   = "disk,cdrom"
-  ssh_username = "kairos"
-  ssh_password = "kairos"
-  ssh_timeout  = "5m"
+  # ssh_username = "kairos"
+  # ssh_password = "kairos"
+  # ssh_timeout  = "5m"
   cd_files     = ["${path.cwd}/meta-data", "${path.cwd}/user-data"]
   cd_label     = "cidata"
 }
@@ -213,9 +219,9 @@ source "vsphere-iso" "edge-template" {
 build {
   sources = [
   "source.vsphere-iso.edge-template"]
-  provisioner "shell" {
-    scripts           = ["scripts/wait.sh"]
-    expect_disconnect = true
-    skip_clean        = true
-  }
+  # provisioner "shell" {
+  #   scripts           = ["scripts/wait.sh"]
+  #   expect_disconnect = true
+  #   skip_clean        = true
+  # }
 }
