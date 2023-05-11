@@ -203,7 +203,7 @@ source "vsphere-iso" "edge-template" {
   shutdown_timeout     = "10m"
   communicator         = "none"
   iso_url      = "${path.cwd}/${var.iso}"
-  iso_checksum = "sha256:${path.cwd}/${var.iso_checksum}" 
+  iso_checksum = "file:file://${path.cwd}/${var.iso_checksum}" 
   boot_order   = "disk,cdrom"
   # ssh_username = "kairos"
   # ssh_password = "kairos"
