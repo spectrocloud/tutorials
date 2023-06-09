@@ -6,8 +6,10 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  PALETTE_VERSION: 3.3.0
-  PALETTE_CLI_VERSION: 3.3.0
+  PALETTE_VERSION: 3.4.0
+  PALETTE_CLI_VERSION: 3.4.0
+  PALETTE_EDGE_VERSION: 3.4.3
+
 
 
 jobs:    
@@ -22,7 +24,7 @@ jobs:
     - name: Setup nodeJs
       uses: actions/setup-node@v1.4.4
       with:
-        node-version: '14'
+        node-version: '18'
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v3
@@ -63,6 +65,7 @@ jobs:
         build-args: |
           PALETTE_VERSION=${{env.PALETTE_VERSION}}
           PALETTE_CLI_VERSION=${{env.PALETTE_CLI_VERSION}}
+          PALETTE_EDGE_VERSION=${{env.PALETTE_EDGE_VERSION}}
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}

@@ -13,6 +13,7 @@ ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
 ADD  static/defaults/ngrok.yml /auth/ngrok.yml
 
 ARG PALETTE_CLI_VERSION
+ARG PALETTE_EDGE_VERSION
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
@@ -36,7 +37,15 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSI
         chmod +x ./kubectl && \
         mv ./kubectl /usr/local/bin/kubectl && \
         mkdir -p ~/.config/ngrok && \ 
-        cp /auth/ngrok.yml ~/.config/ngrok/ngrok.yml    
+        cp /auth/ngrok.yml ~/.config/ngrok/ngrok.yml  && \
+        wget https://software.spectrocloud.com/palette-cli/v$PALETTE_CLI_VERSION/linux/cli/palette && \
+        mv palette /usr/local/bin/palette && \
+        chmod +x /usr/local/bin/palette && \
+        wget https://software.spectrocloud.com/stylus/v$PALETTE_EDGE_VERSION/cli/linux/palette-edge && \
+        mv palette-edge /usr/local/bin/palette-edge && \
+        chmod +x /usr/local/bin/palette-edge && \
+        git clone https://github.com/spectrocloud/CanvOS.git && \
+        rm -rf /var/cache/apk/* 
 
 
 EXPOSE 5000

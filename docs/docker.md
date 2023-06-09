@@ -21,7 +21,9 @@ The Docker image includes the following tools.
 | Tool          | Description                                                    |
 |---------------|----------------------------------------------------------------|
 | `terraform`   | Infrastructure as code tool                                    |
+| `palette cli` | The offical Palette CLI                                        | 
 | `spectro cli` | Spectro Cloud command-line interface                           |
+| `palette edge cli`| The Edge Installer CLU                                     |
 | `spectro registry server` | Spectro Cloud Registry Server                      |
 | `ngrok`       | Secure tunnels to localhost                                    |
 | `kubectl`     | Kubernetes command-line tool                                   |
@@ -34,6 +36,7 @@ The Docker image includes the following tools.
 | `wget`        | Free utility for non-interactive download of files from the Web|
 | `nano`        | A text editior alternative to Vi.                              |
 | `ca-certificates` | Common set of CA certificates                              |
+| `canvos`      | A utility for creating Edge artifacts                          |
 | `nano`        | A text editior for Unix-like computing systems or operating environments using a command line interface|
 
 ### Spectro Cloud Pack Registry Server
@@ -54,16 +57,16 @@ registry serve /etc/spectro/config.yml > /var/log/registry.log 2>&1 &
 
 # Local Builds
 
-If you are wanting to build the docker image locally you must provide the the build arguments for `PALETTE_VERSION` and `PALETTE_CLI_VERSION`.  Use the following command to build a local image. Replace the versions as needed.
+If you are wanting to build the docker image locally you must provide the the build arguments for `PALETTE_VERSION` and `PALETTE_CLI_VERSION`, `PALETTE_EDGE_VERSION`.  Use the following command to build a local image. Replace the versions as needed.
 
 
 ```shell
-make build-docker VERSION=3.3.0
+make build-docker VERSION=3.3.0 EDGE=3.4.3
 ```
 
 OR
 
 ```shell
-docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.3.0 -t tutorials .
+docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.3.0  --build-arg= PALETTE_EDGE_VERSION=3.4.3 -t tutorials .
 ```
 
