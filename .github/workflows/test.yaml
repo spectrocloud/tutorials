@@ -8,6 +8,7 @@ env:
   GITHUB_TOKEN: ${{ github.token }}
   PALETTE_VERSION: 3.3.0
   PALETTE_CLI_VERSION: 3.3.0
+  PALETTE_EDGE_VERSION: 3.4.3
 
 concurrency:
   group: docker-${{ github.ref }}
@@ -71,5 +72,6 @@ jobs:
           build-args: |
             PALETTE_VERSION=${{env.PALETTE_VERSION}}
             PALETTE_CLI_VERSION=${{env.PALETTE_CLI_VERSION}}
+            PALETTE_EDGE_VERSION=${{env.PALETTE_EDGE_VERSION}}
           
 
