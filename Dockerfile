@@ -11,6 +11,7 @@ ADD  terraform/ /terraform
 ADD  packs/ /packs
 ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
 ADD  static/defaults/ngrok.yml /auth/ngrok.yml
+ADD  static/defaults/registry-config.yml etc/spectro/config.yml
 
 ARG PALETTE_CLI_VERSION
 ARG PALETTE_EDGE_VERSION
@@ -23,6 +24,7 @@ ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd-basic
 COPY --from=server /registry /usr/local/bin/
 
 RUN adduser -H -u 1002 -D appuser appuser && \
+    apk update && \
     apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano
 
 RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSION/cli/linux/spectro && \
