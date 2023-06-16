@@ -61,7 +61,7 @@ If you are wanting to build the docker image locally you must provide the the bu
 
 
 ```shell
-make build-docker VERSION=3.3.0 EDGE=3.4.3
+make build-docker VERSION=3.4.0 EDGE=3.4.3
 ```
 
 OR

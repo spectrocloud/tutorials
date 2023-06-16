@@ -1,0 +1,6 @@
+version: 0.1
+log:
+  level: debug
+storage: inmemory
+http:
+  addr: :5000
