@@ -1,6 +1,6 @@
 ARG PALETTE_VERSION
 
-FROM gcr.io/spectro-images-public/release/spectro-registry:${PALETTE_VERSION} as server
+FROM gcr.io/spectro-images-public/release/spectro-registry:3.4.0 as server
 
 FROM alpine:latest
 
@@ -29,9 +29,9 @@ COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 RUN adduser -H -u 1002 -D appuser appuser && \
     apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano
 
-RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSION/cli/linux/spectro && \
-        mv spectro /usr/local/bin/spectro && \
-        chmod +x /usr/local/bin/spectro && \
+RUN  wget https://software.spectrocloud.com/stylus/v3.4.3/cli/linux/palette-edge && \
+        mv palette-edge /usr/local/bin/palette-edge && \
+        chmod +x /usr/local/bin/palette-edge && \
         wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && \
         tar -xvzf ngrok-v3-stable-linux-amd64.tgz && \
         mv ngrok /usr/local/bin/ngrok && \
