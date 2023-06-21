@@ -9,6 +9,7 @@ LABEL org.opencontainers.image.description "An image containing all the Spectro 
 
 ADD  terraform/ /terraform
 ADD  packs/ /packs
+ADD  edge-native /edge-native
 ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
 ADD  static/defaults/ngrok.yml /auth/ngrok.yml
 ADD  static/defaults/registry-config.yml etc/spectro/config.yml
@@ -20,8 +21,14 @@ ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
 ENV REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
 ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd-basic
+ENV PACKER_VERSION=1.8.7 \
+    PACKER_OSNAME=linux \
+    PACKER_OSARCH=amd64 \
+    PACKER_DEST=/usr/local/sbin
+ENV PACKER_ZIPFILE=packer_${PACKER_VERSION}_${PACKER_OSNAME}_${PACKER_OSARCH}.zip
 
 COPY --from=server /registry /usr/local/bin/
+COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 
 RUN adduser -H -u 1002 -D appuser appuser && \
     apk update && \
@@ -49,7 +56,10 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSI
         git clone https://github.com/spectrocloud/CanvOS.git && \
         rm -rf /var/cache/apk/* 
 
-
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIPFILE} ${PACKER_DEST}/
+RUN unzip ${PACKER_DEST}/${PACKER_ZIPFILE} -d ${PACKER_DEST} && \
+    rm -rf ${PACKER_DEST}/${PACKER_ZIPFILE}
+RUN apk add xorriso govc
 EXPOSE 5000
 
 CMD ["/bin/bash"]
