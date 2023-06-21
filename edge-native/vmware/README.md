@@ -35,7 +35,7 @@ The **vmware/clone_vm_template** folder contains the shell scripts containing GO
 - **setenv.sh** defines the GOVC environment variables, the number of VMs, a prefix string for the VM name, and the VM template name. 
 
 # Dependencies
-Your environment must have Packer and GOVC installed. 
+Your environment must have Packer and GOVC installed. The tutorials container comes with these dependencies pre-installed. If you are not using the tutorials container, you must install these dependencies on your machine. Here are the instructions to install these on a Linux machine. 
 
 To install Packer, refer to these official [instructions](https://developer.hashicorp.com/packer/tutorials/docker-get-started/get-started-install-cli). 
 
