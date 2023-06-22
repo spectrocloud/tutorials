@@ -16,16 +16,13 @@ ADD  static/defaults/registry-config.yml etc/spectro/config.yml
 
 ARG PALETTE_CLI_VERSION
 ARG PALETTE_EDGE_VERSION
+ARG PACKER_VERSION=1.8.7
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
 ENV REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
 ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd-basic
-ENV PACKER_VERSION=1.8.7 \
-    PACKER_OSNAME=linux \
-    PACKER_OSARCH=amd64 \
-    PACKER_DEST=/usr/local/sbin
-ENV PACKER_ZIPFILE=packer_${PACKER_VERSION}_${PACKER_OSNAME}_${PACKER_OSARCH}.zip
+ENV PACKER_DEST=/usr/local/sbin
 
 COPY --from=server /registry /usr/local/bin/
 COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
@@ -56,9 +53,9 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSI
         git clone https://github.com/spectrocloud/CanvOS.git && \
         rm -rf /var/cache/apk/* 
 
-ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIPFILE} ${PACKER_DEST}/
-RUN unzip ${PACKER_DEST}/${PACKER_ZIPFILE} -d ${PACKER_DEST} && \
-    rm -rf ${PACKER_DEST}/${PACKER_ZIPFILE}
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ${PACKER_DEST}/
+RUN unzip ${PACKER_DEST}/packer_${PACKER_VERSION}_linux_amd64.zip -d ${PACKER_DEST} && \
+    rm -rf ${PACKER_DEST}/packer_${PACKER_VERSION}_linux_amd64.zip
 RUN apk add xorriso govc
 EXPOSE 5000
 
