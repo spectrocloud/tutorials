@@ -15,7 +15,6 @@ resource "spectrocloud_cluster_profile" "profile" {
     tag     = "1.0.0"
     uid     = data.spectrocloud_pack.edge-native-byoi.id
     values  = file("manifests/custom-content.yaml")
-    # values    = "pack:\n  content:\n    images:\n      - image: \"{{.spectro.pack.edge-native-byoi.options.system.uri}}\"\noptions:\n  system.uri: \"{{ .spectro.pack.edge-native-byoi.options.system.registry }}/{{ .spectro.pack.edge-native-byoi.options.system.repo }}:{{ .spectro.pack.edge-native-byoi.options.system.k8sDistribution }}-{{ .spectro.system.kubernetes.version }}-{{ .spectro.pack.edge-native-byoi.options.system.peVersion }}-{{ .spectro.pack.edge-native-byoi.options.system.customTag }}\"\n  system.registry: ttl.sh\n  system.repo: ubuntu\n  system.k8sDistribution: k3s\n  system.osName: ubuntu\n  system.peVersion: v3.4.3\n  system.customTag: demo\n  system.osVersion: 22"
   }
 
   pack {
