@@ -22,7 +22,6 @@ ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
 ENV REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
 ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd-basic
-ENV PACKER_DEST=/usr/local/sbin
 
 COPY --from=server /registry /usr/local/bin/
 COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
@@ -53,9 +52,9 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSI
         git clone https://github.com/spectrocloud/CanvOS.git && \
         rm -rf /var/cache/apk/* 
 
-ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ${PACKER_DEST}/
-RUN unzip ${PACKER_DEST}/packer_${PACKER_VERSION}_linux_amd64.zip -d ${PACKER_DEST} && \
-    rm -rf ${PACKER_DEST}/packer_${PACKER_VERSION}_linux_amd64.zip
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip /usr/local/sbin/
+RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \
+    rm -rf /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip
 RUN apk add xorriso govc
 EXPOSE 5000
 
