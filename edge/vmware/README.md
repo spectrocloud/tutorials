@@ -1,19 +1,20 @@
 # Overview
-This directory contains the following files and folders. These files are referred to in the [Deploy an Edge Cluster on VMware](https://docs.spectrocloud.com/clusters/edge/deploy-cluster) tutorial. 
+This directory contains the files referenced in the [Deploy an Edge Cluster on VMware](https://docs.spectrocloud.com/clusters/edge/deploy-cluster) tutorial. Use the files in this directory with the tutorial. The following code block shows the list of files. 
+
 
 ```bash
 .
 └── vmware
     ├── README.md
     ├── clone_vm_template
-    │   ├── delete-edge-host.sh
-    │   ├── deploy-edge-host.sh
-    │   └── setenv.sh
+    │   ├── delete-edge-host.sh     # Deletes the VMs
+    │   ├── deploy-edge-host.sh     # Provisions the VMs
+    │   └── setenv.sh               # Defines the GOVC environment variables
     └── packer
-        ├── build.pkr.hcl
-        ├── meta-data
-        ├── user-data
-        └── vsphere.hcl
+        ├── build.pkr.hcl           # Packer build script
+        ├── meta-data               # Sample template
+        ├── user-data               # Sample template
+        └── vsphere.hcl             # Contains the VM template name, VM configuration, and ISO file name
 ```
 
 
