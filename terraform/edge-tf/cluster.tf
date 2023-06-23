@@ -43,6 +43,9 @@ resource "spectrocloud_cluster_edge_native" "cluster" {
     }
     edge_host {
       host_uid  = var.sc_host_two
+    }
+    edge_host {
+      host_uid  = var.sc_host_three
     }      
   }
 }

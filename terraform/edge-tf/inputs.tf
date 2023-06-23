@@ -1,7 +1,7 @@
 variable "cluster_profile_name" {
   type        = string
   description = "Give the cluster-profile a name."
-  default     = "edge-tutorial-profile2"
+  default     = "edge-tutorial-profile"
 }
 
 variable "cluster_profile_description" {
@@ -13,7 +13,7 @@ variable "cluster_profile_description" {
 variable "cluster_name" {
   type        = string
   description = "Give the cluster a name."
-  default     = "edge-tutorial-cluster2"
+  default     = "edge-tutorial-cluster"
 }
 
 variable "tags" {
@@ -36,7 +36,7 @@ variable "sc_project_name" {
   description = "Provide the Palette project name."
 }
 
-# ToDo: Provide a value for Virtual IP (VIP) address , in the terraform.tfvars. 
+# ToDo: Provide a value for Virtual IP (VIP) address, in the terraform.tfvars. 
 variable "sc_vip" {
   type        = string
   description = "Provide the Virtual IP (VIP) address ."
@@ -50,6 +50,12 @@ variable "sc_host_one" {
 
 # ToDo: Provide a value for Edge host ID, in the terraform.tfvars. 
 variable "sc_host_two" {
+  type        = string
+  description = "Provide the Edge host ID to add to the worker pool."
+}
+
+# ToDo: Provide a value for Edge host ID, in the terraform.tfvars. 
+variable "sc_host_three" {
   type        = string
   description = "Provide the Edge host ID to add to the worker pool."
 }

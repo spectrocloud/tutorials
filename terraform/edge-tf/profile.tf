@@ -14,7 +14,8 @@ resource "spectrocloud_cluster_profile" "profile" {
     name    = "edge-native-byoi"
     tag     = "1.0.0"
     uid     = data.spectrocloud_pack.edge-native-byoi.id
-    values    = "pack:\n  content:\n    images:\n      - image: \"{{.spectro.pack.edge-native-byoi.options.system.uri}}\"\noptions:\n  system.uri: \"{{ .spectro.pack.edge-native-byoi.options.system.registry }}/{{ .spectro.pack.edge-native-byoi.options.system.repo }}:{{ .spectro.pack.edge-native-byoi.options.system.k8sDistribution }}-{{ .spectro.system.kubernetes.version }}-{{ .spectro.pack.edge-native-byoi.options.system.peVersion }}-{{ .spectro.pack.edge-native-byoi.options.system.customTag }}\"\n  system.registry: ttl.sh\n  system.repo: ubuntu\n  system.k8sDistribution: k3s\n  system.osName: ubuntu\n  system.peVersion: v3.4.3\n  system.customTag: demo\n  system.osVersion: 22"
+    values  = file("manifests/custom-content.yaml")
+    # values    = "pack:\n  content:\n    images:\n      - image: \"{{.spectro.pack.edge-native-byoi.options.system.uri}}\"\noptions:\n  system.uri: \"{{ .spectro.pack.edge-native-byoi.options.system.registry }}/{{ .spectro.pack.edge-native-byoi.options.system.repo }}:{{ .spectro.pack.edge-native-byoi.options.system.k8sDistribution }}-{{ .spectro.system.kubernetes.version }}-{{ .spectro.pack.edge-native-byoi.options.system.peVersion }}-{{ .spectro.pack.edge-native-byoi.options.system.customTag }}\"\n  system.registry: ttl.sh\n  system.repo: ubuntu\n  system.k8sDistribution: k3s\n  system.osName: ubuntu\n  system.peVersion: v3.4.3\n  system.customTag: demo\n  system.osVersion: 22"
   }
 
   pack {
@@ -39,41 +40,7 @@ resource "spectrocloud_cluster_profile" "profile" {
     type = "manifest"
     manifest {
       name    = "hello-universe"
-      content = <<-EOT
-apiVersion: v1
-kind: Service
-metadata:
-  name: hello-universe-service
-spec:
-  type: NodePort
-  selector:
-    app: hello-universe
-  ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: hello-universe-deployment
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: hello-universe
-  template:
-    metadata:
-      labels:
-        app: hello-universe
-    spec:
-      containers:
-      - name: hello-universe  
-        image: ghcr.io/spectrocloud/hello-universe:1.0.12 
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-      EOT
+      content = file("manifests/hello-universe.yaml")
     }
   }
-}  
+}
