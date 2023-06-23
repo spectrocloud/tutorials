@@ -18,20 +18,47 @@ This folder contains the demo code for the [Deploy an Edge Cluster on VMware](ht
 
 
 
-## Prerequisites
+## Requirements
 You will need the following items before getting started:
 1. Spectro Cloud API key generated from Palette.
 2. Palette project name where you will deploy your resources.
 3. Virtual IP address for your Edge cluster. 
 4. Three Edge host IDs, similar to `edge-ae4c3842a651f6e671cca5901b831edf`, one for the master pool node and two for worker pool nodes. 
+5. The following tooling requirements:
+    | Name | Version |
+    |------|---------|
+    | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.9 |
+    | <a name="requirement_spectrocloud"></a> [spectrocloud](#requirement\_spectrocloud) | = 0.14.0 |
 
+## Usage
+1. Clone the repository, and change into the current directory.
 
-## Requirements
+    ```bash
+    git clone https://github.com/spectrocloud/tutorials.git
+    cd tutorials/terraform/edge-tf
+    ```
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.9 |
-| <a name="requirement_spectrocloud"></a> [spectrocloud](#requirement\_spectrocloud) | = 0.14.0 |
+2. Update the following variable values in the **terraform.tfvars** file. 
+    ```bash
+    sc_api_key      = "REPLACE_ME"            # Example: "Weoh2xxxxxxxXXXXXXXxxxxx"
+    sc_project_name = "REPLACE_ME"            # Example: "Default"
+    sc_vip          = "REPLACE_ME"            # Example: "10.10.146.146"
+    sc_host_one     = "REPLACE_ME"            # Example: edge-ae4c3842a651f6e671cca5901b831edf
+    sc_host_two     = "REPLACE_ME"
+    sc_host_three   = "REPLACE_ME"
+    ```
+
+3. Execute terraform commands to deploy Palette resources. 
+    ```bash
+    terraform init
+    terraform plan
+    terraform apply -auto-approve
+    ```
+
+4. To delete all resources, you can issue the following command.
+    ```bash
+    terraform destroy -auto-approve
+    ```
 
 ## Providers
 
@@ -71,33 +98,3 @@ No modules.
 
 ## Outputs
 No outputs.
-
-## Usage
-1. Clone the repository, and change into the current directory.
-
-    ```bash
-    git clone https://github.com/spectrocloud/tutorials.git
-    cd tutorials/terraform/edge-tf
-    ```
-
-2. Update the following variable values in the **terraform.tfvars** file. 
-    ```bash
-    sc_api_key      = "REPLACE_ME"            # Example: "Weoh2xxxxxxxXXXXXXXxxxxx"
-    sc_project_name = "REPLACE_ME"            # Example: "Default"
-    sc_vip          = "REPLACE_ME"            # Example: "10.10.146.146"
-    sc_host_one     = "REPLACE_ME"            # Example: edge-ae4c3842a651f6e671cca5901b831edf
-    sc_host_two     = "REPLACE_ME"
-    sc_host_three   = "REPLACE_ME"
-    ```
-
-3. Execute terraform commands to deploy Palette resources. 
-    ```bash
-    terraform init
-    terraform plan
-    terraform apply -auto-approve
-    ```
-
-4. To delete all resources, you can issue the following command.
-    ```bash
-    terraform destroy -auto-approve
-    ```
