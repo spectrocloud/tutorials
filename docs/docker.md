@@ -69,6 +69,6 @@ make build-docker VERSION=3.4.0 EDGE=3.4.3
 OR
 
 ```shell
-docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.4.0  --build-arg PALETTE_EDGE_VERSION=3.4.3 -t tutorials .
+docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.4.0  --build-arg PALETTE_EDGE_VERSION=3.4.3 --build-arg PACKER_VERSION=1.8.7 -t tutorials .
 ```
 
