@@ -1,6 +1,6 @@
 # Deploy an Edge Cluster on VMware
 
-This folder contains the demo code for the [Deploy an Edge Cluster on VMware](https://docs.spectrocloud.com/clusters/edge/deploy-cluster) tutorial. Use the code in this directory with the tutorial. The list of file is shown in the code block below. 
+This folder contains the demo code for the [Deploy an Edge Cluster on VMware](https://docs.spectrocloud.com/clusters/edge/deploy-cluster) tutorial. Use the code in this directory with the tutorial. The following code block shows the list of files. 
 
 ```bash
 .
@@ -19,8 +19,8 @@ This folder contains the demo code for the [Deploy an Edge Cluster on VMware](ht
 
 
 ## Prerequisites
-You will need the following things before getting started:
-1. Spectro Cloud API key generated from the Palette.
+You will need the following items before getting started:
+1. Spectro Cloud API key generated from Palette.
 2. Palette project name where you will deploy your resources.
 3. Virtual IP address for your Edge cluster. 
 4. Three Edge host IDs, similar to `edge-ae4c3842a651f6e671cca5901b831edf`, one for the master pool node and two for worker pool nodes. 
