@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.description "An image containing all the Spectro 
 
 ADD  terraform/ /terraform
 ADD  packs/ /packs
-ADD  edge-native /edge-native
+ADD  edge/ /edge
 ADD  static/defaults/htpasswd-basic /auth/htpasswd-basic
 ADD  static/defaults/ngrok.yml /auth/ngrok.yml
 ADD  static/defaults/registry-config.yml etc/spectro/config.yml
