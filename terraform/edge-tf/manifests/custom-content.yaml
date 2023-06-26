@@ -1,0 +1,23 @@
+pack:
+  content:
+    images:
+      - image: "{{.spectro.pack.edge-native-byoi.options.system.uri}}"
+    #drain:
+    #cordon: true
+    #timeout: 60 # The length of time to wait before giving up, zero means infinite
+    #gracePeriod: 60 # Period of time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used
+    #ignoreDaemonSets: true
+    #deleteLocalData: true # Continue even if there are pods using emptyDir (local data that will be deleted when the node is drained)
+    #force: true # Continue even if there are pods that do not declare a controller
+    #disableEviction: false # Force drain to use delete, even if eviction is supported. This will bypass checking PodDisruptionBudgets, use with caution
+    #skipWaitForDeleteTimeout: 60 # If pod DeletionTimestamp older than N seconds, skip waiting for the pod. Seconds must be greater than 0 to skip.
+
+options:
+  system.uri: "{{ .spectro.pack.edge-native-byoi.options.system.registry }}/{{ .spectro.pack.edge-native-byoi.options.system.repo }}:{{ .spectro.pack.edge-native-byoi.options.system.k8sDistribution }}-{{ .spectro.system.kubernetes.version }}-{{ .spectro.pack.edge-native-byoi.options.system.peVersion }}-{{ .spectro.pack.edge-native-byoi.options.system.customTag }}"
+  system.registry: ttl.sh
+  system.repo: ubuntu
+  system.k8sDistribution: k3s
+  system.osName: ubuntu
+  system.peVersion: v3.4.3
+  system.customTag: demo
+  system.osVersion: 22
