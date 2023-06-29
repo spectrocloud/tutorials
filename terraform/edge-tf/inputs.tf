@@ -34,6 +34,7 @@ variable "sc_api_key" {
 variable "sc_project_name" {
   type        = string
   description = "Provide the Palette project name."
+  default  = "Default"
 }
 
 # ToDo: Provide a value for Virtual IP (VIP) address, in the terraform.tfvars. 
