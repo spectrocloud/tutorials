@@ -38,6 +38,8 @@ The Docker image includes the following tools.
 | `ca-certificates` | Common set of CA certificates                              |
 | `canvos`      | A utility for creating Edge artifacts                          |
 | `nano`        | A text editior for Unix-like computing systems or operating environments using a command line interface|
+| `packer`      | Hashicorp Image Builder for building Edge Native images        |
+| `GOVC`        | Tool for interracting with VMware Vsphere via API              |
 
 ### Spectro Cloud Pack Registry Server
 
@@ -67,6 +69,6 @@ make build-docker VERSION=3.4.0 EDGE=3.4.3
 OR
 
 ```shell
-docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.4.0  --build-arg PALETTE_EDGE_VERSION=3.4.3 -t tutorials .
+docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.4.0  --build-arg PALETTE_EDGE_VERSION=3.4.3 --build-arg PACKER_VERSION=1.8.7 -t tutorials .
 ```
 
