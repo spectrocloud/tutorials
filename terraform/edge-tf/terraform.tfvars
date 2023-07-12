@@ -1,0 +1,6 @@
+datacenter = "Datacenter"
+cluster = "Cluster2"
+datastore = "vsanDatastore2"
+network = "VM Network"
+resource_pool = "rp-cluster2-palette-docs"
+host = "10.10.20.111"

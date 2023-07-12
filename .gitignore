@@ -38,3 +38,5 @@ my.*.tfvars
 .terraform.lock.hcl
 
 
+.env
+
