@@ -3,13 +3,13 @@
 To download the image issue the following commnad. Change the version tag as needed.
 
 ```shell
-docker pull ghcr.io/spectrocloud/tutorials:1.0.2
+docker pull ghcr.io/spectrocloud/tutorials:1.0.8
 ```
 
 You can start the container using the following command.
 
 ```shell
-docker run -p 5000:5000 --rm -it ghcr.io/spectrocloud/tutorials:1.0.2 bash
+docker run -p 5000:5000 --rm -it ghcr.io/spectrocloud/tutorials:1.0.8 bash
 ```
 
 
@@ -63,12 +63,11 @@ If you are wanting to build the docker image locally you must provide the the bu
 
 
 ```shell
-make build-docker VERSION=3.4.0 EDGE=3.4.3
+make build-docker PALETTE_VERSION=4.0.2 PALETTE_CLI_VERSION=4.0.1 PALETTE_EDGE_VERSION=4.0.2
 ```
 
 OR
 
 ```shell
-docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.4.0  --build-arg PALETTE_EDGE_VERSION=3.4.3 --build-arg PACKER_VERSION=1.8.7 -t tutorials .
+docker build --build-arg PALETTE_VERSION=4.0.2 --build-arg PALETTE_CLI_VERSION=4.0.1  --build-arg PALETTE_EDGE_VERSION=4.0.2 --build-arg PACKER_VERSION=1.8.7 -t tutorials .
 ```
-

@@ -30,7 +30,7 @@ RUN adduser -H -u 1002 -D appuser appuser && \
     apk update && \
     apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano
 
-RUN  wget https://software.spectrocloud.com/spectro-registry/v$PALETTE_CLI_VERSION/cli/linux/spectro && \
+RUN  wget https://software.spectrocloud.com/spectro-registry/cli/v$PALETTE_CLI_VERSION/linux/spectro && \
         mv spectro /usr/local/bin/spectro && \
         chmod +x /usr/local/bin/spectro && \
         wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && \
