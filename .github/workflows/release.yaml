@@ -6,8 +6,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  PALETTE_VERSION: 3.4.0
-  PALETTE_CLI_VERSION: 3.4.0
+  PALETTE_VERSION: 4.0.2
+  PALETTE_CLI_VERSION: 4.0.1
   PALETTE_EDGE_VERSION: 3.4.3
 
 
@@ -27,7 +27,7 @@ jobs:
         node-version: '18'
 
     - name: Check out code into the Go module directory
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     -
       name: "Get dependencies"
