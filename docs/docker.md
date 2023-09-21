@@ -63,12 +63,5 @@ If you are wanting to build the docker image locally you must provide the the bu
 
 
 ```shell
-make build-docker VERSION=3.4.0 EDGE=3.4.3
+docker build --build-arg PALETTE_VERSION=4.0.1 --build-arg PALETTE_CLI_VERSION=4.0.1  --build-arg PALETTE_EDGE_VERSION=3.4.3 --build-arg PACKER_VERSION=1.9.4 -t tutorials .
 ```
-
-OR
-
-```shell
-docker build --build-arg PALETTE_VERSION=3.3.0 --build-arg PALETTE_CLI_VERSION=3.4.0  --build-arg PALETTE_EDGE_VERSION=3.4.3 --build-arg PACKER_VERSION=1.8.7 -t tutorials .
-```
-
