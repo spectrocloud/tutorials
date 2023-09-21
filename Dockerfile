@@ -16,7 +16,7 @@ ADD  static/defaults/registry-config.yml etc/spectro/config.yml
 
 ARG PALETTE_CLI_VERSION
 ARG PALETTE_EDGE_VERSION
-ARG PACKER_VERSION=1.8.7
+ARG PACKER_VERSION=1.9.4
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd

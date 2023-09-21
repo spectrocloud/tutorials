@@ -6,8 +6,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ github.token }}
-  PALETTE_VERSION: 3.4.0
-  PALETTE_CLI_VERSION: 3.4.0
+  PALETTE_VERSION: 4.0.13
+  PALETTE_CLI_VERSION: 4.0.1
   PALETTE_EDGE_VERSION: 3.4.3
 
 concurrency:
