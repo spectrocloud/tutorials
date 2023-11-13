@@ -3,7 +3,7 @@
 source /edge/vmware/clone_vm_template/setenv.sh
 
 # Check if the packer cache exists
-CACHE_EXISTS=$(govc datastore.ls -ds=$vcenter_datastore /packer_cache 2>/dev/null)
+CACHE_EXISTS=$(govc datastore.ls -ds=$vcenter_datastore /packer_cache 2>&1)
 
 if [ -z "$CACHE_EXISTS" ]; then
   echo "Existing packer cache not found. Nothing to delete."
