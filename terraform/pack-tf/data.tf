@@ -13,25 +13,25 @@ data "spectrocloud_registry" "public_registry" {
 ####################################
 data "spectrocloud_pack" "ubuntu" {
   name      = "ubuntu-aws"
-  version   = "20.04"
+  version   = "22.04"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "k8s" {
   name      = "kubernetes"
-  version   = "1.24.10"
+  version   = "1.28.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "cni" {
   name      = "cni-calico"
-  version   = "3.25.0"
+  version   = "3.26.1"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "csi" {
   name      = "csi-aws-ebs"
-  version   = "1.16.0"
+  version   = "1.22.0"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
@@ -40,17 +40,26 @@ data "spectrocloud_pack" "csi" {
 ####################################
 data "spectrocloud_pack" "spectro-proxy" {
   name      = "spectro-proxy"
-  version   = "1.3.0"
+  version   = "1.4.1"
   type      = "spectro"
+  registry_uid = data.spectrocloud_registry.public_registry.id
 }
+
+# Select the correct registry (OCI or non-OCI)
 
 data "spectrocloud_pack" "hellouniverse" {
   name      = var.custom_addon_pack
   version   = var.custom_addon_pack_version
-  registry_uid = data.spectrocloud_registry.hellouniverseregistry.id
+  registry_uid = var.use_oci_registry ? data.spectrocloud_registry_oci.hellouniverseregistry[0].id : data.spectrocloud_registry.hellouniverseregistry[0].id
 }
 
 data "spectrocloud_registry" "hellouniverseregistry" {
+  count = var.use_oci_registry ? 0 : 1
+  name  = var.private_pack_registry
+}
+
+data "spectrocloud_registry_oci" "hellouniverseregistry" {
+  count = var.use_oci_registry ? 1 : 0
   name  = var.private_pack_registry
 }
 

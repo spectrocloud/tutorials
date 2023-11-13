@@ -40,6 +40,8 @@ The Docker image includes the following tools.
 | `nano`        | A text editior for Unix-like computing systems or operating environments using a command line interface|
 | `packer`      | Hashicorp Image Builder for building Edge Native images        |
 | `GOVC`        | Tool for interracting with VMware Vsphere via API              |
+| `aws-cli`     | AWS command-line interface                                     |
+| `oras`        | Tool for pushing and pulling OCI artifacts to and from OCI registries|
 
 ### Spectro Cloud Pack Registry Server
 
@@ -63,5 +65,5 @@ If you are wanting to build the docker image locally you must provide the the bu
 
 
 ```shell
-docker build --build-arg PALETTE_VERSION=4.0.1 --build-arg PALETTE_CLI_VERSION=4.0.1  --build-arg PALETTE_EDGE_VERSION=3.4.3 --build-arg PACKER_VERSION=1.9.4 -t tutorials .
+docker build --build-arg PALETTE_VERSION=4.0.2 --build-arg PALETTE_CLI_VERSION=4.0.1  --build-arg PALETTE_EDGE_VERSION=3.4.3 --build-arg PACKER_VERSION=1.9.4 -t tutorials .
 ```

@@ -1,14 +1,14 @@
 resource "spectrocloud_cluster_aws" "cluster" {
-  name              = var.cluster_name
-  tags              = var.tags
-  cloud_account_id  = data.spectrocloud_cloudaccount_aws.account.id
-  depends_on        = [spectrocloud_cluster_profile.profile]
+  name             = var.cluster_name
+  tags             = var.tags
+  cloud_account_id = data.spectrocloud_cloudaccount_aws.account.id
+  depends_on       = [spectrocloud_cluster_profile.profile]
 
   cloud_config {
-    ssh_key_name = var.ssh_key_name         
+    ssh_key_name = var.ssh_key_name
     region       = var.aws_region_name
   }
-  
+
   cluster_profile {
     id = spectrocloud_cluster_profile.profile.id
   }
@@ -32,9 +32,9 @@ resource "spectrocloud_cluster_aws" "cluster" {
     control_plane_as_worker = true
     name                    = "master-pool"
     count                   = 1
-    instance_type           = "m4.large"
+    instance_type           = "m4.xlarge"
     disk_size_gb            = 60
-    azs                     = ["us-east-2a"]     
+    azs                     = [var.aws_az_name]
   }
 
   ##############################
@@ -48,8 +48,8 @@ resource "spectrocloud_cluster_aws" "cluster" {
     }
     name          = "worker-basic"
     count         = 1
-    instance_type = "m5.large"
-    azs           = ["us-east-2a"]
+    instance_type = "m4.xlarge"
+    azs           = [var.aws_az_name]
   }
 
 }

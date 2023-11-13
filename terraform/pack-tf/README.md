@@ -16,17 +16,18 @@ To deploy your resource to Azure or Google Cloud, use the specific layer details
 ## Cloud Service Provider Configurations
 The code uses the data resources, the core infrastructure layers, defined in the **data.tf** to deploy the `spectrocloud_cluster_profile.profile` resource to the AWS. Here are the pack details for each infrastructure layer. 
 
-### AWS Config
+
+## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_spectrocloud"></a> [spectrocloud](#requirement\_spectrocloud) | >= 0.11.1 |
+| <a name="requirement_spectrocloud"></a> [spectrocloud](#requirement\_spectrocloud) | >= 0.13.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_spectrocloud"></a> [spectrocloud](#provider\_spectrocloud) | >= 0.11.1 |
+| <a name="provider_spectrocloud"></a> [spectrocloud](#provider\_spectrocloud) | 0.16.1 |
 
 ## Modules
 
@@ -47,11 +48,13 @@ No modules.
 | [spectrocloud_pack.ubuntu](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/pack) | data source |
 | [spectrocloud_registry.hellouniverseregistry](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/registry) | data source |
 | [spectrocloud_registry.public_registry](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/registry) | data source |
+| [spectrocloud_registry_oci.hellouniverseregistry](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/registry_oci) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_aws_az_name"></a> [aws\_az\_name](#input\_aws\_az\_name) | Choose the AWS availability zone. | `string` | n/a | yes |
 | <a name="input_aws_region_name"></a> [aws\_region\_name](#input\_aws\_region\_name) | Choose the AWS region. | `string` | n/a | yes |
 | <a name="input_cluster_cloud_account_aws_name"></a> [cluster\_cloud\_account\_aws\_name](#input\_cluster\_cloud\_account\_aws\_name) | Choose the AWS account integrated with Spektro Palette. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Give the cluster a name. | `string` | `"pack-tutorial-cluster"` | no |
@@ -59,9 +62,10 @@ No modules.
 | <a name="input_cluster_profile_name"></a> [cluster\_profile\_name](#input\_cluster\_profile\_name) | Give the cluster-profile a name. | `string` | `"pack-tutorial-profile"` | no |
 | <a name="input_custom_addon_pack"></a> [custom\_addon\_pack](#input\_custom\_addon\_pack) | Custom add-on pack name. | `string` | `"hellouniverse"` | no |
 | <a name="input_custom_addon_pack_version"></a> [custom\_addon\_pack\_version](#input\_custom\_addon\_pack\_version) | Custom add-on pack version. | `string` | `"1.0.0"` | no |
-| <a name="input_private_pack_registry"></a> [private\_pack\_registry](#input\_private\_pack\_registry) | Private pack registry server name. | `string` | `"private-pack-registry"` | no |
+| <a name="input_private_pack_registry"></a> [private\_pack\_registry](#input\_private\_pack\_registry) | Private pack registry server name. | `string` | n/a | yes |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | Choose the AWS region. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | The default tags to apply to Palette resources | `list(string)` | <pre>[<br>  "spectro-cloud-education",<br>  "app:hello-universe",<br>  "terraform_managed:true"<br>]</pre> | no |
+| <a name="input_use_oci_registry"></a> [use\_oci\_registry](#input\_use\_oci\_registry) | Set the use of OCI registry to true or false | `bool` | `true` | no |
 
 ## Outputs
 
