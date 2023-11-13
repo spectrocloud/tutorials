@@ -32,9 +32,9 @@ resource "spectrocloud_cluster_aws" "cluster" {
     control_plane_as_worker = true
     name                    = "master-pool"
     count                   = 1
-    instance_type           = "m4.xlarge"
+    instance_type           = var.instance_type
     disk_size_gb            = 60
-    azs                     = [var.aws_az_name]
+    azs                     = local.azs
   }
 
   ##############################
@@ -48,8 +48,8 @@ resource "spectrocloud_cluster_aws" "cluster" {
     }
     name          = "worker-basic"
     count         = 1
-    instance_type = "m4.xlarge"
-    azs           = [var.aws_az_name]
+    instance_type = var.instance_type
+    azs           = local.azs
   }
 
 }

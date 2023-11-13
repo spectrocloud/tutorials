@@ -46,7 +46,7 @@ resource "spectrocloud_cluster_profile" "profile" {
     name   = "spectro-proxy" # Static value. Refer to the HubbleAPI collection before changing this value.
     tag    = "1.4.x"
     uid    = data.spectrocloud_pack.spectro-proxy.id
-    values = local.proxy_val
+    values = data.spectrocloud_pack.spectro-proxy.values
   }
 
   # Custom add-on pack
@@ -56,15 +56,4 @@ resource "spectrocloud_cluster_profile" "profile" {
     uid    = data.spectrocloud_pack.hellouniverse.id
     values = data.spectrocloud_pack.hellouniverse.values
   }
-}
-
-locals {
-  proxy_val = <<-EOT
-        manifests:
-          spectro-proxy:
-            namespace: "cluster-{{ .spectro.system.cluster.uid }}"
-            server: "{{ .spectro.system.reverseproxy.server }}"
-            clusterUid: "{{ .spectro.system.cluster.uid }}"
-            subdomain: "cluster-{{ .spectro.system.cluster.uid }}"
-  EOT
 }
