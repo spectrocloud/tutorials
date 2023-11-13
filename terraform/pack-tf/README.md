@@ -3,6 +3,10 @@
 This folder contains the demo code for the [Create and Deploy a Custom Add-On Pack](https://docs.spectrocloud.com/registries-and-packs/create-pack) tutorial.
 Use the code in this directory with the tutorial. 
 
+
+To get started, review the [prerequisites](#prerequisites). Next, follow the steps in the tutorial to deploy the cluster and custom add-on pack.
+ Use the [terraform.tfvars](./terraform.tfvars) file to provide the required variables. Once you populate the variables, you can deploy the cluster and custom add-on pack.
+
 ## Prerequisites
 You will need the following things before getting started:
 1. A Palette API key.
