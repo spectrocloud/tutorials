@@ -1,4 +1,4 @@
-#!/bin/bas
+#!/bin/bash
 
 source /edge/vmware/clone_vm_template/setenv.sh
 
@@ -13,8 +13,10 @@ else
   RESULT=$?
   if [ $RESULT -eq 0 ]; then
     echo "Deleted previous packer cache."
+    exit 0
   else
     echo "Failed to delete packer cache."
+    exit 1
   fi
 fi
 
