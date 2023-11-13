@@ -37,4 +37,6 @@ my.*.tfvars
 .terraform.lock.hcl
 *.env
 
+node_modules/
+
 
