@@ -18,6 +18,7 @@ ADD  static/defaults/registry-config.yml etc/spectro/config.yml
 ARG PALETTE_CLI_VERSION
 ARG PALETTE_EDGE_VERSION
 ARG PACKER_VERSION=1.9.4
+ARG ORAS_VERSION=1.0.0
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
@@ -29,7 +30,7 @@ COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 
 RUN adduser -H -u 1002 -D appuser appuser && \
     apk update && \
-    apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano
+    apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano aws-cli xorriso govc
 
 RUN  wget https://software.spectrocloud.com/spectro-registry/cli/v$PALETTE_CLI_VERSION/linux/spectro && \
         mv spectro /usr/local/bin/spectro && \
@@ -50,13 +51,17 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/cli/v$PALETTE_CLI_V
         wget https://software.spectrocloud.com/stylus/v$PALETTE_EDGE_VERSION/cli/linux/palette-edge && \
         mv palette-edge /usr/local/bin/palette-edge && \
         chmod +x /usr/local/bin/palette-edge && \
+        wget https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz && \
+        mkdir -p oras-install/ && \
+        tar -zxf oras_${ORAS_VERSION}_*.tar.gz -C oras-install/ && \
+        mv oras-install/oras /usr/local/bin/ && \
+        rm -rf oras_${ORAS_VERSION}_*.tar.gz oras-install/ && \
         git clone https://github.com/spectrocloud/CanvOS.git && \
         rm -rf /var/cache/apk/* 
 
 ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip /usr/local/sbin/
 RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \
     rm -rf /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip
-RUN apk add xorriso govc
 EXPOSE 5000
 
 CMD ["/bin/bash"]
