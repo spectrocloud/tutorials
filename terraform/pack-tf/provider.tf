@@ -1,8 +1,12 @@
 terraform {
   required_providers {
     spectrocloud = {
-      version = ">= 0.13.1"
+      version = ">= 0.16.1"
       source  = "spectrocloud/spectrocloud"
+    }
+      aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
     }
   }
 }
