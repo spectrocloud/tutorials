@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    vsphere = {
+      source  = "github.com/hashicorp/vsphere"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "vcenter_username" {
   type        = string
   description = "The username for authenticating to vCenter."
