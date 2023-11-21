@@ -10,8 +10,10 @@ if [ $? -ne 0 ]; then
 fi
 
 # Now, try to list the packer_cache directory
-govc datastore.ls -ds=$vcenter_datastore /packer_cache
-if [ $? -ne 0 ]; then
+PACKER_CACHE_OUTPUT=$(govc datastore.ls -ds=$vcenter_datastore /packer_cache 2>&1)
+PACKER_CACHE_STATUS=$?
+
+if [ $PACKER_CACHE_STATUS -ne 0 ]; then
     echo "Existing packer cache not found. Nothing to delete."
 else
     # Cache exists, attempt to delete it
