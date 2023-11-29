@@ -41,13 +41,6 @@ resource "spectrocloud_cluster_profile" "profile" {
   ############################
   # Add-on layer
   ############################
-  # Refer to https://docs.spectrocloud.com/integrations/frp/ for more details on Spectro Proxy pack.
-  pack {
-    name   = "spectro-proxy" # Static value. Refer to the HubbleAPI collection before changing this value.
-    tag    = "1.4.x"
-    uid    = data.spectrocloud_pack.spectro-proxy.id
-    values = data.spectrocloud_pack.spectro-proxy.values
-  }
 
   # Custom add-on pack
   pack {
