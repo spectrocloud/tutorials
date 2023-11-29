@@ -38,12 +38,6 @@ data "spectrocloud_pack" "csi" {
 ####################################
 # Add-On Layers
 ####################################
-data "spectrocloud_pack" "spectro-proxy" {
-  name         = "spectro-proxy"
-  version      = "1.4.1"
-  type         = "spectro"
-  registry_uid = data.spectrocloud_registry.public_registry.id
-}
 
 # Select the correct registry (OCI or non-OCI)
 
