@@ -37,6 +37,15 @@ data "spectrocloud_pack" "aws_ubuntu" {
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
+data "spectrocloud_cluster" "aws_cluster_api" {
+  count = var.deploy-aws ? 1 : 0
+
+  name    = "aws-cluster-api"
+  context = "project"
+
+  depends_on = [spectrocloud_cluster_aws.aws-cluster-api]
+}
+
 #############
 # Azure
 #############
@@ -69,6 +78,15 @@ data "spectrocloud_pack" "azure_ubuntu" {
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
+data "spectrocloud_cluster" "azure_cluster_api" {
+  count = var.deploy-azure ? 1 : 0
+  
+  name    = "azure-cluster-api"
+  context = "project"
+
+  depends_on = [spectrocloud_cluster_azure.azure-cluster-api]
+}
+
 #############
 # GCP
 #############
@@ -99,4 +117,13 @@ data "spectrocloud_pack" "gcp_ubuntu" {
   name         = "ubuntu-gcp"
   version      = "22.04"
   registry_uid = data.spectrocloud_registry.public_registry.id
+}
+
+data "spectrocloud_cluster" "gcp_cluster_api" {
+  count = var.deploy-gcp ? 1 : 0
+
+  name    = "gcp-cluster-api"
+  context = "project"
+
+  depends_on = [spectrocloud_cluster_gcp.gcp-cluster-api]
 }

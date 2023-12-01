@@ -7,6 +7,8 @@ aws-cloud-account-name = "REPLACE_ME"
 aws-region             = "REPLACE_ME"
 aws-key-pair-name      = "REPLACE_ME"
 
+aws-hello-universe-api-uri = "http://REPLACE_ME:3000" # Set IP address of hello-universe API once deployed
+
 aws_master_nodes = {
   count              = "1"
   control_plane      = true
@@ -27,13 +29,14 @@ aws_worker_nodes = {
 # Azure Deployment Settings
 ############################
 deploy-azure  = false # Set to true to deploy to Azure
-azure-use-azs = true # Set to false when you deploy to a region without AZs
+azure-use-azs = true  # Set to false when you deploy to a region without AZs
 
 azure-cloud-account-name = "REPLACE_ME"
 azure-region             = "REPLACE_ME"
 azure_subscription_id    = "REPLACE_ME"
 azure_resource_group     = "REPLACE_ME"
 
+azure-hello-universe-api-uri = "http://REPLACE_ME:3000" # Set IP address of hello-universe API once deployed
 
 azure_master_nodes = {
   count               = "1"
@@ -61,6 +64,9 @@ deploy-gcp = false # Set to true to deploy to GCP
 gcp-cloud-account-name = "REPLACE_ME"
 gcp-region             = "REPLACE_ME"
 gcp_project_name       = "REPLACE_ME"
+
+gcp-hello-universe-api-uri = "http://REPLACE_ME:3000" # Set IP address of hello-universe API once deployed
+
 gcp_master_nodes = {
   count              = "1"
   control_plane      = true
