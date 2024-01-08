@@ -17,8 +17,9 @@ ADD  static/defaults/registry-config.yml etc/spectro/config.yml
 
 ARG PALETTE_CLI_VERSION
 ARG PALETTE_EDGE_VERSION
-ARG PACKER_VERSION=1.9.4
-ARG ORAS_VERSION=1.0.0
+ARG PACKER_VERSION
+ARG ORAS_VERSION
+ARG TERRAFORM_VERSION
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
@@ -30,7 +31,7 @@ COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 
 RUN adduser -H -u 1002 -D appuser appuser && \
     apk update && \
-    apk add --no-cache bash curl git terraform openssl jq bind-tools wget ca-certificates nano aws-cli xorriso govc
+    apk add --no-cache bash curl git openssl jq bind-tools wget ca-certificates nano aws-cli xorriso govc podman
 
 RUN  wget https://software.spectrocloud.com/spectro-registry/cli/v$PALETTE_CLI_VERSION/linux/spectro && \
         mv spectro /usr/local/bin/spectro && \
@@ -57,7 +58,10 @@ RUN  wget https://software.spectrocloud.com/spectro-registry/cli/v$PALETTE_CLI_V
         mv oras-install/oras /usr/local/bin/ && \
         rm -rf oras_${ORAS_VERSION}_*.tar.gz oras-install/ && \
         git clone https://github.com/spectrocloud/CanvOS.git && \
-        rm -rf /var/cache/apk/* 
+        rm -rf /var/cache/apk/* && \
+        wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+        unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
+        rm -rf terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip /usr/local/sbin/
 RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \

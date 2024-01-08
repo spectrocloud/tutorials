@@ -71,6 +71,24 @@ variable "azure-region" {
   default     = "eastus"
 }
 
+variable "aws-hello-universe-api-uri" {
+  type        = string
+  description = "The URI of the hello-universe-api service deployed to AWS."
+  default     = "http://REPLACE_ME:3000"
+}
+
+variable "azure-hello-universe-api-uri" {
+  type        = string
+  description = "The URI of the hello-universe-api service deployed to Azure."
+  default     = "http://REPLACE_ME:3000"
+}
+
+variable "gcp-hello-universe-api-uri" {
+  type        = string
+  description = "The URI of the hello-universe-api service deployed to GCP."
+  default     = "http://REPLACE_ME:3000"
+}
+
 variable "aws-key-pair-name" {
   type        = string
   description = "The name of the AWS key pair to use for SSH access to the cluster. Refer to [EC2 Key Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) to learn more."

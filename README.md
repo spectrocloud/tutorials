@@ -15,6 +15,8 @@ The following tutorial code is available:
 
 - [terraform-cluster-deployment-tf](./terraform/iaas-cluster-deployment-tf/README.md) - Learn how to deploy a cluster to a cloud provider with Palette. [Link](https://docs.spectrocloud.com/clusters/public-cloud/deploy-k8s-cluster)
 
+- [terraform-cluster-update-tf](./terraform/iaas-cluster-update-tf/README.md) - Learn how to update a cluster deployed to a cloud provider with Palette. [Link](https://docs.spectrocloud.com/clusters/cluster-management/update-k8s-cluster)
+
 - [Deploy an Edge cluster on VMware](./edge/vmware/README.md) - Learn how to deploy an Edge cluster on VMware. [Link](https://docs.spectrocloud.com/clusters/edge/site-deployment/deploy-cluster)
 
 ## Docker
