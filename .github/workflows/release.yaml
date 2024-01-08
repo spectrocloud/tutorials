@@ -79,18 +79,18 @@ jobs:
     - uses: sigstore/cosign-installer@v3.3.0
 
     - name: Image Signing
-        run: |
-          cosign sign --yes \
-          -a "repo=${{ github.repository }}" \
-          -a "workflow=${{ github.workflow }}" \
-          -a "ref=${{ github.sha }}" \
-          -a "owner=Spectro Cloud" \
-          --key env://COSIGN_PRIVATE_KEY --recursive "${TAGS}@${DIGEST}"
-        env:
-          TAGS: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+      run: |
+        cosign sign --yes \
+        -a "repo=${{ github.repository }}" \
+        -a "workflow=${{ github.workflow }}" \
+        -a "ref=${{ github.sha }}" \
+        -a "owner=Spectro Cloud" \
+        --key env://COSIGN_PRIVATE_KEY --recursive "${TAGS}@${DIGEST}"
+      env:
+        AGS: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}
+        COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        DIGEST: ${{ steps.build-and-push.outputs.digest }}
 
 
   release:
