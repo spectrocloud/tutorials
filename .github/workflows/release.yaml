@@ -87,7 +87,7 @@ jobs:
         -a "owner=Spectro Cloud" \
         --key env://COSIGN_PRIVATE_KEY --recursive "${TAGS}@${DIGEST}"
       env:
-        AGS: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}
+        TAGS: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}
         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
         COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
         DIGEST: ${{ steps.build-and-push.outputs.digest }}
