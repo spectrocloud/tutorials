@@ -21,8 +21,12 @@ The following tutorial code is available:
 
 ## Docker
 
-All the tutorials are available in a Docker that you can use to get started with the tutorials easily. 
-Review the [Docker steps](./docs/docker.md) to get started with the docker image.
+All the tutorials are available in a Docker image that you can use to get started with the tutorials. 
+Review the [Docker steps](./docs/docker.md) to get started with the Docker image.
+
+## Image Verification
+
+We sign our images through [Cosign](https://docs.sigstore.dev/signing/quickstart/). Review the [Image Verification](./docs/image-verification.md) page to learn more.
 
 # Contribution
 
