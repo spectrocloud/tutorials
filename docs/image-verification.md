@@ -59,7 +59,7 @@ If the container image is not valid, an error is displayed. The following exampl
 
 ```shell hideClipboard
 cosign verify --key https://raw.githubusercontent.com/spectrocloud/librarium/master/static/cosign.pub \
-ghcr.io/spectrocloud/tutorials:1.1.1
+ghcr.io/spectrocloud/tutorials:1.1.66
 ```
 
 ```shell hideClipboard
