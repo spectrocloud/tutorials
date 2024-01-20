@@ -19,6 +19,13 @@ The following tutorial code is available:
 
 - [Deploy an Edge cluster on VMware](./edge/vmware/README.md) - Learn how to deploy an Edge cluster on VMware. [Link](https://docs.spectrocloud.com/clusters/edge/site-deployment/deploy-cluster)
 
+
+## Patterns
+
+The following patterns are available:
+
+- [Cluster Profile Management Patterns](./terraform/cp-management/README.md) - Learn how to manage cluster profiles using Terraform by reviewing the different patterns available. 
+
 ## Docker
 
 All the tutorials are available in a Docker image that you can use to get started with the tutorials. 
