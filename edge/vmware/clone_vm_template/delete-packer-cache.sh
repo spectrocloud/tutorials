@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 
 source /edge/vmware/clone_vm_template/setenv.sh
 

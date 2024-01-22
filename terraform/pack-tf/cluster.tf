@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 resource "spectrocloud_cluster_aws" "cluster" {
   name             = var.cluster_name
   tags             = var.tags

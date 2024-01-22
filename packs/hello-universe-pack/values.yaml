@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 pack:
   # The namespace (on the target cluster) in which the pack will be deployed.
   # When the namespace is not found, a new namespace will be created with the name specified.

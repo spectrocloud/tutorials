@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 variable "aws-cloud-account-name" {
   type        = string
   description = "The name of your AWS account as assigned in Palette"

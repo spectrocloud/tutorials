@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 # Virtual Machine Settings
 ########### DO NOT EDIT #################
 # VM Template Name

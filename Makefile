@@ -1,3 +1,5 @@
+.PHONY: license
+
 init: ## Install dependencies and setup the project
 	@echo "initializing npm dependencies"
 	npm ci
@@ -18,3 +20,8 @@ build-docker: ## Build docker image
 	--build-arg ORAS_VERSION=$(PACKER_VERSION) \
 	--build-arg TERRAFORM_VERSION=$(TERRAFORM_VERSION) \
 	 -t tutorials .
+
+
+license: ## Adds a license header to all files. Reference https://github.com/hashicorp/copywrite to learn more.
+	@echo "Applying license headers..."
+	 copywrite headers	

@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 # output "beehive-cluster-id" {
 #   value = data.spectrocloud_cluster_group.beehive.id
 # }

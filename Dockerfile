@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 ARG PALETTE_VERSION
 
 FROM gcr.io/spectro-images-public/release/spectro-registry:${PALETTE_VERSION} as server
