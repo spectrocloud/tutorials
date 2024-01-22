@@ -9,7 +9,7 @@ aws-key-pair-name      = "REPLACE_ME"
 
 aws-hello-universe-api-uri = "http://REPLACE_ME:3000" # Set IP address of hello-universe API once deployed
 
-aws_master_nodes = {
+aws_control_plane_nodes = {
   count              = "1"
   control_plane      = true
   instance_type      = "m4.2xlarge"
@@ -38,7 +38,7 @@ azure_resource_group     = "REPLACE_ME"
 
 azure-hello-universe-api-uri = "http://REPLACE_ME:3000" # Set IP address of hello-universe API once deployed
 
-azure_master_nodes = {
+azure_control_plane_nodes = {
   count               = "1"
   control_plane       = true
   instance_type       = "Standard_A8_v2"
@@ -67,7 +67,7 @@ gcp_project_name       = "REPLACE_ME"
 
 gcp-hello-universe-api-uri = "http://REPLACE_ME:3000" # Set IP address of hello-universe API once deployed
 
-gcp_master_nodes = {
+gcp_control_plane_nodes = {
   count              = "1"
   control_plane      = true
   instance_type      = "n1-standard-4"

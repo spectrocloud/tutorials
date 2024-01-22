@@ -80,7 +80,7 @@ data "spectrocloud_pack" "azure_ubuntu" {
 
 data "spectrocloud_cluster" "azure_cluster_api" {
   count = var.deploy-azure ? 1 : 0
-  
+
   name    = "azure-cluster-api"
   context = "project"
 

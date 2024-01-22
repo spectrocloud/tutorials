@@ -21,11 +21,11 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   machine_pool {
     control_plane           = true
     control_plane_as_worker = true
-    name                    = "master-pool"
-    count                   = var.aws_master_nodes.count
-    instance_type           = var.aws_master_nodes.instance_type
-    disk_size_gb            = var.aws_master_nodes.disk_size_gb
-    azs                     = var.aws_master_nodes.availability_zones
+    name                    = "control-pane-pool"
+    count                   = var.aws_control_plane_nodes.count
+    instance_type           = var.aws_control_plane_nodes.instance_type
+    disk_size_gb            = var.aws_control_plane_nodes.disk_size_gb
+    azs                     = var.aws_control_plane_nodes.availability_zones
   }
 
   machine_pool {
@@ -61,11 +61,11 @@ resource "spectrocloud_cluster_aws" "aws-cluster-api" {
   machine_pool {
     control_plane           = true
     control_plane_as_worker = true
-    name                    = "master-pool"
-    count                   = var.aws_master_nodes.count
-    instance_type           = var.aws_master_nodes.instance_type
-    disk_size_gb            = var.aws_master_nodes.disk_size_gb
-    azs                     = var.aws_master_nodes.availability_zones
+    name                    = "control-pane-pool"
+    count                   = var.aws_control_plane_nodes.count
+    instance_type           = var.aws_control_plane_nodes.instance_type
+    disk_size_gb            = var.aws_control_plane_nodes.disk_size_gb
+    azs                     = var.aws_control_plane_nodes.availability_zones
   }
 
   machine_pool {
@@ -116,13 +116,13 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   machine_pool {
     control_plane           = true
     control_plane_as_worker = true
-    name                    = "master-pool"
-    count                   = var.azure_master_nodes.count
-    instance_type           = var.azure_master_nodes.instance_type
-    azs                     = var.azure-use-azs ? var.azure_master_nodes.azs : [""]
-    is_system_node_pool     = var.azure_master_nodes.is_system_node_pool
+    name                    = "control-pane-pool"
+    count                   = var.azure_control_plane_nodes.count
+    instance_type           = var.azure_control_plane_nodes.instance_type
+    azs                     = var.azure-use-azs ? var.azure_control_plane_nodes.azs : [""]
+    is_system_node_pool     = var.azure_control_plane_nodes.is_system_node_pool
     disk {
-      size_gb = var.azure_master_nodes.disk_size_gb
+      size_gb = var.azure_control_plane_nodes.disk_size_gb
       type    = "Standard_LRS"
     }
   }
@@ -162,13 +162,13 @@ resource "spectrocloud_cluster_azure" "azure-cluster-api" {
   machine_pool {
     control_plane           = true
     control_plane_as_worker = true
-    name                    = "master-pool"
-    count                   = var.azure_master_nodes.count
-    instance_type           = var.azure_master_nodes.instance_type
-    azs                     = var.azure-use-azs ? var.azure_master_nodes.azs : [""]
-    is_system_node_pool     = var.azure_master_nodes.is_system_node_pool
+    name                    = "control-pane-pool"
+    count                   = var.azure_control_plane_nodes.count
+    instance_type           = var.azure_control_plane_nodes.instance_type
+    azs                     = var.azure-use-azs ? var.azure_control_plane_nodes.azs : [""]
+    is_system_node_pool     = var.azure_control_plane_nodes.is_system_node_pool
     disk {
-      size_gb = var.azure_master_nodes.disk_size_gb
+      size_gb = var.azure_control_plane_nodes.disk_size_gb
       type    = "Standard_LRS"
     }
   }
@@ -219,11 +219,11 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   machine_pool {
     control_plane           = true
     control_plane_as_worker = true
-    name                    = "master-pool"
-    count                   = var.gcp_master_nodes.count
-    instance_type           = var.gcp_master_nodes.instance_type
-    disk_size_gb            = var.gcp_master_nodes.disk_size_gb
-    azs                     = var.gcp_master_nodes.availability_zones
+    name                    = "control-pane-pool"
+    count                   = var.gcp_control_plane_nodes.count
+    instance_type           = var.gcp_control_plane_nodes.instance_type
+    disk_size_gb            = var.gcp_control_plane_nodes.disk_size_gb
+    azs                     = var.gcp_control_plane_nodes.availability_zones
   }
 
   machine_pool {
@@ -259,11 +259,11 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster-api" {
   machine_pool {
     control_plane           = true
     control_plane_as_worker = true
-    name                    = "master-pool"
-    count                   = var.gcp_master_nodes.count
-    instance_type           = var.gcp_master_nodes.instance_type
-    disk_size_gb            = var.gcp_master_nodes.disk_size_gb
-    azs                     = var.gcp_master_nodes.availability_zones
+    name                    = "control-plane-pool"
+    count                   = var.gcp_control_plane_nodes.count
+    instance_type           = var.gcp_control_plane_nodes.instance_type
+    disk_size_gb            = var.gcp_control_plane_nodes.disk_size_gb
+    azs                     = var.gcp_control_plane_nodes.availability_zones
   }
 
   machine_pool {
