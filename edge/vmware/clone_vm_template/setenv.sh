@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 # Number of VMs to provision
 export NO_OF_VMS=3
 export VM_PREFIX="demo"

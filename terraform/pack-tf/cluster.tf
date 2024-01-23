@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 resource "spectrocloud_cluster_aws" "cluster" {
   name             = var.cluster_name
   tags             = var.tags
@@ -20,17 +23,17 @@ resource "spectrocloud_cluster_aws" "cluster" {
   }
 
   ##############################
-  # master-pool
+  # control-plane-pool
   ##############################
   machine_pool {
     additional_labels = {
       "owner"   = "docs"
       "purpose" = "tutorial"
-      "type"    = "master"
+      "type"    = "control-plane-node"
     }
     control_plane           = true
     control_plane_as_worker = true
-    name                    = "master-pool"
+    name                    = "control-plane-pool"
     count                   = 1
     instance_type           = var.instance_type
     disk_size_gb            = 60
@@ -44,7 +47,7 @@ resource "spectrocloud_cluster_aws" "cluster" {
     additional_labels = {
       "owner"   = "docs"
       "purpose" = "tutorial"
-      "type"    = "worker"
+      "type"    = "worker-node"
     }
     name          = "worker-basic"
     count         = 1

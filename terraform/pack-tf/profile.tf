@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 
 resource "spectrocloud_cluster_profile" "profile" {
   name        = var.cluster_profile_name

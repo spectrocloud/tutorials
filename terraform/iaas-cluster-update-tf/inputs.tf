@@ -1,3 +1,6 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
 variable "aws-cloud-account-name" {
   type        = string
   description = "The name of your AWS account as assigned in Palette"
@@ -56,7 +59,7 @@ variable "azure-use-azs" {
 variable "aws-region" {
   type        = string
   description = "AWS region"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 variable "gcp-region" {
@@ -95,7 +98,7 @@ variable "aws-key-pair-name" {
   default     = ""
 }
 
-variable "aws_master_nodes" {
+variable "aws_control_plane_nodes" {
   type = object({
     count              = string
     control_plane      = bool
@@ -110,7 +113,7 @@ variable "aws_master_nodes" {
     disk_size_gb       = "60"
     availability_zones = ["us-east-1a"]
   }
-  description = "AWS master nodes configuration."
+  description = "AWS control nodes configuration."
 }
 variable "aws_worker_nodes" {
   type = object({
@@ -130,7 +133,7 @@ variable "aws_worker_nodes" {
   description = "AWS worker nodes configuration."
 }
 
-variable "azure_master_nodes" {
+variable "azure_control_plane_nodes" {
   type = object({
     count               = string
     control_plane       = bool
@@ -146,7 +149,7 @@ variable "azure_master_nodes" {
     disk_size_gb  = "60"
     azs           = ["1"]
   is_system_node_pool = false }
-  description = "Azure master nodes configuration."
+  description = "Azure control plane nodes configuration."
 }
 
 variable "azure_worker_nodes" {
@@ -168,7 +171,7 @@ variable "azure_worker_nodes" {
   description = "Azure worker nodes configuration."
 }
 
-variable "gcp_master_nodes" {
+variable "gcp_control_plane_nodes" {
   type = object({
     count              = string
     control_plane      = bool
@@ -182,7 +185,7 @@ variable "gcp_master_nodes" {
     instance_type = "n1-standard-4"
     disk_size_gb  = "60"
   availability_zones = ["us-central1-a"] }
-  description = "GCP master nodes configuration."
+  description = "GCP control plane nodes configuration."
 }
 
 variable "gcp_worker_nodes" {
