@@ -1,14 +1,13 @@
 # Hello Universe TF
 
-This folder contains the demo code for the [Deploy App Workloads with a PCG](placeholder for the tutorial link) tutorial.
-Use the code in this directory with the tutorial.
+This folder contains the demo code for the Deploy App Workloads with a PCG tutorial. Use the code in this directory with the tutorial.
 
-To get started, review the [prerequisites](#prerequisites). Next, follow the steps in the tutorial to deploy the VMware cluster and add-on pack.
-Use the [terraform.tfvars](./terraform.tfvars) file to provide the required variables. Once you populate the variables, you can deploy the VMware cluster and add-on pack.
+To get started, review the [prerequisites](#prerequisites). Next, follow the steps in the tutorial to deploy a VMware cluster and add-on pack.
+Use the [terraform.tfvars](./terraform.tfvars) file to provide the required variables.
 
 ## Prerequisites
 
-You will need the following things before getting started:
+You will need the following items before getting started:
 
 1. A Palette API key.
 2. A VMware PCG added to your Palette account.
