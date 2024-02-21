@@ -38,8 +38,8 @@ data "spectrocloud_pack" "csi" {
 }
 
 data "spectrocloud_pack" "metallb" {
-  name         = "lb-metallb"
-  version      = "0.13.7"
+  name         = "lb-metallb-helm"
+  version      = "0.13.11"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 

@@ -7,9 +7,15 @@ terraform {
       version = ">= 0.16.1"
       source  = "spectrocloud/spectrocloud"
     }
+
     vsphere = {
       source  = "hashicorp/vsphere"
       version = ">= 2.6.1"
+    }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.0.4"
     }
   }
 }

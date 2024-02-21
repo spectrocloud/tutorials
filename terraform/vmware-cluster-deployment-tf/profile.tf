@@ -42,10 +42,10 @@ resource "spectrocloud_cluster_profile" "profile" {
   }
 
   pack {
-    name   = "lb-metallb"
+    name   = "lb-metallb-helm"
     tag    = "0.13.x"
     uid    = data.spectrocloud_pack.metallb.id
-    values = format("%s      - %s", data.spectrocloud_pack.metallb.values, var.metallb_ip)
+    values = replace(data.spectrocloud_pack.metallb.values, "192.168.10.0/24", var.metallb_ip)
   }
 
   ############################

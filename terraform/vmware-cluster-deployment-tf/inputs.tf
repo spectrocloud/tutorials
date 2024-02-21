@@ -39,7 +39,7 @@ variable "tags" {
   description = "The default tags to apply to Palette resources"
   # Value and key must be 63 characters or less, must start and end with an alphanumeric character, and can contain only alphanumeric characters, dots, dashes or underscores. 
   # Slashes `\` are not allowed.
-  default = ["spectro-cloud-education", "app:hello-universe", "terraform_managed:true"]
+  default = ["spectro-cloud-education", "app:hello-universe", "terraform_managed:true", "repository:spectrocloud:tutorials", "tutorial:DEPLOY_APP_WORKLOADS_WITH_A_PCG"]
 }
 
 #################################################
@@ -51,7 +51,7 @@ variable "tags" {
 # The value should include the public key for accessing the cluster nodes.
 variable "ssh_key" {
   type        = string
-  description = "Specify the public key that will be used to access the cluster nodes."
+  description = "Specify the public key that will be used to access the cluster nodes. If not provided, a new key pair will be generated. Press enter to generate a new key pair."
   sensitive   = true
 }
 

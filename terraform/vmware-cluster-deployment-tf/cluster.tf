@@ -8,7 +8,7 @@ resource "spectrocloud_cluster_vsphere" "cluster" {
   depends_on       = [spectrocloud_cluster_profile.profile]
 
   cloud_config {
-    ssh_key    = var.ssh_key
+    ssh_key    = local.ssh_public_key
     datacenter = var.datacenter_name
     folder     = var.folder_name
     static_ip  = true
