@@ -48,11 +48,11 @@ variable "tags" {
 
 # ToDo 
 # Export the variable below as an environment variable named "TF_VAR_ssh_key". 
-# The value should include the public key for accessing the cluster nodes.
+# The value should include the public key for accessing the cluster nodes. If not provided, a new key pair will be generated.
 variable "ssh_key" {
   type        = string
-  description = "Specify the public key that will be used to access the cluster nodes. If not provided, a new key pair will be generated. Press enter to generate a new key pair."
-  sensitive   = true
+  default     = ""
+  description = "Export the public key that will be used to access the cluster nodes as an environment variable named TF_VAR_ssh_key. If not provided, a new key pair will be generated."
 }
 
 # ToDo
