@@ -52,5 +52,12 @@ resource "spectrocloud_cluster_profile" "profile" {
   # Add-on layer
   ############################
 
-  # Add-on pack hellouniverse
+  pack {
+    name   = "hello-universe"
+    tag    = "1.1.x"
+    uid    = data.spectrocloud_pack.hellouniverse.id
+    values = data.spectrocloud_pack.hellouniverse.values
+  }
+
+
 }

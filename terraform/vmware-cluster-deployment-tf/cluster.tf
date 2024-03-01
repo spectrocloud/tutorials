@@ -8,11 +8,11 @@ resource "spectrocloud_cluster_vsphere" "cluster" {
   depends_on       = [spectrocloud_cluster_profile.profile]
 
   cloud_config {
-    ssh_key    = local.ssh_public_key
-    datacenter = var.datacenter_name
-    folder     = var.folder_name
-    static_ip  = true
-
+    ssh_key               = local.ssh_public_key
+    datacenter            = var.datacenter_name
+    folder                = var.folder_name
+    static_ip             = false # If true, the cluster will use static IP placement. If false, the cluster will use DDNS.
+    network_search_domain = var.search_domain
   }
 
   cluster_profile {
@@ -41,11 +41,12 @@ resource "spectrocloud_cluster_vsphere" "cluster" {
     }
 
     placement {
-      cluster           = var.vsphere_cluster
-      datastore         = var.datastore_name
-      network           = var.network_name
-      resource_pool     = var.resource_pool_name
-      static_ip_pool_id = resource.spectrocloud_privatecloudgateway_ippool.ippool.id
+      cluster       = var.vsphere_cluster
+      datastore     = var.datastore_name
+      network       = var.network_name
+      resource_pool = var.resource_pool_name
+      # Required for static IP placement.
+      #static_ip_pool_id = resource.spectrocloud_privatecloudgateway_ippool.ippool.id 
     }
 
     additional_labels = {
@@ -70,11 +71,12 @@ resource "spectrocloud_cluster_vsphere" "cluster" {
     }
 
     placement {
-      cluster           = var.vsphere_cluster
-      datastore         = var.datastore_name
-      network           = var.network_name
-      resource_pool     = var.resource_pool_name
-      static_ip_pool_id = resource.spectrocloud_privatecloudgateway_ippool.ippool.id
+      cluster       = var.vsphere_cluster
+      datastore     = var.datastore_name
+      network       = var.network_name
+      resource_pool = var.resource_pool_name
+      # Required for static IP placement.
+      #static_ip_pool_id = resource.spectrocloud_privatecloudgateway_ippool.ippool.id
     }
 
     additional_labels = {

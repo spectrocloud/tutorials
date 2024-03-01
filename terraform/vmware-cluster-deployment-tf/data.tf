@@ -8,6 +8,10 @@ data "spectrocloud_registry" "public_registry" {
   name = "Public Repo"
 }
 
+data "spectrocloud_registry" "community_registry" {
+  name = "Palette Registry"
+}
+
 ####################################
 # Core Infrastructure Layers
 # The following core infrastructure layers are configured for deployment to Vsphere. 
@@ -47,11 +51,11 @@ data "spectrocloud_pack" "metallb" {
 # Add-On Layers
 ####################################
 
-#data "spectrocloud_pack" "hellouniverse" {
-#  name         = 
-#  version      = 
-#  registry_uid = data.spectrocloud_registry.public_registry.id
-#}
+data "spectrocloud_pack" "hellouniverse" {
+  name         = "hello-universe"
+  version      = "1.1.1"
+  registry_uid = data.spectrocloud_registry.community_registry.id
+}
 
 ####################################
 # Data resources for the cluster
@@ -64,6 +68,7 @@ data "spectrocloud_cloudaccount_vsphere" "account" {
 ####################################
 # Data resources for the PCG
 ####################################
-data "spectrocloud_private_cloud_gateway" "pcg" {
-  name = var.pcg_name
-}
+# Required for static IP placement.
+# data "spectrocloud_private_cloud_gateway" "pcg" {
+#   name = var.pcg_name
+# }
