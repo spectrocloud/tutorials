@@ -72,4 +72,6 @@ RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local
     rm -rf /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip
 EXPOSE 5000
 
+USER appuser
+
 CMD ["/bin/bash"]
