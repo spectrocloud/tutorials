@@ -200,6 +200,9 @@ source "vsphere-iso" "edge-template" {
   RAM_hot_plug         = false
   cdrom_type           = var.vm_cdrom_type
   disk_controller_type = var.vm_disk_controller_type
+  remote_cache_cleanup = true
+  local_cache_overwrite = true
+  remote_cache_overwrite = true
 
   storage {
     disk_size             = var.vm_disk_size
@@ -212,7 +215,7 @@ source "vsphere-iso" "edge-template" {
     network_card = var.vm_network_card
   }
   disable_shutdown     = true
-  shutdown_timeout     = "10m"
+  shutdown_timeout     = "20m"
   communicator         = "none"
   iso_url      = "${path.cwd}/${var.iso}"
   iso_checksum = "file:file://${path.cwd}/${var.iso_checksum}" 
