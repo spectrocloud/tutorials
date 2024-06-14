@@ -1,22 +1,27 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
 
+#####################
+# Palette Settings
+#####################
+palette-project = "Default" # The name of your project in Palette.
+
+
 ##############################
 # Hello Universe Configuration
 ##############################
-
 app_namespace   = "hello-universe" # The namespace in which the application will be deployed.
 app_port        = 8080             # The cluster port number on which the service will listen for incoming traffic.
 replicas_number = 1                # The number of pods to be created.
-db_password     = "REPLACE ME"     # The base64 encoded database password to connect to the API database.
-auth_token      = "REPLACE ME"     # The base64 encoded auth token for the API connection.
+db_password     = "REPLACE ME"     # The database password to connect to the API database.
+auth_token      = "REPLACE ME"     # The auth token for the API connection.
 
 
 ###########################
 # AWS Deployment Settings
 ############################
-deploy-aws     = false # Set to true to deploy to AWS.
-deploy-aws-new = false # Set to true to deploy to AWS and include Kubecost to your cluster profile.
+deploy-aws          = false # Set to true to deploy to AWS.
+deploy-aws-kubecost = false # Set to true to deploy to AWS and include Kubecost to your cluster profile.
 
 aws-cloud-account-name = "REPLACE ME"
 aws-region             = "REPLACE ME"
@@ -41,9 +46,9 @@ aws_worker_nodes = {
 ###########################
 # Azure Deployment Settings
 ############################
-deploy-azure     = false # Set to true to deploy to Azure.
-deploy-azure-new = false # Set to true to deploy to Azure and include Kubecost to your cluster profile.
-azure-use-azs    = true  # Set to false when you deploy to a region without AZs.
+deploy-azure          = false # Set to true to deploy to Azure.
+deploy-azure-kubecost = false # Set to true to deploy to Azure and include Kubecost to your cluster profile.
+azure-use-azs         = true  # Set to false when you deploy to a region without AZs.
 
 azure-cloud-account-name = "REPLACE ME"
 azure-region             = "REPLACE ME"
@@ -72,8 +77,8 @@ azure_worker_nodes = {
 ###########################
 # GCP Deployment Settings
 ############################
-deploy-gcp     = false # Set to true to deploy to GCP.
-deploy-gcp-new = false # Set to true to deploy to GCP and include Kubecost to your cluster profile.
+deploy-gcp          = false # Set to true to deploy to GCP.
+deploy-gcp-kubecost = false # Set to true to deploy to GCP and include Kubecost to your cluster profile.
 
 gcp-cloud-account-name = "REPLACE ME"
 gcp-region             = "REPLACE ME"
@@ -98,8 +103,8 @@ gcp_worker_nodes = {
 ############################
 # VMware Deployment Settings
 ############################
-deploy-vmware     = false # Set to true to deploy to VMware.
-deploy-vmware-new = false # Set to true to deploy to VMware and include Kubecost to your cluster profile.
+deploy-vmware          = false # Set to true to deploy to VMware.
+deploy-vmware-kubecost = false # Set to true to deploy to VMware and include Kubecost to your cluster profile.
 
 metallb_ip         = "REPLACE ME" # Provide a range of IP addresses for your Metallb load balancer. This range must be included in the PCG's static IP pool range if using static IP placement.
 pcg_name           = "REPLACE ME" # Provide the name of the PCG that will be used to deploy the Palette cluster.
@@ -113,10 +118,10 @@ resource_pool_name = "REPLACE ME" # Provide the resource pool name for the machi
 ssh_key            = ""           # Provide the path to your public SSH key. If not provided, a new key pair will be created.
 ssh_key_private    = ""           # Provide the path to your private SSH key. If not provided, a new key pair will be created.
 
-# Static IP Pool Variables
-# Required for static IP placement only.
-# network_gateway = "REPLACE ME"   # Provide the IP address of the vSphere network gateway.
-# network_prefix  = "REPLACE ME"            # Provide the prefix of your vSphere network. Valid values are network CIDR subnet masks from the range 0-32. Example: 18.
-# ip_range_start  = "REPLACE ME"  # Provide the first IP address of your PCG IP pool range.
-# ip_range_end    = "REPLACE ME"  # Provide the second IP address of your PCG IP pool range.
-# nameserver_addr = ["REPLACE ME"] # Provide a comma-separated list of DNS name server IP addresses.
+# Static IP Pool Variables - Required for static IP placement only.
+deploy-vmware-static = false          # Set to true to deploy to VMware using static IP placement.
+network_gateway      = "REPLACE ME"   # Provide the IP address of the vSphere network gateway.
+network_prefix       = 0              # Provide the prefix of your vSphere network. Valid values are network CIDR subnet masks from the range 0-32. Example: 18.
+ip_range_start       = "REPLACE ME"   # Provide the first IP address of your PCG IP pool range.
+ip_range_end         = "REPLACE ME"   # Provide the second IP address of your PCG IP pool range.
+nameserver_addr      = ["REPLACE ME"] # Provide a comma-separated list of DNS name server IP addresses.

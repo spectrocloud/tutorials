@@ -50,8 +50,8 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 }
@@ -59,8 +59,8 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
 ############################
 # AWS Cluster Profile v1.1.0
 ############################
-resource "spectrocloud_cluster_profile" "aws-profile-new" {
-  count = var.deploy-aws-new ? 1 : 0
+resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
+  count = var.deploy-aws-kubecost ? 1 : 0
 
   name        = "tf-aws-profile"
   description = "A basic cluster profile for AWS with Kubecost"
@@ -105,8 +105,8 @@ resource "spectrocloud_cluster_profile" "aws-profile-new" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 
@@ -167,8 +167,8 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 }
@@ -176,8 +176,8 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
 ##############################
 # Azure Cluster Profile v1.1.0
 ##############################
-resource "spectrocloud_cluster_profile" "azure-profile-new" {
-  count = var.deploy-azure-new ? 1 : 0
+resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
+  count = var.deploy-azure-kubecost ? 1 : 0
 
   name        = "tf-azure-profile"
   description = "A basic cluster profile for Azure with Kubecost"
@@ -222,8 +222,8 @@ resource "spectrocloud_cluster_profile" "azure-profile-new" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 
@@ -285,8 +285,8 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 }
@@ -294,8 +294,8 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
 ############################
 # GCP Cluster Profile v1.1.0
 ############################
-resource "spectrocloud_cluster_profile" "gcp-profile-new" {
-  count = var.deploy-gcp-new ? 1 : 0
+resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
+  count = var.deploy-gcp-kubecost ? 1 : 0
 
   name        = "tf-gcp-profile"
   description = "A basic cluster profile for GCP with Kubecost"
@@ -340,8 +340,8 @@ resource "spectrocloud_cluster_profile" "gcp-profile-new" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number,
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 
@@ -409,8 +409,8 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number,
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 }
@@ -418,8 +418,8 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
 ###############################
 # VMware Cluster Profile v1.1.0
 ###############################
-resource "spectrocloud_cluster_profile" "vmware-profile-new" {
-  count = var.deploy-vmware-new ? 1 : 0
+resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
+  count = var.deploy-vmware-kubecost ? 1 : 0
 
   name        = "tf-vmware-profile"
   description = "A basic cluster profile for VMware with Kubecost"
@@ -471,8 +471,8 @@ resource "spectrocloud_cluster_profile" "vmware-profile-new" {
       namespace   = var.app_namespace,
       port        = var.app_port,
       replicas    = var.replicas_number,
-      db_password = var.db_password,
-      auth_token  = var.auth_token
+      db_password = base64encode(var.db_password),
+      auth_token  = base64encode(var.auth_token)
     })
   }
 

@@ -30,5 +30,5 @@ terraform {
 
 provider "spectrocloud" {
   # API key set through the environment variable SPECTROCLOUD_APIKEY
-  project_name = "Default"
+  project_name = var.palette-project
 }

@@ -17,8 +17,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.aws-profile[0].id
-    #id = spectrocloud_cluster_profile.aws-profile-new[0].id
+    id = var.deploy-aws && var.deploy-aws-kubecost ? spectrocloud_cluster_profile.aws-profile-kubecost[0].id : spectrocloud_cluster_profile.aws-profile[0].id
   }
 
   machine_pool {
@@ -62,8 +61,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   cluster_profile {
-    #id = spectrocloud_cluster_profile.azure-profile[0].id
-    id = spectrocloud_cluster_profile.azure-profile-new[0].id
+    id = var.deploy-azure && var.deploy-azure-kubecost ? spectrocloud_cluster_profile.azure-profile-kubecost[0].id : spectrocloud_cluster_profile.azure-profile[0].id
   }
 
   machine_pool {
@@ -110,8 +108,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.gcp-profile[0].id
-    #id = spectrocloud_cluster_profile.gcp-profile-new[0].id
+    id = var.deploy-gcp && var.deploy-gcp-kubecost ? spectrocloud_cluster_profile.gcp-profile-kubecost[0].id : spectrocloud_cluster_profile.gcp-profile[0].id
   }
 
   machine_pool {
@@ -153,13 +150,12 @@ resource "spectrocloud_cluster_vsphere" "vmware-cluster" {
     ssh_key               = local.ssh_public_key
     datacenter            = var.datacenter_name
     folder                = var.folder_name
-    static_ip             = false # If true, the cluster will use static IP placement. If false, the cluster will use DDNS.
+    static_ip             = var.deploy-vmware-static # If true, the cluster will use static IP placement. If false, the cluster will use DDNS.
     network_search_domain = var.search_domain
   }
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.vmware-profile[0].id
-    #id = spectrocloud_cluster_profile.vmware-profile-new[0].id
+    id = var.deploy-vmware && var.deploy-vmware-kubecost ? spectrocloud_cluster_profile.vmware-profile-kubecost[0].id : spectrocloud_cluster_profile.vmware-profile[0].id
   }
 
   scan_policy {
@@ -186,7 +182,7 @@ resource "spectrocloud_cluster_vsphere" "vmware-cluster" {
       network       = var.network_name
       resource_pool = var.resource_pool_name
       # Required for static IP placement.
-      #static_ip_pool_id = resource.spectrocloud_privatecloudgateway_ippool.ippool.id 
+      static_ip_pool_id = var.deploy-vmware-static ? resource.spectrocloud_privatecloudgateway_ippool.ippool[0].id : null
     }
 
   }
@@ -208,7 +204,7 @@ resource "spectrocloud_cluster_vsphere" "vmware-cluster" {
       network       = var.network_name
       resource_pool = var.resource_pool_name
       # Required for static IP placement.
-      #static_ip_pool_id = resource.spectrocloud_privatecloudgateway_ippool.ippool.id
+      static_ip_pool_id = var.deploy-vmware-static ? resource.spectrocloud_privatecloudgateway_ippool.ippool[0].id : null
     }
   }
 

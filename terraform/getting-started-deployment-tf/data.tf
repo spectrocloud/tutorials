@@ -148,9 +148,10 @@ data "spectrocloud_pack" "vmware_metallb" {
 }
 
 # Required for static IP placement
-# data "spectrocloud_private_cloud_gateway" "pcg" {
-#   name = var.pcg_name
-# }
+data "spectrocloud_private_cloud_gateway" "pcg" {
+  count = var.deploy-vmware-static ? 1 : 0
+  name  = var.pcg_name
+}
 
 #####################
 # Hello Universe Pack

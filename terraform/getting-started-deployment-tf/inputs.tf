@@ -1,6 +1,16 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
 
+#########
+# Palette
+#########
+
+variable "palette-project" {
+  type        = string
+  description = "The name of your project in Palette."
+  default     = ""
+}
+
 #######
 # AWS
 #######
@@ -15,7 +25,7 @@ variable "deploy-aws" {
   description = "A flag for enabling a deployment on AWS."
 }
 
-variable "deploy-aws-new" {
+variable "deploy-aws-kubecost" {
   type        = bool
   description = "A flag for enabling a deployment on AWS with Kubecost."
 }
@@ -81,7 +91,7 @@ variable "deploy-azure" {
   description = "A flag for enabling a deployment on Azure."
 }
 
-variable "deploy-azure-new" {
+variable "deploy-azure-kubecost" {
   type        = bool
   description = "A flag for enabling a deployment on Azure with Kubecost."
 }
@@ -167,7 +177,7 @@ variable "deploy-gcp" {
   description = "A flag for enabling a deployment on GCP."
 }
 
-variable "deploy-gcp-new" {
+variable "deploy-gcp-kubecost" {
   type        = bool
   description = "A flag for enabling a deployment on GCP with Kubecost."
 }
@@ -234,7 +244,7 @@ variable "deploy-vmware" {
   description = "A flag for enabling a deployment on VMware."
 }
 
-variable "deploy-vmware-new" {
+variable "deploy-vmware-kubecost" {
   type        = bool
   description = "A flag for enabling a deployment on VMware with Kubecost."
 }
@@ -305,31 +315,36 @@ variable "pcg_name" {
   description = "The name of the PCG that will be used to deploy the cluster."
 }
 
-# Input resources for the Static IP Pool (required for static IP placement)
-# variable "network_gateway" {
-#   type        = string
-#   description = "The IP address of the vSphere network gateway."
-# }
+# Input resources for the Static IP Pool (required for static IP placement only)
+variable "deploy-vmware-static" {
+  type        = bool
+  description = "A flag for enabling a deployment on VMware using static IP placement."
+}
 
-# variable "network_prefix" {
-#   type        = number
-#   description = "The prefix of your vSphere network. Valid values are network CIDR subnet masks from the range 0-32. Example: 18."
-# }
+variable "network_gateway" {
+  type        = string
+  description = "The IP address of the vSphere network gateway."
+}
 
-# variable "ip_range_start" {
-#   type        = string
-#   description = "The first IP address of your PCG IP pool range."
-# }
+variable "network_prefix" {
+  type        = number
+  description = "The prefix of your vSphere network. Valid values are network CIDR subnet masks from the range 0-32. Example: 18."
+}
 
-# variable "ip_range_end" {
-#   type        = string
-#   description = "The last IP address of your PCG IP pool range."
-# }
+variable "ip_range_start" {
+  type        = string
+  description = "The first IP address of your PCG IP pool range."
+}
 
-# variable "nameserver_addr" {
-#   type        = set(string)
-#   description = "A comma-separated list of DNS nameserver IP addresses of your network."
-# }
+variable "ip_range_end" {
+  type        = string
+  description = "The last IP address of your PCG IP pool range."
+}
+
+variable "nameserver_addr" {
+  type        = set(string)
+  description = "A comma-separated list of DNS nameserver IP addresses of your network."
+}
 
 
 ##############################
@@ -353,9 +368,11 @@ variable "replicas_number" {
 variable "db_password" {
   type        = string
   description = "The base64 encoded database password to connect to the API database."
+  sensitive   = true
 }
 
 variable "auth_token" {
   type        = string
   description = "The base64 encoded auth token for the API connection."
+  sensitive   = true
 }
