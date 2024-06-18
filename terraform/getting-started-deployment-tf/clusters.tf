@@ -70,7 +70,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
     name                    = "control-plane-pool"
     count                   = var.azure_control_plane_nodes.count
     instance_type           = var.azure_control_plane_nodes.instance_type
-    azs                     = var.azure_control_plane_nodes.azs
+    azs                     = var.azure-use-azs ? var.azure_control_plane_nodes.azs : [""]
     is_system_node_pool     = var.azure_control_plane_nodes.is_system_node_pool
     disk {
       size_gb = var.azure_control_plane_nodes.disk_size_gb
@@ -82,7 +82,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
     name                = "worker-basic"
     count               = var.azure_worker_nodes.count
     instance_type       = var.azure_worker_nodes.instance_type
-    azs                 = var.azure_worker_nodes.azs
+    azs                 = var.azure-use-azs ? var.azure_worker_nodes.azs : [""]
     is_system_node_pool = var.azure_worker_nodes.is_system_node_pool
   }
 
