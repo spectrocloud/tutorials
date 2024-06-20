@@ -1,6 +1,6 @@
 ## Docker
 
-To download the image issue the following commnad. Change the version tag as needed.
+To download the image, issue the following command. Change the version tag as needed.
 
 ```shell
 docker pull ghcr.io/spectrocloud/tutorials:1.0.12
@@ -12,7 +12,7 @@ You can start the container using the following command.
 docker run -p 5000:5000 --rm -it ghcr.io/spectrocloud/tutorials:1.0.12 bash
 ```
 
-> The Docker file is build for a Linux environment. You can use this on a Mac and Windows. Windows users will require the usage of WSL2.
+> The Docker file builds a Linux environment. You can use this image on a Mac and Windows. Windows users will require the usage of [WSL2](https://learn.microsoft.com/en-us/windows/wsl/about).
 
 The Docker image includes the following tools.
 
@@ -41,6 +41,7 @@ The Docker image includes the following tools.
 | `aws-cli`                 | AWS command-line interface                                                                              |
 | `oras`                    | Tool for pushing and pulling OCI artifacts to and from OCI registries                                   |
 | `podman`                  | Tool for building and deploying OCI images                                                              |
+| `k9s`                     | Tool that provides a terminal UI to interact with your Kubernetes clusters                              |
 
 ### Spectro Cloud Pack Registry Server
 
@@ -50,7 +51,7 @@ The Spectro Cloud registry server has the following credentials:
 
 - `password`: `admin`
 
-You can start the registry server by issuing the following command.
+You can start the registry server by issuing the command below.
 Keep in mind that the registry server is started in HTTP mode. For additional guidance, review the [Registry Server documentation](https://docs.spectrocloud.com/registries-and-packs/adding-a-custom-registry).
 
 ```shell
@@ -59,7 +60,7 @@ registry serve /etc/spectro/config.yml > /var/log/registry.log 2>&1 &
 
 # Local Builds
 
-If you are wanting to build the docker image locally you must provide the the build arguments for `PALETTE_VERSION`, `PALETTE_CLI_VERSION`, `PALETTE_EDGE_VERSION`, `PACKER_VERSION`, `ORAS_VERSION` and `TERRAFORM_VERSION`. Use the following command to build a local image. Replace the versions as needed.
+If you want to build the docker image locally, you must provide the build arguments for `PALETTE_VERSION`, `PALETTE_CLI_VERSION`, `PALETTE_EDGE_VERSION`, `PACKER_VERSION`, `ORAS_VERSION`, and `TERRAFORM_VERSION`. Use the following command to build a local image and replace the versions as needed.
 
 ```shell
 docker build --build-arg PALETTE_VERSION=4.0.2 --build-arg PALETTE_CLI_VERSION=4.2.2  --build-arg PALETTE_EDGE_VERSION=4.2.3 --build-arg PACKER_VERSION=1.9.4 --build-arg ORAS_VERSION=1.0.0 --build-arg PALETTE_REGISTRY_CLI_VERSION=4.2.0 --build-arg TERRAFORM_VERSION=1.7.0 -t tutorials .

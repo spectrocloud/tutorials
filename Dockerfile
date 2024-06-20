@@ -65,7 +65,9 @@ RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/li
         rm -rf /var/cache/apk/* && \
         wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
         unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
-        rm -rf terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+        rm -rf terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+        wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_amd64.tar.gz -O - | tar -xz -C /usr/local/bin && \
+        rm -rf k9s_Linux_amd64.tar
 
 ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip /usr/local/sbin/
 RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \
