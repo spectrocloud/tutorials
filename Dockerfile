@@ -24,6 +24,7 @@ ARG PALETTE_REGISTRY_CLI_VERSION
 ARG PACKER_VERSION
 ARG ORAS_VERSION
 ARG TERRAFORM_VERSION
+ARG K9S_VERSION
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
@@ -67,7 +68,7 @@ RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/li
         chown appuser: /home/appuser && \
         mkdir -p /home/appuser/.config/k9s && \
         mkdir -p /home/appuser/etc/xdg/k9s && \
-        wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_amd64.tar.gz -O - | tar -xz -C /usr/local/bin && \
+        wget https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_amd64.tar.gz -O - | tar -xz -C /usr/local/bin && \
         rm -rf k9s_Linux_amd64.tar && \
         wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
         unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
