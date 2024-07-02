@@ -17,7 +17,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-aws && var.deploy-aws-kubecost ? spectrocloud_cluster_profile.aws-profile-kubecost[0].id : spectrocloud_cluster_profile.aws-profile[0].id
+    id = var.deploy-aws && var.deploy-aws-kubecost ? resource.spectrocloud_cluster_profile.aws-profile-kubecost[0].id : resource.spectrocloud_cluster_profile.aws-profile[0].id
   }
 
   machine_pool {
@@ -61,7 +61,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-azure && var.deploy-azure-kubecost ? spectrocloud_cluster_profile.azure-profile-kubecost[0].id : spectrocloud_cluster_profile.azure-profile[0].id
+    id = var.deploy-azure && var.deploy-azure-kubecost ? resource.spectrocloud_cluster_profile.azure-profile-kubecost[0].id : resource.spectrocloud_cluster_profile.azure-profile[0].id
   }
 
   machine_pool {
@@ -108,7 +108,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-gcp && var.deploy-gcp-kubecost ? spectrocloud_cluster_profile.gcp-profile-kubecost[0].id : spectrocloud_cluster_profile.gcp-profile[0].id
+    id = var.deploy-gcp && var.deploy-gcp-kubecost ? resource.spectrocloud_cluster_profile.gcp-profile-kubecost[0].id : resource.spectrocloud_cluster_profile.gcp-profile[0].id
   }
 
   machine_pool {
@@ -147,7 +147,7 @@ resource "spectrocloud_cluster_vsphere" "vmware-cluster" {
   cloud_account_id = data.spectrocloud_cloudaccount_vsphere.account[0].id
 
   cloud_config {
-    ssh_key               = local.ssh_public_key
+    ssh_keys              = [local.ssh_public_key]
     datacenter            = var.datacenter_name
     folder                = var.folder_name
     static_ip             = var.deploy-vmware-static # If true, the cluster will use static IP placement. If false, the cluster will use DDNS.
@@ -155,7 +155,7 @@ resource "spectrocloud_cluster_vsphere" "vmware-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-vmware && var.deploy-vmware-kubecost ? spectrocloud_cluster_profile.vmware-profile-kubecost[0].id : spectrocloud_cluster_profile.vmware-profile[0].id
+    id = var.deploy-vmware && var.deploy-vmware-kubecost ? resource.spectrocloud_cluster_profile.vmware-profile-kubecost[0].id : resource.spectrocloud_cluster_profile.vmware-profile[0].id
   }
 
   scan_policy {

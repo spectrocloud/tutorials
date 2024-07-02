@@ -8,7 +8,12 @@
 variable "palette-project" {
   type        = string
   description = "The name of your project in Palette."
-  default     = ""
+
+  validation {
+    condition     = var.palette-project != ""
+    error_message = "Provide the correct Palette project."
+  }
+
 }
 
 #######
@@ -17,7 +22,11 @@ variable "palette-project" {
 variable "aws-cloud-account-name" {
   type        = string
   description = "The name of your AWS account as assigned in Palette."
-  default     = ""
+
+  validation {
+    condition     = var.deploy-aws ? var.aws-cloud-account-name != "REPLACE ME" && var.aws-cloud-account-name != "" : true
+    error_message = "Provide the correct AWS cloud account name."
+  }
 }
 
 variable "deploy-aws" {
@@ -34,12 +43,21 @@ variable "aws-region" {
   type        = string
   description = "AWS region"
   default     = "us-east-1"
+
+  validation {
+    condition     = var.deploy-aws ? var.aws-region != "REPLACE ME" && var.aws-region != "" : true
+    error_message = "Provide the correct AWS region."
+  }
 }
 
 variable "aws-key-pair-name" {
   type        = string
   description = "The name of the AWS key pair to use for SSH access to the cluster."
-  default     = ""
+
+  validation {
+    condition     = var.deploy-aws ? var.aws-key-pair-name != "REPLACE ME" && var.aws-key-pair-name != "" : true
+    error_message = "Provide the correct AWS SSH key pair name."
+  }
 }
 
 variable "aws_control_plane_nodes" {
@@ -58,6 +76,11 @@ variable "aws_control_plane_nodes" {
     availability_zones = ["us-east-1a"]
   }
   description = "AWS control plane nodes configuration."
+
+  validation {
+    condition     = var.deploy-aws ? length(var.aws_control_plane_nodes.availability_zones) > 0 && !contains(var.aws_control_plane_nodes.availability_zones, "REPLACE ME") : true
+    error_message = "The availability_zones parameter must be set correctly"
+  }
 }
 variable "aws_worker_nodes" {
   type = object({
@@ -75,6 +98,11 @@ variable "aws_worker_nodes" {
     availability_zones = ["us-east-1a"]
   }
   description = "AWS worker nodes configuration."
+
+  validation {
+    condition     = var.deploy-aws ? length(var.aws_worker_nodes.availability_zones) > 0 && !contains(var.aws_worker_nodes.availability_zones, "REPLACE ME") : true
+    error_message = "The availability_zones parameter must be set correctly"
+  }
 }
 
 #######
@@ -84,6 +112,11 @@ variable "azure-cloud-account-name" {
   type        = string
   description = "The name of your Azure account as assigned in Palette."
   default     = ""
+
+  validation {
+    condition     = var.deploy-azure ? var.azure-cloud-account-name != "REPLACE ME" && var.azure-cloud-account-name != "" : true
+    error_message = "Provide the correct Azure cloud account name."
+  }
 }
 
 variable "deploy-azure" {
@@ -100,12 +133,22 @@ variable "azure_subscription_id" {
   type        = string
   description = "Azure subscription ID."
   default     = ""
+
+  validation {
+    condition     = var.deploy-azure ? var.azure_subscription_id != "REPLACE ME" && var.azure_subscription_id != "" : true
+    error_message = "Provide the correct Azure subscription ID."
+  }
 }
 
 variable "azure_resource_group" {
   type        = string
   description = "Azure resource group."
   default     = ""
+
+  validation {
+    condition     = var.deploy-azure ? var.azure_resource_group != "REPLACE ME" && var.azure_resource_group != "" : true
+    error_message = "Provide the correct Azure resource group name."
+  }
 }
 
 variable "azure-use-azs" {
@@ -117,6 +160,11 @@ variable "azure-region" {
   type        = string
   description = "Azure region."
   default     = "eastus"
+
+  validation {
+    condition     = var.deploy-azure ? var.azure-region != "REPLACE ME" && var.azure-region != "" : true
+    error_message = "Provide the correct Azure region name."
+  }
 }
 
 variable "azure_control_plane_nodes" {
@@ -164,12 +212,22 @@ variable "gcp-cloud-account-name" {
   type        = string
   description = "The name of your GCP account as assigned in Palette."
   default     = ""
+
+  validation {
+    condition     = var.deploy-gcp ? var.gcp-cloud-account-name != "REPLACE ME" && var.gcp-cloud-account-name != "" : true
+    error_message = "Provide the correct GCP cloud account name."
+  }
 }
 
 variable "gcp_project_name" {
   type        = string
   description = "The name of your GCP project."
   default     = ""
+
+  validation {
+    condition     = var.deploy-gcp ? var.gcp_project_name != "REPLACE ME" && var.gcp_project_name != "" : true
+    error_message = "Provide the correct GCP project name."
+  }
 }
 
 variable "deploy-gcp" {
@@ -186,6 +244,11 @@ variable "gcp-region" {
   type        = string
   description = "GCP region"
   default     = "us-central1"
+
+  validation {
+    condition     = var.deploy-gcp ? var.gcp-region != "REPLACE ME" && var.gcp-region != "" : true
+    error_message = "Provide the correct GCP region."
+  }
 }
 
 variable "gcp_control_plane_nodes" {
@@ -203,6 +266,11 @@ variable "gcp_control_plane_nodes" {
     disk_size_gb  = "60"
   availability_zones = ["us-central1-a"] }
   description = "GCP control plane nodes configuration."
+
+  validation {
+    condition     = var.deploy-gcp ? length(var.gcp_control_plane_nodes.availability_zones) > 0 && !contains(var.gcp_control_plane_nodes.availability_zones, "REPLACE ME") : true
+    error_message = "The availability_zones parameter must be set correctly"
+  }
 }
 
 variable "gcp_worker_nodes" {
@@ -220,6 +288,11 @@ variable "gcp_worker_nodes" {
     disk_size_gb  = "60"
   availability_zones = ["us-central1-a"] }
   description = "GCP worker nodes configuration."
+
+  validation {
+    condition     = var.deploy-gcp ? length(var.gcp_worker_nodes.availability_zones) > 0 && !contains(var.gcp_worker_nodes.availability_zones, "REPLACE ME") : true
+    error_message = "The availability_zones parameter must be set correctly"
+  }
 }
 
 variable "tags" {
@@ -252,6 +325,11 @@ variable "deploy-vmware-kubecost" {
 variable "metallb_ip" {
   type        = string
   description = "The IP address range for your MetalLB load balancer."
+
+  validation {
+    condition     = var.deploy-vmware ? var.metallb_ip != "REPLACE ME" && var.metallb_ip != "" : true
+    error_message = "Provide the correct MetalLB IP."
+  }
 }
 
 variable "ssh_key" {
@@ -276,43 +354,83 @@ variable "ssh_key_private" {
 
 variable "datacenter_name" {
   type        = string
-  description = "The name of the datacenter in vSphere.."
+  description = "The name of the datacenter in vSphere."
+
+  validation {
+    condition     = var.deploy-vmware ? var.datacenter_name != "REPLACE ME" && var.datacenter_name != "" : true
+    error_message = "Provide the correct VMware vSphere datacenter name."
+  }
 }
 
 variable "folder_name" {
   type        = string
   description = "The name of the folder in vSphere."
+
+  validation {
+    condition     = var.deploy-vmware ? var.folder_name != "REPLACE ME" && var.folder_name != "" : true
+    error_message = "Provide the correct VMware vSphere folder name."
+  }
 }
 
 variable "search_domain" {
   type        = string
   description = "The name of network search domain."
+
+  validation {
+    condition     = var.deploy-vmware ? var.search_domain != "REPLACE ME" && var.search_domain != "" : true
+    error_message = "Provide the correct VMware vSphere search domain."
+  }
 }
 
 # Input resources for the cluster - Placement
 variable "vsphere_cluster" {
   type        = string
   description = "The name of your vSphere cluster."
+
+  validation {
+    condition     = var.deploy-vmware ? var.vsphere_cluster != "REPLACE ME" && var.vsphere_cluster != "" : true
+    error_message = "Provide the correct VMware vSphere cluster name."
+  }
 }
 
 variable "datastore_name" {
   type        = string
   description = "The name of the vSphere datastore."
+
+  validation {
+    condition     = var.deploy-vmware ? var.datastore_name != "REPLACE ME" && var.datastore_name != "" : true
+    error_message = "Provide the correct VMware vSphere datastore name."
+  }
 }
 
 variable "network_name" {
   type        = string
   description = "The name of the vSphere network."
+
+  validation {
+    condition     = var.deploy-vmware ? var.network_name != "REPLACE ME" && var.network_name != "" : true
+    error_message = "Provide the correct VMware vSphere network name."
+  }
 }
 
 variable "resource_pool_name" {
   type        = string
   description = "The name of the vSphere resource pool."
+
+  validation {
+    condition     = var.deploy-vmware ? var.resource_pool_name != "REPLACE ME" && var.resource_pool_name != "" : true
+    error_message = "Provide the correct VMware vSphere resource pool name."
+  }
 }
 
 variable "pcg_name" {
   type        = string
   description = "The name of the PCG that will be used to deploy the cluster."
+
+  validation {
+    condition     = var.deploy-vmware ? var.pcg_name != "REPLACE ME" && var.pcg_name != "" : true
+    error_message = "Provide the correct VMware vSphere PCG name."
+  }
 }
 
 # Input resources for the Static IP Pool (required for static IP placement only)
@@ -369,10 +487,20 @@ variable "db_password" {
   type        = string
   description = "The base64 encoded database password to connect to the API database."
   sensitive   = true
+
+  validation {
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp || var.deploy-vmware ? var.db_password != "REPLACE ME" && var.db_password != "" : true
+    error_message = "Provide the correct database password."
+  }
 }
 
 variable "auth_token" {
   type        = string
   description = "The base64 encoded auth token for the API connection."
   sensitive   = true
+
+  validation {
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp || var.deploy-vmware ? var.auth_token != "REPLACE ME" && var.auth_token != "" : true
+    error_message = "Provide the correct authentication token."
+  }
 }
