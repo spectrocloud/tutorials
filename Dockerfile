@@ -33,9 +33,10 @@ ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd-basic
 COPY --from=server /registry /usr/local/bin/
 COPY --from=server /etc/spectro/config.yml /etc/spectro/config.yml
 
-RUN adduser -H -u 1002 -D appuser appuser && \
+RUN adduser -u 1002 -D appuser appuser && \
     apk update && \
     apk add --no-cache bash curl git openssl jq bind-tools wget ca-certificates nano aws-cli xorriso govc podman
+
 
 RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/linux/spectro && \
         mv spectro /usr/local/bin/spectro && \
@@ -48,8 +49,8 @@ RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/li
         curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
         chmod +x ./kubectl && \
         mv ./kubectl /usr/local/bin/kubectl && \
-        mkdir -p ~/.config/ngrok && \ 
-        cp /auth/ngrok.yml ~/.config/ngrok/ngrok.yml  && \
+        mkdir -p /home/appuser/.config/ngrok && \ 
+        cp /auth/ngrok.yml /home/appuser/.config/ngrok/ngrok.yml  && \
         wget https://software.spectrocloud.com/palette-cli/v$PALETTE_CLI_VERSION/linux/cli/palette && \
         mv palette /usr/local/bin/palette && \
         chmod +x /usr/local/bin/palette && \
@@ -63,15 +64,21 @@ RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/li
         rm -rf oras_${ORAS_VERSION}_*.tar.gz oras-install/ && \
         git clone https://github.com/spectrocloud/CanvOS.git && \
         rm -rf /var/cache/apk/* && \
+        chown appuser: /home/appuser && \
+        mkdir -p /home/appuser/.config/k9s && \
+        mkdir -p /home/appuser/etc/xdg/k9s && \
+        wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_amd64.tar.gz -O - | tar -xz -C /usr/local/bin && \
+        rm -rf k9s_Linux_amd64.tar && \
         wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
         unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
         rm -rf terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-        wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_amd64.tar.gz -O - | tar -xz -C /usr/local/bin && \
-        rm -rf k9s_Linux_amd64.tar
+        mkdir -p /var/log/ && chmod 777 /var/log/ 
 
 ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip /usr/local/sbin/
 RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \
     rm -rf /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip
 EXPOSE 5000
+
+USER appuser
 
 CMD ["/bin/bash"]
