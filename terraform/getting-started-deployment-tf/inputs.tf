@@ -301,7 +301,7 @@ variable "tags" {
   default = [
     "spectro-cloud-education",
     "app:hello-universe",
-    "repository:spectrocloud:tutorials",
+    "spectrocloud:tutorials",
     "terraform_managed:true",
     "tutorial:getting-started-terraform"
   ]

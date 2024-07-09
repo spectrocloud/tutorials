@@ -19,6 +19,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     tag    = data.spectrocloud_pack.aws_ubuntu.version
     uid    = data.spectrocloud_pack.aws_ubuntu.id
     values = data.spectrocloud_pack.aws_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -26,6 +27,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     tag    = data.spectrocloud_pack.aws_k8s.version
     uid    = data.spectrocloud_pack.aws_k8s.id
     values = data.spectrocloud_pack.aws_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -33,6 +35,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     tag    = data.spectrocloud_pack.aws_cni.version
     uid    = data.spectrocloud_pack.aws_cni.id
     values = data.spectrocloud_pack.aws_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -40,6 +43,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     tag    = data.spectrocloud_pack.aws_csi.version
     uid    = data.spectrocloud_pack.aws_csi.id
     values = data.spectrocloud_pack.aws_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -53,6 +57,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 }
 
@@ -60,7 +65,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
 # AWS Cluster Profile v1.1.0
 ############################
 resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
-  count = var.deploy-aws-kubecost ? 1 : 0
+  count = var.deploy-aws ? 1 : 0
 
   name        = "tf-aws-profile"
   description = "A basic cluster profile for AWS with Kubecost"
@@ -74,6 +79,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
     tag    = data.spectrocloud_pack.aws_ubuntu.version
     uid    = data.spectrocloud_pack.aws_ubuntu.id
     values = data.spectrocloud_pack.aws_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -81,6 +87,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
     tag    = data.spectrocloud_pack.aws_k8s.version
     uid    = data.spectrocloud_pack.aws_k8s.id
     values = data.spectrocloud_pack.aws_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -88,6 +95,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
     tag    = data.spectrocloud_pack.aws_cni.version
     uid    = data.spectrocloud_pack.aws_cni.id
     values = data.spectrocloud_pack.aws_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -95,6 +103,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
     tag    = data.spectrocloud_pack.aws_csi.version
     uid    = data.spectrocloud_pack.aws_csi.id
     values = data.spectrocloud_pack.aws_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -108,6 +117,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 
   pack {
@@ -115,6 +125,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
     tag    = data.spectrocloud_pack.kubecost.version
     uid    = data.spectrocloud_pack.kubecost.id
     values = data.spectrocloud_pack.kubecost.values
+    type   = "oci"
   }
 }
 
@@ -136,6 +147,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     tag    = data.spectrocloud_pack.azure_ubuntu.version
     uid    = data.spectrocloud_pack.azure_ubuntu.id
     values = data.spectrocloud_pack.azure_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -143,6 +155,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     tag    = data.spectrocloud_pack.azure_k8s.version
     uid    = data.spectrocloud_pack.azure_k8s.id
     values = data.spectrocloud_pack.azure_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -150,6 +163,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     tag    = data.spectrocloud_pack.azure_cni.version
     uid    = data.spectrocloud_pack.azure_cni.id
     values = data.spectrocloud_pack.azure_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -157,6 +171,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     tag    = data.spectrocloud_pack.azure_csi.version
     uid    = data.spectrocloud_pack.azure_csi.id
     values = data.spectrocloud_pack.azure_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -170,6 +185,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 }
 
@@ -177,7 +193,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
 # Azure Cluster Profile v1.1.0
 ##############################
 resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
-  count = var.deploy-azure-kubecost ? 1 : 0
+  count = var.deploy-azure ? 1 : 0
 
   name        = "tf-azure-profile"
   description = "A basic cluster profile for Azure with Kubecost"
@@ -191,6 +207,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
     tag    = data.spectrocloud_pack.azure_ubuntu.version
     uid    = data.spectrocloud_pack.azure_ubuntu.id
     values = data.spectrocloud_pack.azure_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -198,6 +215,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
     tag    = data.spectrocloud_pack.azure_k8s.version
     uid    = data.spectrocloud_pack.azure_k8s.id
     values = data.spectrocloud_pack.azure_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -205,6 +223,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
     tag    = data.spectrocloud_pack.azure_cni.version
     uid    = data.spectrocloud_pack.azure_cni.id
     values = data.spectrocloud_pack.azure_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -212,6 +231,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
     tag    = data.spectrocloud_pack.azure_csi.version
     uid    = data.spectrocloud_pack.azure_csi.id
     values = data.spectrocloud_pack.azure_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -225,6 +245,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 
   pack {
@@ -232,6 +253,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
     tag    = data.spectrocloud_pack.kubecost.version
     uid    = data.spectrocloud_pack.kubecost.id
     values = data.spectrocloud_pack.kubecost.values
+    type   = "oci"
   }
 }
 
@@ -254,6 +276,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     tag    = data.spectrocloud_pack.gcp_ubuntu.version
     uid    = data.spectrocloud_pack.gcp_ubuntu.id
     values = data.spectrocloud_pack.gcp_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -261,6 +284,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     tag    = data.spectrocloud_pack.gcp_k8s.version
     uid    = data.spectrocloud_pack.gcp_k8s.id
     values = data.spectrocloud_pack.gcp_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -268,6 +292,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     tag    = data.spectrocloud_pack.gcp_cni.version
     uid    = data.spectrocloud_pack.gcp_cni.id
     values = data.spectrocloud_pack.gcp_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -275,6 +300,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     tag    = data.spectrocloud_pack.gcp_csi.version
     uid    = data.spectrocloud_pack.gcp_csi.id
     values = data.spectrocloud_pack.gcp_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -288,6 +314,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 }
 
@@ -295,7 +322,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
 # GCP Cluster Profile v1.1.0
 ############################
 resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
-  count = var.deploy-gcp-kubecost ? 1 : 0
+  count = var.deploy-gcp ? 1 : 0
 
   name        = "tf-gcp-profile"
   description = "A basic cluster profile for GCP with Kubecost"
@@ -309,6 +336,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
     tag    = data.spectrocloud_pack.gcp_ubuntu.version
     uid    = data.spectrocloud_pack.gcp_ubuntu.id
     values = data.spectrocloud_pack.gcp_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -316,6 +344,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
     tag    = data.spectrocloud_pack.gcp_k8s.version
     uid    = data.spectrocloud_pack.gcp_k8s.id
     values = data.spectrocloud_pack.gcp_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -323,6 +352,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
     tag    = data.spectrocloud_pack.gcp_cni.version
     uid    = data.spectrocloud_pack.gcp_cni.id
     values = data.spectrocloud_pack.gcp_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -330,6 +360,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
     tag    = data.spectrocloud_pack.gcp_csi.version
     uid    = data.spectrocloud_pack.gcp_csi.id
     values = data.spectrocloud_pack.gcp_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -343,6 +374,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 
   pack {
@@ -350,6 +382,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
     tag    = data.spectrocloud_pack.kubecost.version
     uid    = data.spectrocloud_pack.kubecost.id
     values = data.spectrocloud_pack.kubecost.values
+    type   = "oci"
   }
 }
 
@@ -371,6 +404,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
     tag    = data.spectrocloud_pack.vmware_ubuntu.version
     uid    = data.spectrocloud_pack.vmware_ubuntu.id
     values = data.spectrocloud_pack.vmware_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -378,6 +412,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
     tag    = data.spectrocloud_pack.vmware_k8s.version
     uid    = data.spectrocloud_pack.vmware_k8s.id
     values = data.spectrocloud_pack.vmware_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -385,6 +420,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
     tag    = data.spectrocloud_pack.vmware_cni.version
     uid    = data.spectrocloud_pack.vmware_cni.id
     values = data.spectrocloud_pack.vmware_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -392,6 +428,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
     tag    = data.spectrocloud_pack.vmware_csi.version
     uid    = data.spectrocloud_pack.vmware_csi.id
     values = data.spectrocloud_pack.vmware_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -399,6 +436,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
     tag    = data.spectrocloud_pack.vmware_metallb.version
     uid    = data.spectrocloud_pack.vmware_metallb.id
     values = replace(data.spectrocloud_pack.vmware_metallb.values, "192.168.10.0/24", var.metallb_ip)
+    type   = "oci"
   }
 
   pack {
@@ -412,6 +450,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 }
 
@@ -419,7 +458,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
 # VMware Cluster Profile v1.1.0
 ###############################
 resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
-  count = var.deploy-vmware-kubecost ? 1 : 0
+  count = var.deploy-vmware ? 1 : 0
 
   name        = "tf-vmware-profile"
   description = "A basic cluster profile for VMware with Kubecost"
@@ -433,6 +472,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
     tag    = data.spectrocloud_pack.vmware_ubuntu.version
     uid    = data.spectrocloud_pack.vmware_ubuntu.id
     values = data.spectrocloud_pack.vmware_ubuntu.values
+    type   = "spectro"
   }
 
   pack {
@@ -440,6 +480,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
     tag    = data.spectrocloud_pack.vmware_k8s.version
     uid    = data.spectrocloud_pack.vmware_k8s.id
     values = data.spectrocloud_pack.vmware_k8s.values
+    type   = "spectro"
   }
 
   pack {
@@ -447,6 +488,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
     tag    = data.spectrocloud_pack.vmware_cni.version
     uid    = data.spectrocloud_pack.vmware_cni.id
     values = data.spectrocloud_pack.vmware_cni.values
+    type   = "spectro"
   }
 
   pack {
@@ -454,6 +496,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
     tag    = data.spectrocloud_pack.vmware_csi.version
     uid    = data.spectrocloud_pack.vmware_csi.id
     values = data.spectrocloud_pack.vmware_csi.values
+    type   = "spectro"
   }
 
   pack {
@@ -461,6 +504,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
     tag    = data.spectrocloud_pack.vmware_metallb.version
     uid    = data.spectrocloud_pack.vmware_metallb.id
     values = replace(data.spectrocloud_pack.vmware_metallb.values, "192.168.10.0/24", var.metallb_ip)
+    type   = "spectro"
   }
 
   pack {
@@ -474,6 +518,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
+    type = "oci"
   }
 
   pack {
@@ -481,5 +526,6 @@ resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
     tag    = data.spectrocloud_pack.kubecost.version
     uid    = data.spectrocloud_pack.kubecost.id
     values = data.spectrocloud_pack.kubecost.values
+    type   = "oci"
   }
 }
