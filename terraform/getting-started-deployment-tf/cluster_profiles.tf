@@ -436,7 +436,7 @@ resource "spectrocloud_cluster_profile" "vmware-profile" {
     tag    = data.spectrocloud_pack.vmware_metallb.version
     uid    = data.spectrocloud_pack.vmware_metallb.id
     values = replace(data.spectrocloud_pack.vmware_metallb.values, "192.168.10.0/24", var.metallb_ip)
-    type   = "oci"
+    type   = "spectro"
   }
 
   pack {
