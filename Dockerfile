@@ -24,6 +24,7 @@ ARG PALETTE_REGISTRY_CLI_VERSION
 ARG PACKER_VERSION
 ARG ORAS_VERSION
 ARG TERRAFORM_VERSION
+ARG K9S_VERSION
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
@@ -64,10 +65,15 @@ RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/li
         rm -rf oras_${ORAS_VERSION}_*.tar.gz oras-install/ && \
         git clone https://github.com/spectrocloud/CanvOS.git && \
         rm -rf /var/cache/apk/* && \
+        chown appuser: /home/appuser && \
+        mkdir -p /home/appuser/.config/k9s && \
+        mkdir -p /home/appuser/etc/xdg/k9s && \
+        wget https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_amd64.tar.gz -O - | tar -xz -C /usr/local/bin && \
+        rm -rf k9s_Linux_amd64.tar && \
         wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
         unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
         rm -rf terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-        mkdir -p /var/log/ && chmod 777 /var/log/
+        mkdir -p /var/log/ && chmod 777 /var/log/ 
 
 ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip /usr/local/sbin/
 RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \

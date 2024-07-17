@@ -17,8 +17,9 @@ build-docker: ## Build docker image
 	 --build-arg PALETTE_CLI_VERSION=$(PALETTE_CLI_VERION) \
 	--build-arg PALETTE_EDGE_VERSION=$(PALETTE_EDGE_VERSION) \
 	--build-arg PACKER_VERSION=$(PACKER_VERSION) \
-	--build-arg ORAS_VERSION=$(PACKER_VERSION) \
+	--build-arg ORAS_VERSION=$(ORAS_VERSION) \
 	--build-arg TERRAFORM_VERSION=$(TERRAFORM_VERSION) \
+	--build-arg K9S_VERSION=$(K9S_VERSION) \
 	 -t tutorials .
 
 
