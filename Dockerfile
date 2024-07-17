@@ -73,7 +73,7 @@ ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERS
 RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \
     rm -rf /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip && \
     mkdir -p /home/appuser/.config/packer && mkdir /root/.spectro && \
-    chown -R appuser:appuser /home/appuser/.config/packer terraform/ packs/ edge/ CanvOS/ /var/log/ /root/.spectro/  /etc/spectro/ 
+    chown -R appuser:appuser /home/appuser/.config/packer terraform/ packs/ edge/ CanvOS/ /var/log/ /root/.spectro/ /etc/spectro/ 
 EXPOSE 5000
 
 USER appuser
