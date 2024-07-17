@@ -71,7 +71,9 @@ RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/li
 
 ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip /usr/local/sbin/
 RUN unzip /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/sbin && \
-    rm -rf /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip
+    rm -rf /usr/local/sbin/packer_${PACKER_VERSION}_linux_amd64.zip && \
+    mkdir -p /home/appuser/.config/packer && \
+    chown -R appuser:appuser /home/appuser/.config/packer
 EXPOSE 5000
 
 USER appuser
