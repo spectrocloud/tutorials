@@ -159,7 +159,7 @@ data "spectrocloud_private_cloud_gateway" "pcg" {
 
 data "spectrocloud_pack" "hellouniverse" {
   name         = "hello-universe"
-  version      = "1.1.2"
+  version      = "1.2.0"
   registry_uid = data.spectrocloud_registry.community_registry.id
 }
 
