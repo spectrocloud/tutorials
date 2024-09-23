@@ -22,6 +22,8 @@ The following tutorial code is available:
 
 - [vmware-cluster-deployment-tf](./terraform/vmware-cluster-deployment-tf/README.md) - Learn how to deploy a VMware cluster and the Hello Universe application as a part of the Deploy App Workloads with a PCG tutorial. [Link](https://docs.spectrocloud.com/clusters/pcg/deploy-app-pcg)
 
+- [getting-started-deployment-tf](./terraform/getting-started-deployment-tf/README.md) - Learn how to deploy and update a cluster to AWS, Azure, GCP, and VMware vSphere with Palette. [Link](https://docs.spectrocloud.com/getting-started/terraform)
+
 ## Docker
 
 All the tutorials are available in a Docker image that you can use to get started with the tutorials.
