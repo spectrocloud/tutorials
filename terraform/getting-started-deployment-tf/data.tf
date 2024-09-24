@@ -143,7 +143,7 @@ data "spectrocloud_pack" "vmware_csi" {
 
 data "spectrocloud_pack" "vmware_metallb" {
   name         = "lb-metallb-helm"
-  version      = "0.13.11"
+  version      = "0.14.8"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
