@@ -53,7 +53,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     values = templatefile("manifests/values-3tier.yaml", {
       namespace   = var.app_namespace,
       port        = var.app_port,
-      replicas    = var.replicas_number
+      replicas    = var.replicas_number,
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
@@ -113,7 +113,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-kubecost" {
     values = templatefile("manifests/values-3tier.yaml", {
       namespace   = var.app_namespace,
       port        = var.app_port,
-      replicas    = var.replicas_number
+      replicas    = var.replicas_number,
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
@@ -181,7 +181,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     values = templatefile("manifests/values-3tier.yaml", {
       namespace   = var.app_namespace,
       port        = var.app_port,
-      replicas    = var.replicas_number
+      replicas    = var.replicas_number,
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
@@ -241,7 +241,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
     values = templatefile("manifests/values-3tier.yaml", {
       namespace   = var.app_namespace,
       port        = var.app_port,
-      replicas    = var.replicas_number
+      replicas    = var.replicas_number,
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })
@@ -310,7 +310,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     values = templatefile("manifests/values-3tier.yaml", {
       namespace   = var.app_namespace,
       port        = var.app_port,
-      replicas    = var.replicas_number
+      replicas    = var.replicas_number,
       db_password = base64encode(var.db_password),
       auth_token  = base64encode(var.auth_token)
     })

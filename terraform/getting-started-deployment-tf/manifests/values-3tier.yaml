@@ -18,3 +18,21 @@ manifests:
     replicas: ${replicas}
     dbPassword: ${db_password} # Add base64 encoded password
     authToken: ${auth_token} # Add base64 encoded token
+    ui:
+      useTolerations: false
+      tolerations:
+        effect: PreferNoSchedule
+        key: app
+        value: ui
+    api:
+      useTolerations: false
+      tolerations:
+        effect: PreferNoSchedule
+        key: app
+        value: api
+    postgres:
+      useTolerations: false
+      tolerations:
+        effect: PreferNoSchedule
+        key: app
+        value: postgres

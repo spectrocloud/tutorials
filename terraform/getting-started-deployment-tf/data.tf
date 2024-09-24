@@ -66,7 +66,7 @@ data "spectrocloud_pack" "azure_cni" {
 
 data "spectrocloud_pack" "azure_k8s" {
   name         = "kubernetes"
-  version      = "1.27.5"
+  version      = "1.30.4"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
