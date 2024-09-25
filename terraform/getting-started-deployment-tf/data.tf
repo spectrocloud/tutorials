@@ -125,19 +125,19 @@ data "spectrocloud_pack" "vmware_ubuntu" {
 
 data "spectrocloud_pack" "vmware_k8s" {
   name         = "kubernetes"
-  version      = "1.28.3"
+  version      = "1.28.13"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "vmware_cni" {
   name         = "cni-calico"
-  version      = "3.26.3"
+  version      = "3.27.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "vmware_csi" {
   name         = "csi-vsphere-csi"
-  version      = "3.0.2"
+  version      = "3.1.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
