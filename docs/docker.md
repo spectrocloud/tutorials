@@ -3,13 +3,13 @@
 To download the image, issue the following command. Change the version tag as needed.
 
 ```shell
-docker pull ghcr.io/spectrocloud/tutorials:1.0.12
+docker pull ghcr.io/spectrocloud/tutorials:1.1.11
 ```
 
 You can start the container using the following command.
 
 ```shell
-docker run -p 5000:5000 --rm -it ghcr.io/spectrocloud/tutorials:1.0.12 bash
+docker run -p 5000:5000 --rm -it ghcr.io/spectrocloud/tutorials:1.1.11 bash
 ```
 
 > The Docker file builds a Linux environment. You can use this image on a Mac and Windows. Windows users will require the usage of [WSL2](https://learn.microsoft.com/en-us/windows/wsl/about).
@@ -63,5 +63,5 @@ registry serve /etc/spectro/config.yml > /var/log/registry.log 2>&1 &
 If you want to build the docker image locally, you must provide the build arguments for `PALETTE_VERSION`, `PALETTE_CLI_VERSION`, `PALETTE_EDGE_VERSION`, `PACKER_VERSION`, `ORAS_VERSION`, `TERRAFORM_VERSION`, and `K9S_VERSION`. Use the following command to build a local image and replace the versions as needed.
 
 ```shell
-docker build --build-arg PALETTE_VERSION=4.0.2 --build-arg PALETTE_CLI_VERSION=4.4.0  --build-arg PALETTE_EDGE_VERSION=4.4.2 --build-arg PACKER_VERSION=1.11.0 --build-arg ORAS_VERSION=1.0.0 --build-arg PALETTE_REGISTRY_CLI_VERSION=4.3.0 --build-arg TERRAFORM_VERSION=1.9.0 --build-arg K9S_VERSION=0.32.5 -t tutorials .
+docker build --build-arg PALETTE_VERSION=4.5.0 --build-arg PALETTE_CLI_VERSION=4.5.0  --build-arg PALETTE_EDGE_VERSION=4.5.3 --build-arg PACKER_VERSION=1.11.0 --build-arg ORAS_VERSION=1.0.0 --build-arg PALETTE_REGISTRY_CLI_VERSION=4.5.0 --build-arg TERRAFORM_VERSION=1.9.0 --build-arg K9S_VERSION=0.32.5 -t tutorials .
 ```
