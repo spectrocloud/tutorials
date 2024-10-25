@@ -1,1 +1,0 @@
-cluster-group-name = "primary-group"
