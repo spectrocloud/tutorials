@@ -3,7 +3,6 @@
 
 variable "cluster-group-name" {
   type        = string
-  default     = "beehive"
   description = "The name of the cluster group to use for the virtual cluster"
 }
 
@@ -22,15 +21,15 @@ variable "scenario-two-cluster-name" {
 variable "single-container-image" {
   type        = string
   description = "The name of the container image to use for the virtual cluster in a single scenario"
-  default     = "ghcr.io/spectrocloud/hello-universe:1.0.12"
+  default     = "ghcr.io/spectrocloud/hello-universe:1.1.3"
 }
 
 variable "multiple_container_images" {
   type        = map(string)
   description = "The name of the container images to use for the virtual cluster in a multiple scenario"
   default = {
-    ui  = "ghcr.io/spectrocloud/hello-universe:1.0.12"
-    api = "ghcr.io/spectrocloud/hello-universe-api:1.0.8"
+    ui  = "ghcr.io/spectrocloud/hello-universe:1.1.3"
+    api = "ghcr.io/spectrocloud/hello-universe-api:1.0.12"
   }
 }
 

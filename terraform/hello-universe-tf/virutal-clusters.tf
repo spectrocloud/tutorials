@@ -6,7 +6,7 @@
 # ##########################################
 resource "spectrocloud_virtual_cluster" "cluster-1" {
   name              = var.scenario-one-cluster-name
-  cluster_group_uid = data.spectrocloud_cluster_group.beehive.id
+  cluster_group_uid = data.spectrocloud_cluster_group.cluster-group.id
 
   resources {
     max_cpu           = 4
@@ -33,7 +33,7 @@ resource "spectrocloud_virtual_cluster" "cluster-2" {
   count = var.enable-second-scenario == true ? 1 : 0
 
   name              = var.scenario-two-cluster-name
-  cluster_group_uid = data.spectrocloud_cluster_group.beehive.id
+  cluster_group_uid = data.spectrocloud_cluster_group.cluster-group.id
 
   resources {
     max_cpu           = 8

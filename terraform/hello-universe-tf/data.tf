@@ -1,9 +1,9 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
 
-data "spectrocloud_cluster_group" "beehive" {
+data "spectrocloud_cluster_group" "cluster-group" {
   name    = var.cluster-group-name
-  context = "system"
+  context = "project"
 }
 
 data "spectrocloud_registry" "public_registry" {
