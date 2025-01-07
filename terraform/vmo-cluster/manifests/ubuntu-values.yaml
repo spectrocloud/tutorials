@@ -1,0 +1,47 @@
+kubeadmconfig:
+  preKubeadmCommands:
+    - 'echo "====> Applying pre Kubeadm commands"'
+    # Force specific IP address as the Node InternalIP for kubelet
+    - apt update
+    - apt install -y grepcidr
+    - |
+      NETWORKS="10.11.136.0/24"
+      IPS=$(hostname -I)
+      for IP in $IPS
+      do
+         echo "$IP" | grepcidr "$NETWORKS" >/dev/null && echo " --node-ip=$IP" >> /etc/default/kubelet
+         if [ $? == 0 ]; then break; fi
+      done
+    # Increase audit_backlog_limit
+    - sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="audit_backlog_limit=256"/g' /etc/default/grub
+    - update-grub
+    # Clean up stale container images
+    - (crontab -l || true; echo "0 4 * * * /usr/bin/crictl -c /etc/crictl.yaml rmi --prune")| crontab -
+    # Update CA certs
+    - update-ca-certificates
+    # Start containerd with new configuration
+    - systemctl daemon-reload
+    - systemctl restart containerd
+  postKubeadmCommands:
+    - 'echo "====> Applying post Kubeadm commands"'
+  files:
+    - targetPath: /etc/containerd/config.toml
+      targetOwner: "root:root"
+      targetPermissions: "0644"
+      content: |
+        ## template: jinja
+
+        # Use config version 2 to enable new configuration fields.
+        # Config file is parsed as version 1 by default.
+        version = 2
+
+        imports = ["/etc/containerd/conf.d/*.toml"]
+
+        [plugins]
+          [plugins."io.containerd.grpc.v1.cri"]
+            sandbox_image = "registry.k8s.io/pause:3.9"
+            device_ownership_from_security_context = true
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+            runtime_type = "io.containerd.runc.v2"
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+            SystemdCgroup = true
