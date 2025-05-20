@@ -226,6 +226,8 @@ charts:
                     - VMLiveUpdateFeatures
                     - VMPersistentState
                     - Sidecar
+                    - VolumeMigration
+                    - CPUManager                    
                     # for additional feature gates refer to https://docs.spectrocloud.com/vm-management#featuregates
                 config:
                     evictionStrategy: "LiveMigrate"

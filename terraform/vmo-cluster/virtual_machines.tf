@@ -10,8 +10,8 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   cluster_context = data.spectrocloud_cluster.maas_vmo_cluster[0].context
 
   run_on_launch = true
-  namespace     = "default"
-  name          = "ubuntu-tutorial-vm"
+  namespace     = var.vm-deploy-namespace
+  name          = var.vm-deploy-name
 
   timeouts {
     create = "60m"
@@ -37,7 +37,7 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
         access_modes = ["ReadWriteMany"]
         resources {
           requests = {
-            storage = "50Gi"
+            storage = var.vm-storage-Gi
           }
         }
         storage_class_name = "ceph-block"
@@ -82,12 +82,12 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   }
 
   cpu {
-    cores   = 2
-    sockets = 1
-    threads = 1
+    cores   = var.vm-cpu-cores
+    sockets = var.vm-cpu-sockets
+    threads = var.vm-cpu-threads
   }
   memory {
-    guest = "4Gi"
+    guest = var.vm-memory-Gi
   }
 
   resources {}

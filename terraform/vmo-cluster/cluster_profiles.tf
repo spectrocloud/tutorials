@@ -5,12 +5,12 @@
 resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
   count = var.deploy-maas ? 1 : 0
 
-  name        = "tf-maas-vmo-profile"
+  name        = var.vmo-cluster-name
   description = "A basic cluster profile for MAAS VMO"
   tags        = concat(var.tags, ["env:maas"])
   cloud       = "maas"
-  type        = "cluster"
-  version     = "1.0.0"
+  type        = var.cluster-profile-type
+  version     = var.cluster-profile-version
 
   pack {
     name   = data.spectrocloud_pack.maas_ubuntu.name
@@ -46,6 +46,13 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
     type = "spectro"
   }
 
+  pack {
+    name   = "lb-metallb-helm"
+    tag    = "1.14.x"
+    uid    = data.spectrocloud_pack.maas_metallb.id
+    values = file("manifests/metallb-values.yaml")
+  }
+  
   pack {
     name   = data.spectrocloud_pack.maas_vmo.name
     tag    = data.spectrocloud_pack.maas_vmo.version

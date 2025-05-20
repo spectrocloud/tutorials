@@ -4,23 +4,67 @@
 #####################
 # Palette Settings
 #####################
-palette-project = "Default" # The name of your project in Palette.
+palette-project = "Default"                                 # The name of your project in Palette.
 
 ############################
 # MAAS Deployment Settings
 ############################
-deploy-maas    = false # Set to true to deploy to MAAS.
-deploy-maas-vm = false # Set to true to create a VM on MAAS cluster once deployed.
 
-pcg-name    = "REPLACE ME" # Provide the name of the PCG that will be used to deploy the Palette cluster.
-maas-domain = "REPLACE ME" # Provide the MAAS domain that will be used to deploy the Palette cluster.
+deploy-maas    = true                                       # Set to true to deploy to a new VMO cluster to MAAS.
+deploy-maas-vm = false                                      # Set to true to create a VM on MAAS VMO cluster once deployed.
 
-maas-worker-nodes         = 1              # Provide the number of worker nodes that will be used for the Palette cluster.
-maas-worker-resource-pool = "REPLACE ME"   # Provide a resource pool for the worker nodes.
-maas-worker-azs           = ["REPLACE ME"] # Provide a set of availability zones for the worker nodes.
-maas-worker-node-tags     = ["REPLACE ME"] # Provide a set of node tags for the worker nodes.
+pcg-name    = "maas-pcg"                                    # Provide the name of the PCG that will be used to deploy the Palette cluster.
+maas-domain = "maas.sc"                                     # Provide the MAAS domain that will be used to deploy the Palette cluster.
 
-maas-control-plane-nodes         = 1              # Provide the number of control plane nodes that will be used for the Palette cluster.
-maas-control-plane-resource-pool = "REPLACE ME"   # Provide a resource pool for the control plane nodes.
-maas-control-plane-azs           = ["REPLACE ME"] # Provide a set of availability zones for the control plane nodes.
-maas-control-plane-node-tags     = ["REPLACE ME"] # Provide a set of node tags for the control plane nodes.
+maas-worker-nodes         = 1                               # Provide the number of worker nodes that will be used for the Palette cluster.
+maas-worker-resource-pool = "bm-generic"                    # Provide a resource pool for the worker nodes.
+maas-worker-azs           = ["default"]                     # Provide a set of availability zones for the worker nodes.
+maas-worker-node-tags     = ["docs"]                        # Provide a set of node tags for the worker nodes.
+
+maas-control-plane-nodes         = 1                        # Provide the number of control plane nodes that will be used for the Palette cluster.
+maas-control-plane-resource-pool = "Palette-Sustaining"     # Provide a resource pool for the control plane nodes.
+maas-control-plane-azs           = ["az1"]                  # Provide a set of availability zones for the control plane nodes.
+maas-control-plane-node-tags     = ["docs-cp"]              # Provide a set of node tags for the control plane nodes.
+
+
+# #####################
+# # cluster_profiles.tf
+# #####################
+vmo-cluster-name        = "vmo-cluster-maas"
+cluster-profile-type      = "cluster"                          # Infrastructure, Full, or Add-on
+cluster-profile-version   = "1.0.0"                          # Version number for the cluster profile in Palette
+
+
+# ##############
+# # clusters.tf
+# ##############
+ctl-node-min-cpu          = 6                             # Minimum number of CPU cores required for control plane nodes
+ctl-node-min-memory-mb    = 16384                         # Minimum amount of RAM (memory) required for control plane nodes
+wrk-node-min-cpu          = 8                             # Minimum number of CPU cores required for worker nodes
+wrk-node-min-memory-mb    = 16384                         # Minimum amount of RAM (memory) required for worker nodes
+
+
+# ###########################
+# # manifests/k8s-values.yaml
+# ###########################
+pod_CIDR                =   "100.64.1.0/24"             # Set the subnet that your pods will run on
+serviceClusterIpRange   =   "100.64.2.0/24"
+
+
+# ###############################
+# # manifests/metallb-values.yaml
+# ###############################
+metallb-ip-pool         =   ["10.11.130.128/28"]                # IP addresses to be assigned for use by MetalLB
+
+
+# #####################
+# # virtual_machines.tf
+# #####################
+vm-deploy-namespace       = "default"                       # Namespace where your VM will be deployed.
+vm-deploy-name            = "vmo-vm"                        # The name of your VM
+# vm_labels                 = "my-vmo-vm"                     # Labels that will be applied to your VM. For this tutorial, use a single label.
+vm-storage-Gi             = "50Gi"                          # Size of the disk (PVC) that your VM will have.
+vm-cpu-cores              = 2                               # Number of CPU cores your VM will have.
+vm-cpu-sockets            = 1                               # Number of physical CPU sockets the CPU cores should be spread over.
+vm-cpu-threads            = 2                               # Number of CPU threads to use for the VM CPU
+vm-memory-Gi              = "4Gi"                           # Amount of RAM (memory) your VM will have

@@ -12,10 +12,10 @@ pack:
       - image: registry.k8s.io/pause:3.8
   #CIDR Range for Pods in cluster
   # Note : This must not overlap with any of the host or service network
-  podCIDR: "100.64.0.0/18"
+  podCIDR: var.pod_CIDR
   #CIDR notation IP range from which to assign service cluster IPs
   # Note : This must not overlap with any IP ranges assigned to nodes for pods.
-  serviceClusterIpRange: "100.64.64.0/18"
+  serviceClusterIpRange: var.serviceClusterIpRange
   palette:
     config:
       dashboard:
