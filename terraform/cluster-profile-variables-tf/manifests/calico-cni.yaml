@@ -1,0 +1,45 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
+pack:
+  content:
+    images:
+      - image: us-docker.pkg.dev/palette-images/packs/calico/3.29.2/cni:v3.29.2
+      - image: us-docker.pkg.dev/palette-images/packs/calico/3.29.2/node:v3.29.2
+      - image: us-docker.pkg.dev/palette-images/packs/calico/3.29.2/kube-controllers:v3.29.2
+
+manifests:
+  calico:
+    microk8s: "false"
+    images:
+      cni: ""
+      node: ""
+      kubecontroller: ""
+    # IPAM type to use. Supported types are calico-ipam, host-local
+    ipamType: "calico-ipam"
+
+    calico_ipam:
+      assign_ipv4: true
+      assign_ipv6: false
+
+    # Should be one of CALICO_IPV4POOL_IPIP or CALICO_IPV4POOL_VXLAN  
+    encapsulationType: "CALICO_IPV4POOL_IPIP"
+
+    # Should be one of Always, CrossSubnet, Never
+    encapsulationMode: "Always"
+
+    env:
+      # Additional env variables for calico-node
+      calicoNode:
+        # IPV6: "autodetect"
+        # FELIX_IPV6SUPPORT: "true"
+        # CALICO_IPV6POOL_NAT_OUTGOING: "true"
+      CALICO_IPV4POOL_CIDR: "{{.spectro.var.calico_ipv4_cidr}}"
+        # For EKS cluster with static provisioning, set IP_AUTODETECTION_METHOD to "interface=eth0"
+        # IP_AUTODETECTION_METHOD: "first-found"
+
+      # Additional env variables for calico-kube-controller deployment
+      calicoKubeControllers:
+        # LOG_LEVEL: "info"
+      LOG_LEVEL: "{{.spectro.var.loglevel}}"
+        # SYNC_NODE_LABELS: "true"
