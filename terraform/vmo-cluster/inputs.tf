@@ -241,36 +241,6 @@ variable "wrk-node-min-memory-mb" {
   }
 }
 
-variable "pod_CIDR" {
-  type        = string
-  description = "Set the subnet your K8s pods will use."
-
-  validation {
-    condition     = var.deploy-maas ? var.pod_CIDR != "REPLACE ME" && var.pod_CIDR != "" : true
-    error_message = "Provide a valid subnet in CIDR format ex: 1.1.1.1/24."
-  }
-}
-
-variable "serviceClusterIpRange" {
-  type        = string
-  description = "Set the subnet your K8s services will use."
-
-  validation {
-    condition     = var.deploy-maas ? var.serviceClusterIpRange != "REPLACE ME" && var.serviceClusterIpRange != "" : true
-    error_message = "Provide a valid subnet in CIDR format ex: 1.1.1.1/24."
-  }
-}
-
-variable "metallb-ip-pool" {
-  type        = set(string)     
-  description = "Set the IP addresses or subnet range for MetalLB to use for ingress."
-
-  validation {
-    condition     = var.deploy-maas ? var.metallb-ip-pool != "REPLACE ME" && var.metallb-ip-pool != "" : true
-    error_message = "Provide valid IP addresses or subnet range for MetalLB to use for ingress."
-  }
-}
-
 variable "vm-deploy-namespace" {
   type        = string
   description = "Set the target namespace where your VM will be deployed."

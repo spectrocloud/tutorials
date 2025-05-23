@@ -19,7 +19,7 @@ charts:
         first-pool:
           spec:
             addresses:
-              - var.metallb-ip-pool
+              - "REPLACE_ME"
               # - 192.168.100.50-192.168.100.60
             avoidBuggyIPs: true                     # Buggy IPs are any .0 or .255 addresses. These are commonly used for subnet ID and broadcast addresses.
             autoAssign: true

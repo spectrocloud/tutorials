@@ -44,19 +44,6 @@ wrk-node-min-cpu          = 8                             # Minimum number of CP
 wrk-node-min-memory-mb    = 16384                         # Minimum amount of RAM (memory) required for worker nodes
 
 
-# ###########################
-# # manifests/k8s-values.yaml
-# ###########################
-pod_CIDR                =   "100.64.1.0/24"             # Set the subnet that your pods will run on
-serviceClusterIpRange   =   "100.64.2.0/24"
-
-
-# ###############################
-# # manifests/metallb-values.yaml
-# ###############################
-metallb-ip-pool         =   ["10.11.130.128/28"]                # IP addresses to be assigned for use by MetalLB
-
-
 # #####################
 # # virtual_machines.tf
 # #####################
