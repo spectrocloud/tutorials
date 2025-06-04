@@ -1,4 +1,4 @@
-# Getting Started Cluster Deployment
+# Cluster Profile Variables Tutorial
 
 This folder contains the demo code for the **Getting Started Cluster Management with Terraform** tutorials.
 
