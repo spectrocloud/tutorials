@@ -2,9 +2,6 @@
 
 This folder contains the demo code for the **Cluster Profile Variables** tutorial.
 
-<!-- - [Cluster Management with Terraform - AWS](https://docs.spectrocloud.com/getting-started/aws/manage-cluster-tf)
-- [Cluster Management with Terraform - Azure](https://docs.spectrocloud.com/getting-started/azure/manage-cluster-tf)
-- [Cluster Management with Terraform - GCP](https://docs.spectrocloud.com/getting-started/gcp/manage-cluster-tf) -->
 
 The Terraform code has four main toggle variables that you can use to deploy to one of the following cloud providers.
 
