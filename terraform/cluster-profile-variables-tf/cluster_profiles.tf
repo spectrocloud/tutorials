@@ -13,7 +13,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
   type        = "cluster"
-  version     = "1.0.0" #Change to 1.1.0 if you want a new version.
+  version     = "1.0.0" 
 
   pack {
     name   = data.spectrocloud_pack.aws_ubuntu.name
