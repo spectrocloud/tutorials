@@ -3,7 +3,7 @@
 # Test case 3
 
 variables {
-  deploy-aws-var = true
+  deploy-aws = true
   db_password = "test_password"
   auth_token = "test_token"
   aws-cloud-account-name = "test-account"
