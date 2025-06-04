@@ -12,12 +12,6 @@ terraform {
       source  = "hashicorp/tls"
       version = "4.0.4"
     }
-
-    vsphere = {
-      source  = "hashicorp/vsphere"
-      version = ">= 2.6.1"
-    }
-
     local = {
       source  = "hashicorp/local"
       version = "2.4.1"

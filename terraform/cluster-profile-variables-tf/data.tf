@@ -108,26 +108,6 @@ data "spectrocloud_pack" "gcp_ubuntu" {
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
-#####################
-# Spectro Kubernetes Dashboard
-#####################
-
-data "spectrocloud_pack_simple" "k8s-dashboard" {
- name    = "spectro-k8s-dashboard"
- version = "2.7.1"
- type = "helm"
- registry_uid = data.spectrocloud_registry.public_registry.id
-}
-
-#####################
-# Hello Universe Pack
-#####################
-
-data "spectrocloud_pack" "hellouniverse" {
-  name         = "hello-universe"
-  version      = "1.2.0"
-  registry_uid = data.spectrocloud_registry.community_registry.id
-}
 
 #####################
 # Wordpress Chart

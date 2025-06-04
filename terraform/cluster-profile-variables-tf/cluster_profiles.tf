@@ -8,13 +8,12 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
   count = var.deploy-aws ? 1 : 0
 
 
-  name        = "aws-profile-variables-tf"
+  name        = "aws-profile-variables-tf" 
   description = "A basic cluster profile for AWS"
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
   type        = "cluster"
   version     = "1.0.0" 
-
   pack {
     name   = data.spectrocloud_pack.aws_ubuntu.name
     tag    = data.spectrocloud_pack.aws_ubuntu.version
@@ -47,43 +46,39 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     type   = "spectro"
   }
 
-pack {
-    name   = data.spectrocloud_pack.wordpress_chart.name
-    tag    = data.spectrocloud_pack.wordpress_chart.version
-    uid    = data.spectrocloud_pack.wordpress_chart.id
-    values = templatefile("manifests/wordpress-chart-default.yaml", {
-      wordpress_namespace = var.wordpress_namespace,
-      wordpress_port = var.wordpress_port,
-      replicas = var.replicaCount
-      }) 
-    type   = "oci"
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-chart-default.yaml")
+    type = "oci"
   }
 
   profile_variables {
     variable {
-      name = "replicaCount"
-      display_name = "Number of replicas"
-      format = "number"
-      description = "This is the number of replicas to deploy for Wordpress"
+      name          = "replicaCount"
+      display_name  = "Number of replicas"
+      format        = "number"
+      description   = "This is the number of replicas to deploy for Wordpress"
       default_value = var.replicaCount
-      required = true
-    } 
+      required      = true
+    }
     variable {
-      name = "wordpress_namespace"
-      display_name = "Wordpress: Namespace"
-      format = "string"
-      description = "Enter a new namespace for the Wordpress pack"
+      name          = "wordpress_namespace"
+      display_name  = "Wordpress: Namespace"
+      format        = "string"
+      description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
-      required = true
-    }   
-      variable {
-      name = "wordpress_port"
-      display_name = "Wordpress: Port"
-      format = "number"
-      description = "Set a new port for Wordpress HTTP"
+      required      = true
+    }
+    variable {
+      name          = "wordpress_port"
+      display_name  = "Wordpress: Port"
+      format        = "number"
+      description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port
-      is_sensitive = true
-      required = true
+      is_sensitive  = true
+      required      = true
     }
   }
 }
@@ -100,7 +95,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
   type        = "cluster"
-  version     = "1.1.0" # New version
+  version     = "1.1.0" 
 
   pack {
     name   = data.spectrocloud_pack.aws_ubuntu.name
@@ -134,43 +129,43 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
     type   = "spectro"
   }
 
-pack {
-    name   = data.spectrocloud_pack.wordpress_chart.name
-    tag    = data.spectrocloud_pack.wordpress_chart.version
-    uid    = data.spectrocloud_pack.wordpress_chart.id
-    values = templatefile("manifests/wordpress-chart-variables.yaml", {
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-chart-variables.yaml", {
       wordpress_namespace = var.wordpress_namespace,
-      wordpress_port = var.wordpress_port,
-      replicas = var.replicaCount
-      }) 
-    type   = "oci"
+      wordpress_port      = var.wordpress_port,
+      replicas            = var.replicaCount
+    })
+    type = "oci"
   }
 
   profile_variables {
     variable {
-      name = "replicaCount"
-      display_name = "Number of replicas"
-      format = "number"
-      description = "This is the number of replicas to deploy for Wordpress"
+      name          = "replicaCount"
+      display_name  = "Number of replicas"
+      format        = "number"
+      description   = "This is the number of replicas to deploy for Wordpress"
       default_value = var.replicaCount
-      required = true
-    } 
+      required      = true
+    }
     variable {
-      name = "wordpress_namespace"
-      display_name = "Wordpress: Namespace"
-      format = "string"
-      description = "Enter a new namespace for the Wordpress pack"
+      name          = "wordpress_namespace"
+      display_name  = "Wordpress: Namespace"
+      format        = "string"
+      description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
-      required = true
-    }   
-      variable {
-      name = "wordpress_port"
-      display_name = "Wordpress: Port"
-      format = "number"
-      description = "Set a new port for Wordpress HTTP"
+      required      = true
+    }
+    variable {
+      name          = "wordpress_port"
+      display_name  = "Wordpress: Port"
+      format        = "number"
+      description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port
-      is_sensitive = true
-      required = true
+      is_sensitive  = true
+      required      = true
     }
   }
 }
@@ -182,7 +177,7 @@ pack {
 resource "spectrocloud_cluster_profile" "azure-profile" {
   count = var.deploy-azure ? 1 : 0
 
-  name        = "tf-azure-profile"
+  name        = "azure-profile-variables-tf"
   description = "A basic cluster profile for Azure"
   tags        = concat(var.tags, ["env:azure"])
   cloud       = "azure"
@@ -221,28 +216,51 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     type   = "spectro"
   }
 
-  # pack {
-  #   name = data.spectrocloud_pack.hellouniverse.name
-  #   tag  = data.spectrocloud_pack.hellouniverse.version
-  #   uid  = data.spectrocloud_pack.hellouniverse.id
-  #   values = templatefile("manifests/values-3tier.yaml", {
-  #     port        = var.app_port,
-  #     replicas    = var.replicaCount,
-  #     db_password = base64encode(var.db_password),
-  #     auth_token  = base64encode(var.auth_token)
-  #   })
-  #   type = "oci"
-  # }
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-chart-default.yaml")
+    type = "oci"
+  }
+
+  profile_variables {
+    variable {
+      name          = "replicaCount"
+      display_name  = "Number of replicas"
+      format        = "number"
+      description   = "This is the number of replicas to deploy for Wordpress"
+      default_value = var.replicaCount
+      required      = true
+    }
+    variable {
+      name          = "wordpress_namespace"
+      display_name  = "Wordpress: Namespace"
+      format        = "string"
+      description   = "Enter a new namespace for the Wordpress pack"
+      default_value = var.wordpress_namespace
+      required      = true
+    }
+    variable {
+      name          = "wordpress_port"
+      display_name  = "Wordpress: Port"
+      format        = "number"
+      description   = "Set a new port for Wordpress HTTP"
+      default_value = var.wordpress_port
+      is_sensitive  = true
+      required      = true
+    }
+  }
 }
 
 ##############################
 # Azure Cluster Profile v1.1.0
 ##############################
-resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
+resource "spectrocloud_cluster_profile" "azure-profile-var" {
   count = var.deploy-azure ? 1 : 0
 
-  name        = "tf-azure-profile"
-  description = "A basic cluster profile for Azure with Kubecost"
+  name        = "azure-profile-variables-tf"
+  description = "A basic cluster profile for Azure with cluster profile variables"
   tags        = concat(var.tags, ["env:azure"])
   cloud       = "azure"
   type        = "cluster"
@@ -280,18 +298,40 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
     type   = "spectro"
   }
 
-  # pack {
-  #   name = data.spectrocloud_pack.hellouniverse.name
-  #   tag  = data.spectrocloud_pack.hellouniverse.version
-  #   uid  = data.spectrocloud_pack.hellouniverse.id
-  #   values = templatefile("manifests/values-3tier.yaml", {
-  #     port        = var.app_port,
-  #     replicas    = var.replicaCount,
-  #     db_password = base64encode(var.db_password),
-  #     auth_token  = base64encode(var.auth_token)
-  #   })
-  #   type = "oci"
-  # }
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-chart-variables.yaml")
+    type = "oci"
+  }
+  profile_variables {
+    variable {
+      name          = "replicaCount"
+      display_name  = "Number of replicas"
+      format        = "number"
+      description   = "This is the number of replicas to deploy for Wordpress"
+      default_value = var.replicaCount
+      required      = true
+    }
+    variable {
+      name          = "wordpress_namespace"
+      display_name  = "Wordpress: Namespace"
+      format        = "string"
+      description   = "Enter a new namespace for the Wordpress pack"
+      default_value = var.wordpress_namespace
+      required      = true
+    }
+    variable {
+      name          = "wordpress_port"
+      display_name  = "Wordpress: Port"
+      format        = "number"
+      description   = "Set a new port for Wordpress HTTP"
+      default_value = var.wordpress_port
+      is_sensitive  = true
+      required      = true
+    }
+  }
 }
 
 
@@ -301,7 +341,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-kubecost" {
 resource "spectrocloud_cluster_profile" "gcp-profile" {
   count = var.deploy-gcp ? 1 : 0
 
-  name        = "tf-gcp-profile"
+  name        = "gcp-profile-variables-tf"
   description = "A basic cluster profile for GCP"
   tags        = concat(var.tags, ["env:GCP"])
   cloud       = "gcp"
@@ -340,28 +380,50 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     type   = "spectro"
   }
 
-  # pack {
-  #   name = data.spectrocloud_pack.hellouniverse.name
-  #   tag  = data.spectrocloud_pack.hellouniverse.version
-  #   uid  = data.spectrocloud_pack.hellouniverse.id
-  #   values = templatefile("manifests/values-3tier.yaml", {
-  #     port        = var.app_port,
-  #     replicas    = var.replicaCount,
-  #     db_password = base64encode(var.db_password),
-  #     auth_token  = base64encode(var.auth_token)
-  #   })
-  #   type = "oci"
-  # }
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-chart-default.yaml")
+    type = "oci"
+  }
+  profile_variables {
+    variable {
+      name          = "replicaCount"
+      display_name  = "Number of replicas"
+      format        = "number"
+      description   = "This is the number of replicas to deploy for Wordpress"
+      default_value = var.replicaCount
+      required      = true
+    }
+    variable {
+      name          = "wordpress_namespace"
+      display_name  = "Wordpress: Namespace"
+      format        = "string"
+      description   = "Enter a new namespace for the Wordpress pack"
+      default_value = var.wordpress_namespace
+      required      = true
+    }
+    variable {
+      name          = "wordpress_port"
+      display_name  = "Wordpress: Port"
+      format        = "number"
+      description   = "Set a new port for Wordpress HTTP"
+      default_value = var.wordpress_port
+      is_sensitive  = true
+      required      = true
+    }
+  }
 }
 
 ############################
 # GCP Cluster Profile v1.1.0
 ############################
-resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
+resource "spectrocloud_cluster_profile" "gcp-profile-var" {
   count = var.deploy-gcp ? 1 : 0
 
-  name        = "tf-gcp-profile"
-  description = "A basic cluster profile for GCP with Kubecost"
+  name        = "gcp-profile-variables-tf"
+  description = "A basic cluster profile for GCP with cluster profile variables"
   tags        = concat(var.tags, ["env:GCP"])
   cloud       = "gcp"
   type        = "cluster"
@@ -399,152 +461,38 @@ resource "spectrocloud_cluster_profile" "gcp-profile-kubecost" {
     type   = "spectro"
   }
 
-  # pack {
-  #   name = data.spectrocloud_pack.hellouniverse.name
-  #   tag  = data.spectrocloud_pack.hellouniverse.version
-  #   uid  = data.spectrocloud_pack.hellouniverse.id
-  #   values = templatefile("manifests/values-3tier.yaml", {
-  #     port        = var.app_port,
-  #     replicas    = var.replicaCount,
-  #     db_password = base64encode(var.db_password),
-  #     auth_token  = base64encode(var.auth_token)
-  #   })
-  #   type = "oci"
-  # }
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-chart-variables.yaml")
+    type = "oci"
+  }
+  profile_variables {
+    variable {
+      name          = "replicaCount"
+      display_name  = "Number of replicas"
+      format        = "number"
+      description   = "This is the number of replicas to deploy for Wordpress"
+      default_value = var.replicaCount
+      required      = true
+    }
+    variable {
+      name          = "wordpress_namespace"
+      display_name  = "Wordpress: Namespace"
+      format        = "string"
+      description   = "Enter a new namespace for the Wordpress pack"
+      default_value = var.wordpress_namespace
+      required      = true
+    }
+    variable {
+      name          = "wordpress_port"
+      display_name  = "Wordpress: Port"
+      format        = "number"
+      description   = "Set a new port for Wordpress HTTP"
+      default_value = var.wordpress_port
+      is_sensitive  = true
+      required      = true
+    }
+  }
 }
-
-################################
-# VMware Cluster Profile v.1.0.0
-################################
-# resource "spectrocloud_cluster_profile" "vmware-profile" {
-#   count = var.deploy-vmware ? 1 : 0
-
-#   name        = "tf-vmware-profile"
-#   description = "A basic cluster profile for VMware"
-#   tags        = concat(var.tags, ["env:VMware"])
-#   cloud       = "vsphere"
-#   type        = "cluster"
-#   version     = "1.0.0"
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_ubuntu.name
-#     tag    = data.spectrocloud_pack.vmware_ubuntu.version
-#     uid    = data.spectrocloud_pack.vmware_ubuntu.id
-#     values = data.spectrocloud_pack.vmware_ubuntu.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_k8s.name
-#     tag    = data.spectrocloud_pack.vmware_k8s.version
-#     uid    = data.spectrocloud_pack.vmware_k8s.id
-#     values = data.spectrocloud_pack.vmware_k8s.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_cni.name
-#     tag    = data.spectrocloud_pack.vmware_cni.version
-#     uid    = data.spectrocloud_pack.vmware_cni.id
-#     values = data.spectrocloud_pack.vmware_cni.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_csi.name
-#     tag    = data.spectrocloud_pack.vmware_csi.version
-#     uid    = data.spectrocloud_pack.vmware_csi.id
-#     values = data.spectrocloud_pack.vmware_csi.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_metallb.name
-#     tag    = data.spectrocloud_pack.vmware_metallb.version
-#     uid    = data.spectrocloud_pack.vmware_metallb.id
-#     values = replace(data.spectrocloud_pack.vmware_metallb.values, "192.168.10.0/24", var.metallb_ip)
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name = data.spectrocloud_pack.hellouniverse.name
-#     tag  = data.spectrocloud_pack.hellouniverse.version
-#     uid  = data.spectrocloud_pack.hellouniverse.id
-#     values = templatefile("manifests/values-3tier.yaml", {
-#       namespace   = var.app_namespace,
-#       port        = var.app_port,
-#       replicas    = var.replicaCount,
-#       db_password = base64encode(var.db_password),
-#       auth_token  = base64encode(var.auth_token)
-#     })
-#     type = "oci"
-#   }
-# }
-
-# ###############################
-# # VMware Cluster Profile v1.1.0
-# ###############################
-# resource "spectrocloud_cluster_profile" "vmware-profile-kubecost" {
-#   count = var.deploy-vmware ? 1 : 0
-
-#   name        = "tf-vmware-profile"
-#   description = "A basic cluster profile for VMware with Kubecost"
-#   tags        = concat(var.tags, ["env:VMware"])
-#   cloud       = "vsphere"
-#   type        = "cluster"
-#   version     = "1.1.0"
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_ubuntu.name
-#     tag    = data.spectrocloud_pack.vmware_ubuntu.version
-#     uid    = data.spectrocloud_pack.vmware_ubuntu.id
-#     values = data.spectrocloud_pack.vmware_ubuntu.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_k8s.name
-#     tag    = data.spectrocloud_pack.vmware_k8s.version
-#     uid    = data.spectrocloud_pack.vmware_k8s.id
-#     values = data.spectrocloud_pack.vmware_k8s.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_cni.name
-#     tag    = data.spectrocloud_pack.vmware_cni.version
-#     uid    = data.spectrocloud_pack.vmware_cni.id
-#     values = data.spectrocloud_pack.vmware_cni.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_csi.name
-#     tag    = data.spectrocloud_pack.vmware_csi.version
-#     uid    = data.spectrocloud_pack.vmware_csi.id
-#     values = data.spectrocloud_pack.vmware_csi.values
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name   = data.spectrocloud_pack.vmware_metallb.name
-#     tag    = data.spectrocloud_pack.vmware_metallb.version
-#     uid    = data.spectrocloud_pack.vmware_metallb.id
-#     values = replace(data.spectrocloud_pack.vmware_metallb.values, "192.168.10.0/24", var.metallb_ip)
-#     type   = "spectro"
-#   }
-
-#   pack {
-#     name = data.spectrocloud_pack.hellouniverse.name
-#     tag  = data.spectrocloud_pack.hellouniverse.version
-#     uid  = data.spectrocloud_pack.hellouniverse.id
-#     values = templatefile("manifests/values-3tier.yaml", {
-#       namespace   = var.app_namespace,
-#       port        = var.app_port,
-#       replicas    = var.replicaCount,
-#       db_password = base64encode(var.db_password),
-#       auth_token  = base64encode(var.auth_token)
-#     })
-#     type = "oci"
-#   }
-# }

@@ -36,7 +36,7 @@ variable "deploy-aws" {
 
 variable "deploy-aws-var" {
   type        = bool
-  description = "A flag for enabling a deployment on AWS with Kubecost."
+  description = "A flag for enabling a deployment on AWS with cluster profile variables."
 }
 
 variable "aws-region" {
@@ -124,9 +124,9 @@ variable "deploy-azure" {
   description = "A flag for enabling a deployment on Azure."
 }
 
-variable "deploy-azure-kubecost" {
+variable "deploy-azure-var" {
   type        = bool
-  description = "A flag for enabling a deployment on Azure with Kubecost."
+  description = "A flag for enabling a deployment on Azure with cluster profile variables."
 }
 
 variable "azure_subscription_id" {
@@ -235,9 +235,9 @@ variable "deploy-gcp" {
   description = "A flag for enabling a deployment on GCP."
 }
 
-variable "deploy-gcp-kubecost" {
+variable "deploy-gcp-var" {
   type        = bool
-  description = "A flag for enabling a deployment on GCP with Kubecost."
+  description = "A flag for enabling a deployment on GCP with cluster profile variables."
 }
 
 variable "gcp-region" {
@@ -300,16 +300,16 @@ variable "tags" {
   description = "The default tags to apply to Palette resources."
   default = [
     "spectro-cloud-education",
-    "app:hello-universe",
+    "app:wordpress",
     "spectrocloud:tutorials",
     "terraform_managed:true",
-    "tutorial:getting-started-terraform"
+    "tutorial:cluster-profile-variables"
   ]
 }
 
-  variable "replicaCount" {
-    type        = number
-    description = "The number of pods to be created."
+variable "replicaCount" {
+  type        = number
+  description = "The number of pods to be created."
 }
 
 variable "wordpress_namespace" {
@@ -317,7 +317,7 @@ variable "wordpress_namespace" {
   description = "The Wordpress Namespace needs to be set."
   sensitive   = true
 
-validation {
+  validation {
     condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_namespace != "REPLACE ME" && var.wordpress_namespace != "" : true
     error_message = "Provide the namespace for Wordpress."
   }

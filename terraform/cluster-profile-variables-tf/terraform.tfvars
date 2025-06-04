@@ -10,16 +10,16 @@ palette-project = "Default" # The name of your project in Palette.
 ##############################
 # Application Configuration
 ##############################
-replicaCount      = "REPLACE ME"                                                  # The number of pods to be created for Wordpress.
-wordpress_namespace = "REPLACE ME"                                      # The namespace to be created for Wordpress.
-wordpress_port = "REPLACE ME"                                                   # The port to be created for HTTP for Wordpress.
+replicaCount        = "REPLACE ME" # The number of pods to be created for Wordpress.
+wordpress_namespace = "REPLACE ME" # The namespace to be created for Wordpress.
+wordpress_port      = "REPLACE ME" # The port to be created for HTTP for Wordpress.
 
 
 ###########################
 # AWS Deployment Settings
 ############################
-deploy-aws = false  # Set to true to deploy to AWS.
-deploy-aws-var   = false # Set to true to deploy to AWS and include Kubecost to your cluster profile.
+deploy-aws     = false # Set to true to deploy to AWS.
+deploy-aws-var = false # Set to true to deploy to AWS with cluster profile variables.
 
 aws-cloud-account-name = "REPLACE ME"
 aws-region             = "REPLACE ME"
@@ -30,7 +30,7 @@ aws_control_plane_nodes = {
   control_plane      = true
   instance_type      = "m4.2xlarge"
   disk_size_gb       = "60"
-  availability_zones = ["us-east-2a"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"].
+  availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"].
 }
 
 aws_worker_nodes = {
@@ -38,15 +38,15 @@ aws_worker_nodes = {
   control_plane      = false
   instance_type      = "m4.2xlarge"
   disk_size_gb       = "60"
-  availability_zones = ["us-east-2a"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"].
+  availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"].
 }
 
 ###########################
 # Azure Deployment Settings
 ############################
-deploy-azure          = false # Set to true to deploy to Azure.
-deploy-azure-var = false # Set to true to deploy to Azure and include Kubecost to your cluster profile.
-azure-use-azs         = false # Set to false when you deploy to a region without AZs.
+deploy-azure     = false # Set to true to deploy to Azure.
+deploy-azure-var = false # Set to true to deploy to Azure with cluster profile variables.
+azure-use-azs    = false # Set to false when you deploy to a region without AZs.
 
 azure-cloud-account-name = "REPLACE ME"
 azure-region             = "REPLACE ME"
@@ -75,8 +75,8 @@ azure_worker_nodes = {
 ###########################
 # GCP Deployment Settings
 ############################
-deploy-gcp          = false # Set to true to deploy to GCP.
-deploy-gcp-kubecost = false # Set to true to deploy to GCP and include Kubecost to your cluster profile.
+deploy-gcp     = false # Set to true to deploy to GCP.
+deploy-gcp-var = false # Set to true to deploy to GCP with cluster profile variables.
 
 gcp-cloud-account-name = "REPLACE ME"
 gcp-region             = "REPLACE ME"

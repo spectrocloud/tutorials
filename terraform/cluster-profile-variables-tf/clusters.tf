@@ -62,7 +62,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-azure && var.deploy-azure-kubecost ? resource.spectrocloud_cluster_profile.azure-profile-kubecost[0].id : resource.spectrocloud_cluster_profile.azure-profile[0].id
+    id = var.deploy-azure && var.deploy-azure-var ? resource.spectrocloud_cluster_profile.azure-profile-var[0].id : resource.spectrocloud_cluster_profile.azure-profile[0].id
   }
 
   machine_pool {
@@ -109,7 +109,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-gcp && var.deploy-gcp-kubecost ? resource.spectrocloud_cluster_profile.gcp-profile-kubecost[0].id : resource.spectrocloud_cluster_profile.gcp-profile[0].id
+    id = var.deploy-gcp && var.deploy-gcp-var ? resource.spectrocloud_cluster_profile.gcp-profile-var[0].id : resource.spectrocloud_cluster_profile.gcp-profile[0].id
   }
 
   machine_pool {
@@ -135,78 +135,3 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
     delete = "45m"
   }
 }
-
-################
-# VMware Cluster
-################
-
-# resource "spectrocloud_cluster_vsphere" "vmware-cluster" {
-#   count = var.deploy-vmware ? 1 : 0
-
-#   name             = "vmware-cluster"
-#   tags             = concat(var.tags, ["env:vmware"])
-#   cloud_account_id = data.spectrocloud_cloudaccount_vsphere.account[0].id
-
-#   cloud_config {
-#     ssh_keys              = [local.ssh_public_key]
-#     datacenter            = var.datacenter_name
-#     folder                = var.folder_name
-#     static_ip             = var.deploy-vmware-static # If true, the cluster will use static IP placement. If false, the cluster will use DDNS.
-#     network_search_domain = var.search_domain
-#   }
-
-#   cluster_profile {
-#     id = var.deploy-vmware && var.deploy-vmware-kubecost ? resource.spectrocloud_cluster_profile.vmware-profile-kubecost[0].id : resource.spectrocloud_cluster_profile.vmware-profile[0].id
-#   }
-
-#   scan_policy {
-#     configuration_scan_schedule = "0 0 * * SUN"
-#     penetration_scan_schedule   = "0 0 * * SUN"
-#     conformance_scan_schedule   = "0 0 1 * *"
-#   }
-
-#   machine_pool {
-#     name                    = "control-plane-pool"
-#     count                   = 1
-#     control_plane           = true
-#     control_plane_as_worker = true
-
-#     instance_type {
-#       cpu          = 4
-#       disk_size_gb = 60
-#       memory_mb    = 8000
-#     }
-
-#     placement {
-#       cluster       = var.vsphere_cluster
-#       datastore     = var.datastore_name
-#       network       = var.network_name
-#       resource_pool = var.resource_pool_name
-#       # Required for static IP placement.
-#       static_ip_pool_id = var.deploy-vmware-static ? resource.spectrocloud_privatecloudgateway_ippool.ippool[0].id : null
-#     }
-
-#   }
-
-#   machine_pool {
-#     name          = "worker-pool"
-#     count         = 1
-#     control_plane = false
-
-#     instance_type {
-#       cpu          = 4
-#       disk_size_gb = 60
-#       memory_mb    = 8000
-#     }
-
-#     placement {
-#       cluster       = var.vsphere_cluster
-#       datastore     = var.datastore_name
-#       network       = var.network_name
-#       resource_pool = var.resource_pool_name
-#       # Required for static IP placement.
-#       static_ip_pool_id = var.deploy-vmware-static ? resource.spectrocloud_privatecloudgateway_ippool.ippool[0].id : null
-#     }
-#   }
-
-# }
