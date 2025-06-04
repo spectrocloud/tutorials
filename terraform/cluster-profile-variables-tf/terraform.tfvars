@@ -45,7 +45,7 @@ aws_worker_nodes = {
 # Azure Deployment Settings
 ############################
 deploy-azure          = false # Set to true to deploy to Azure.
-deploy-azure-kubecost = false # Set to true to deploy to Azure and include Kubecost to your cluster profile.
+deploy-azure-var = false # Set to true to deploy to Azure and include Kubecost to your cluster profile.
 azure-use-azs         = false # Set to false when you deploy to a region without AZs.
 
 azure-cloud-account-name = "REPLACE ME"
