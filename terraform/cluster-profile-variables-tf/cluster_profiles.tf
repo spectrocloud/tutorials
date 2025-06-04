@@ -8,7 +8,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
   count = var.deploy-aws ? 1 : 0
 
 
-  name        = "aws-profile-variables-tf" #Enter your unique Palette AWS Profile name
+  name        = "aws-profile-variables-tf"
   description = "A basic cluster profile for AWS"
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
