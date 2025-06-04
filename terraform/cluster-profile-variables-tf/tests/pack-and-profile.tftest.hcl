@@ -4,8 +4,6 @@
 
 variables {
   deploy-aws = true
-  # db_password = "REPLACE ME"
-  # auth_token = "REPLACE ME" 
   wordpress_namespace = "REPLACE ME"       
   aws-cloud-account-name = "test-account"
   aws-region             = "test-region"
