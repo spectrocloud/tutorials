@@ -15,7 +15,7 @@ wordpress_namespace = "REPLACE ME" # The namespace to be created for Wordpress.
 wordpress_port      = "REPLACE ME" # The port to be created for HTTP for Wordpress.
 
 
-###########################
+############################
 # AWS Deployment Settings
 ############################
 deploy-aws     = false # Set to true to deploy to AWS.
@@ -41,7 +41,7 @@ aws_worker_nodes = {
   availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"].
 }
 
-###########################
+############################
 # Azure Deployment Settings
 ############################
 deploy-azure     = false # Set to true to deploy to Azure.
@@ -72,7 +72,7 @@ azure_worker_nodes = {
   is_system_node_pool = false
 }
 
-###########################
+############################
 # GCP Deployment Settings
 ############################
 deploy-gcp     = false # Set to true to deploy to GCP.

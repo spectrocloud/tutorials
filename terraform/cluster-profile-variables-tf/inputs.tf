@@ -16,9 +16,9 @@ variable "palette-project" {
 
 }
 
-#######
+########
 # AWS
-#######
+########
 variable "aws-cloud-account-name" {
   type        = string
   description = "The name of your AWS account as assigned in Palette."

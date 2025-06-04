@@ -12,9 +12,9 @@ data "spectrocloud_registry" "community_registry" {
   name = "Palette Community Registry"
 }
 
-#############
+##############
 # AWS
-#############
+##############
 data "spectrocloud_cloudaccount_aws" "account" {
   count = var.deploy-aws ? 1 : 0
   name  = var.aws-cloud-account-name

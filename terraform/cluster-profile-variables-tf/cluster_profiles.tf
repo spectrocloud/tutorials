@@ -1,9 +1,9 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
 
-############################
+#############################
 # AWS Cluster Profile v1.0.0
-############################
+#############################
 resource "spectrocloud_cluster_profile" "aws-profile" {
   count = var.deploy-aws ? 1 : 0
 
