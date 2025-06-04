@@ -1,6 +1,6 @@
 # Cluster Profile Variables Tutorial
 
-This folder contains the demo code for the **Getting Started Cluster Management with Terraform** tutorials.
+This folder contains the demo code for the **Cluster Profile Variables** tutorial.
 
 <!-- - [Cluster Management with Terraform - AWS](https://docs.spectrocloud.com/getting-started/aws/manage-cluster-tf)
 - [Cluster Management with Terraform - Azure](https://docs.spectrocloud.com/getting-started/azure/manage-cluster-tf)
