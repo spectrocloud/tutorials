@@ -10,7 +10,7 @@ palette-project = "Default" # The name of your project in Palette.
 ##############################
 # Application Configuration
 ##############################
-replicaCount        = "REPLACE ME" # The number of pods to be created for Wordpress.
+wordpress_replica   = "REPLACE ME" # The number of pods to be created for Wordpress.
 wordpress_namespace = "REPLACE ME" # The namespace to be created for Wordpress.
 wordpress_port      = "REPLACE ME" # The port to be created for HTTP for Wordpress.
 

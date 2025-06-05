@@ -307,7 +307,7 @@ variable "tags" {
   ]
 }
 
-variable "replicaCount" {
+variable "wordpress_replica" {
   type        = number
   description = "The number of pods to be created."
 }

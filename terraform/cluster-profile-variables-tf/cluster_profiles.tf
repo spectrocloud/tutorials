@@ -56,11 +56,11 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
 
   profile_variables {
     variable {
-      name          = "replicaCount"
+      name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
       description   = "This is the number of replicas to deploy for Wordpress"
-      default_value = var.replicaCount
+      default_value = var.wordpress_replica
       required      = true
     }
     variable {
@@ -136,18 +136,18 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
     values = file("manifests/wordpress-chart-variables.yaml", {
       wordpress_namespace = var.wordpress_namespace,
       wordpress_port      = var.wordpress_port,
-      replicas            = var.replicaCount
+      replicas            = var.wordpress_replica
     })
     type = "oci"
   }
 
   profile_variables {
     variable {
-      name          = "replicaCount"
+      name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
       description   = "This is the number of replicas to deploy for Wordpress"
-      default_value = var.replicaCount
+      default_value = var.wordpress_replica
       required      = true
     }
     variable {
@@ -226,11 +226,11 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
 
   profile_variables {
     variable {
-      name          = "replicaCount"
+      name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
       description   = "This is the number of replicas to deploy for Wordpress"
-      default_value = var.replicaCount
+      default_value = var.wordpress_replica
       required      = true
     }
     variable {
@@ -307,11 +307,11 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
   }
   profile_variables {
     variable {
-      name          = "replicaCount"
+      name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
       description   = "This is the number of replicas to deploy for Wordpress"
-      default_value = var.replicaCount
+      default_value = var.wordpress_replica
       required      = true
     }
     variable {
@@ -389,11 +389,11 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
   }
   profile_variables {
     variable {
-      name          = "replicaCount"
+      name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
       description   = "This is the number of replicas to deploy for Wordpress"
-      default_value = var.replicaCount
+      default_value = var.wordpress_replica
       required      = true
     }
     variable {
@@ -470,11 +470,11 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
   }
   profile_variables {
     variable {
-      name          = "replicaCount"
+      name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
       description   = "This is the number of replicas to deploy for Wordpress"
-      default_value = var.replicaCount
+      default_value = var.wordpress_replica
       required      = true
     }
     variable {

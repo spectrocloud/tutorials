@@ -202,7 +202,7 @@ charts:
     ## @param replicaCount Number of WordPress replicas to deploy
     ## NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1
     ##
-    replicaCount: '{{ .spectro.var.replicaCount }}'
+    replicaCount: '{{ .spectro.var.wordpress_replica }}'
     ## @param updateStrategy.type WordPress deployment strategy type
     ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
     ## NOTE: Set it to `Recreate` if you use a PV that cannot be mounted on multiple pods
