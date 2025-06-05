@@ -1,42 +1,43 @@
 pack:
     content:
         images:
-            - image: gcr.io/spectro-images-public/release/spectro-vm-dashboard:4.4.10
-            - image: gcr.io/spectro-images-public/release/kubevirt/virt-operator:v1.2.0
-            - image: registry.k8s.io/sig-storage/snapshot-validation-webhook:v6.3.4
-            - image: registry.k8s.io/sig-storage/snapshot-controller:v6.3.4
-            - image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.0.2-thick
+            - image: us-docker.pkg.dev/palette-images/palette/spectro-vm-dashboard:4.6.3
+            - image: us-docker.pkg.dev/palette-images/third-party/kubevirt-ui:v19
+            - image: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-operator:v1.4.0
+            - image: registry.k8s.io/sig-storage/snapshot-validation-webhook:v8.1.0
+            - image: registry.k8s.io/sig-storage/snapshot-controller:v8.1.0
+            - image: registry.k8s.io/descheduler/descheduler:v0.32.0
+            - image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.1.4-thick
             - image: ghcr.io/k8snetworkplumbingwg/multus-dynamic-networks-controller:latest-amd64
-            - image: quay.io/kubevirt/cdi-operator:v1.58.0
-            - image: quay.io/kubevirt/cdi-uploadproxy:v1.58.0
-            - image: quay.io/kubevirt/cdi-controller:v1.58.0
-            - image: quay.io/kubevirt/cdi-apiserver:v1.58.0
-            - image: quay.io/kubevirt/cdi-importer:v1.58.0
-            - image: quay.io/kubevirt/cdi-uploadserver:v1.58.0
-            - image: quay.io/kubevirt/cdi-cloner:v1.58.0
-            - image: gcr.io/spectro-images-public/release/kubevirt/virt-handler:v1.2.0
-            - image: gcr.io/spectro-images-public/release/kubevirt/virt-launcher:v1.2.0
-            - image: gcr.io/spectro-images-public/release/kubevirt/virt-exportproxy:v1.2.0
-            - image: gcr.io/spectro-images-public/release/kubevirt/virt-exportserver:v1.2.0
-            - image: gcr.io/spectro-images-public/release/kubevirt/virt-controller:v1.2.0
-            - image: gcr.io/spectro-images-public/release/kubevirt/virt-api:v1.2.0
-            - image: registry.k8s.io/descheduler/descheduler:v0.30.1
-            - image: gcr.io/spectro-images-public/release/virtual-machine-orchestrator/os/ubuntu-container-disk:22.04
-            - image: gcr.io/spectro-images-public/release/virtual-machine-orchestrator/os/fedora-container-disk:37
-            - image: gcr.io/spectro-images-public/release/virtual-machine-orchestrator/vlan-filtering/ubuntu:latest
-            - image: gcr.io/spectro-images-public/release/spectro-cleanup:1.0.2
-            - image: gcr.io/spectro-images-public/release/spectro-kubectl:1.30.2-spectro-4.4.a
+            - image: quay.io/kubevirt/cdi-operator:v1.61.0
+            - image: quay.io/kubevirt/cdi-uploadproxy:v1.61.0
+            - image: quay.io/kubevirt/cdi-controller:v1.61.0
+            - image: quay.io/kubevirt/cdi-apiserver:v1.61.0
+            - image: quay.io/kubevirt/cdi-importer:v1.61.0
+            - image: quay.io/kubevirt/cdi-uploadserver:v1.61.0
+            - image: quay.io/kubevirt/cdi-cloner:v1.61.0
+            - image: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-handler:v1.4.0
+            - image: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-launcher:v1.4.0
+            - image: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-exportproxy:v1.4.0
+            - image: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-exportserver:v1.4.0
+            - image: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-controller:v1.4.0
+            - image: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-api:v1.4.0
+            - image: us-docker.pkg.dev/palette-images/palette/virtual-machine-orchestrator/os/ubuntu-container-disk:22.04
+            - image: us-docker.pkg.dev/palette-images/palette/virtual-machine-orchestrator/os/fedora-container-disk:37
+            - image: us-docker.pkg.dev/palette-images/palette/virtual-machine-orchestrator/vlan-filtering/ubuntu:latest
+            - image: us-docker.pkg.dev/palette-images/palette/spectro-cleanup:1.0.3
+            - image: us-docker.pkg.dev/palette-images/palette/spectro-kubectl:v1.31.5-vmo
     namespace: vm-dashboard
     palette:
         config:
             dashboard:
                 access: private
-    spectrocloud.com/install-priority: "20"
+    spectrocloud.com/install-priority: "10"
 charts:
     virtual-machine-orchestrator:
         image:
-            repository: gcr.io/spectro-images-public/release/spectro-vm-dashboard
-            tag: "4.4.10"
+            repository: us-docker.pkg.dev/palette-images/palette/spectro-vm-dashboard
+            tag: "4.6.3"
         service:
             type: "ClusterIP"
         appConfig:
@@ -58,9 +59,10 @@ charts:
             ubuntu2204staticIP: false
             fedora37staticIP: false
             # To create additional vm templates refer to https://docs.spectrocloud.com/vm-management/create-manage-vm/create-vm-template
-        # This namespace will be used to store golden images
+        # This namespace used to store golden images.
+
         goldenImagesNamespace: "vmo-golden-images"
-        # These namespaces will be created and set up to deploy VMs into
+        # These namespaces are created and set up to deploy VMs into
         vmEnabledNamespaces:
             - "default"
             - "virtual-machines"
@@ -74,18 +76,18 @@ charts:
             enabled: true
             namespace: kube-system
             image:
-                repository: gcr.io/spectro-images-public/release/virtual-machine-orchestrator/vlan-filtering/ubuntu
+                repository: us-docker.pkg.dev/palette-images/palette/virtual-machine-orchestrator/vlan-filtering/ubuntu
                 pullPolicy: IfNotPresent
                 tag: "latest"
             env:
                 # Which bridge interface to control
-                bridgeIF: "br0"
+                bridgeIF: ${vmo-network-interface} #"br0"
                 # Beginning of VLAN range to enable
-                allowedVlans: "128,129"
+                allowedVlans: ${vm-vlans} # "1"
                 # Set to "true" to enable VLANs on the br0 interface for the host to use itself
                 allowVlansOnSelf: "true"
                 # Beginning of VLAN range to enable for use by the node itself
-                allowedVlansOnSelf: "128,129"
+                allowedVlansOnSelf: ${host-vlans} #"1"
         snapshot-controller:
             enabled: true
             replicas: 1
@@ -93,9 +95,9 @@ charts:
             image:
                 repository: registry.k8s.io/sig-storage/snapshot-controller
                 pullPolicy: IfNotPresent
-                tag: "v6.3.4"
-            # A list/array of extra args that should be used 
-            # when running the controller. Default args include log verbose level 
+                tag: "v8.1.0"
+            # A list/array of extra args to use
+            # when running the controller. Default args include log verbose level
             # and leader election
             extraArgs: []
             # snapshot webhook config
@@ -108,7 +110,7 @@ charts:
                     repository: registry.k8s.io/sig-storage/snapshot-validation-webhook
                     pullPolicy: IfNotPresent
                     # Overrides the image tag whose default is the chart appVersion.
-                    tag: "v6.3.4"
+                    tag: "v8.1.0"
                 validatingWebhook:
                     failurePolicy: Fail
                     timeoutSeconds: 2
@@ -116,14 +118,14 @@ charts:
                 # TLS certificate is required. This Helm chart relies on
                 # cert-manager.io for managing TLS certificates.
                 tls:
-                    # If not empty, this issuer will be used to sign the certificate.
-                    # If none is provided, a new, self-signing issuer will be created.
+                    # If not empty, this issuer is used to sign the certificate.
+                    # If none is provided, a new, self-signing issuer is created.
                     issuerRef: {}
                     # name: <ISSUER NAME>
                     # kind: <ClusterIssuer|Issuer>
                     # group: cert-manager.io
 
-                    # Certificate duration. The generated certificate will be automatically
+                    # Certificate duration. The generated certificate is automatically
                     # renewed 1/3 of `certDuration` before its expiry.
                     # Value must be in units accepted by Go time.ParseDuration.
                     # See https://golang.org/pkg/time/#ParseDuration for allowed formats.
@@ -190,10 +192,6 @@ charts:
                     velero.io/csi-volumesnapshot-class: "true"
             # time for sleep hook in seconds
             hooksleepTime: 12
-            # this install cert-manager latest version if not already installed
-            cert-manager:
-                enabled: false
-                installCRDs: true
         kubevirt:
             enabled: true
             # defaults to kubevirt
@@ -203,14 +201,14 @@ charts:
                 pod-security.kubernetes.io/enforce-version: v{{ .spectro.system.kubernetes.version | substr 0 4 }}
             replicas: 1
             service:
-                type: ClusterIP
+                type: LoadBalancer
                 port: 443
                 targetPort: 8443
             image:
-                repository: gcr.io/spectro-images-public/release/kubevirt/virt-operator
+                repository: us-docker.pkg.dev/palette-images/palette/kubevirt/virt-operator
                 pullPolicy: IfNotPresent
                 # Overrides the image tag whose default is the chart appVersion.
-                tag: "v1.2.0"
+                tag: "v1.4.0"
             ## The Kubevirt CR that gets created
             kubevirtResource:
                 name: kubevirt
@@ -225,15 +223,21 @@ charts:
                     - HotplugNICs
                     - VMLiveUpdateFeatures
                     - VMPersistentState
-                    - Sidecar
+                    - VolumesUpdateStrategy
                     - VolumeMigration
-                    - CPUManager                    
-                    # for additional feature gates refer to https://docs.spectrocloud.com/vm-management#featuregates
+                    - CPUManager
+                    - Sidecar
+                #- VMPersistentState
+                # for additional feature gates refer to https://docs.spectrocloud.com/vm-management#featuregates
                 config:
                     evictionStrategy: "LiveMigrate"
                     # additionalConfig lets you define any configuration other than developerConfiguration and evictionStrategy
                     additionalConfig:
                         vmStateStorageClass: "ceph-filesystem"
+                        #vmStateStorageClass: "" #fileSystem-based storageclass for persistent TPM
+                        migrations:
+                            allowAutoConverge: true
+                            completionTimeoutPerGiB: 800
                     # additionalDevConfig lets you define dev config other than emulation and feature gate
                     additionalDevConfig: {}
                     # vmRolloutStrategy lets you define how changes to a VM object propagate to its VMI objects
@@ -242,43 +246,40 @@ charts:
                 customizeComponents:
                 # flags:
                 #   api:
-                #     v: 
+                #     v:
                 #       "5"
                 #     port:
-                #       "8443"  
+                #       "8443"
                 imagePullPolicy: IfNotPresent
                 infra: {}
                 # The name of the Prometheus service account that needs read-access to KubeVirt endpoints
                 monitorAccount: "prometheus-operator-prometheus"
                 # The namespace Prometheus is deployed in
                 monitorNamespace: "monitoring"
-                # The namespace the service monitor will be deployed. Either specify this or the monitorNamespace
+                # The namespace the service monitor is deployed to. Either specify this or the monitorNamespace
                 serviceMonitorNamespace: "monitoring"
                 workloads: {}
                 workloadsUpdateStrategy:
                     workloadUpdateMethods:
                         - LiveMigrate
-                # uninstallStrategy to use, options are RemoveWorkloads, BlockUninstallIfWorkloadsExist 
+                # uninstallStrategy to use, options are RemoveWorkloads, BlockUninstallIfWorkloadsExist
                 uninstallStrategy: ""
             ingress:
-                enabled: true
+                enabled: false
                 ingressClassName: nginx
                 annotations:
                     cert-manager.io/issuer: kubevirt-selfsigned-issuer
                     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
                 labels: {}
                 hosts:
-                    - host: virt-exportproxy.maas-eng.sc
+                    - host: virt-exportproxy.maas.sc
                       paths:
                         - path: /
                           pathType: ImplementationSpecific
-                tls:
-                    - secretName: virt-exportproxy-tls
-                      hosts:
-                        - virt-exportproxy.maas-eng.sc
-                        #   - secretName: chart-example-tls
-                        #     hosts:
-                        #       - virt-exportproxy.maas.sc
+                          # tls:
+                          #   - secretName: chart-example-tls
+                          #     hosts:
+                          #       - virt-exportproxy.maas.sc
         cdi:
             enabled: true
             namespaceLabels:
@@ -289,40 +290,27 @@ charts:
                 repository: quay.io/kubevirt/cdi-operator
                 pullPolicy: IfNotPresent
                 # Overrides the image tag whose default is the chart appVersion.
-                tag: "v1.58.0"
-            service:
-                type: ClusterIP
-                port: 443
-                targetPort: 8443
+                tag: "v1.61.0"
             # set enabled to true and add private registry details to bring up VMs in airgap environment
             privateRegistry:
                 enabled: false
                 registryIP: #Ex: 10.10.225.20
-                registryBasePath: #Ex: specto-images
-            ## The CDI CR that gets created
-            cdiResource:
-                additionalFeatureGates:
-                # - FeatureName
-                additionalConfig:
-                    podResourceRequirements:
-                        requests:
-                            cpu: 1
-                            memory: 2G
-                        limits:
-                            cpu: 2
-                            memory: 8G
-                    filesystemOverhead:
-                        global: "0.055"
-                        storageClass:
-                            spectro-storage-class: "0.1"
-                            #insecureRegistries: [] # List of insecure registries to allow in the CDI importer, preffered in air-gapped environments
-                            #importProxy:
-                            #  HTTPProxy: "http://username:password@your-proxy-server:3128"
-                            #  HTTPSProxy: "http://username:password@your-proxy-server:3128"
-                            #  noProxy: "127.0.0.1,localhost,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.company.local"
-                            #  TrustedCAProxy: configmap-name # optional: the ConfigMap name of a user-provided trusted certificate authority (CA) bundle to be added to the importer pod CA bundle
+                registryBasePath:
+                #Ex: specto-images
+            serviceAccount:
+                # Specifies whether a service account should be created
+                create: true
+                # Annotations to add to the service account
+                annotations: {}
+                # The name of the service account to use.
+                # If not set and create is true, a name is generated using the fullname template
+                name: ""
+            service:
+                type: LoadBalancer
+                port: 443
+                targetPort: 8443
             ingress:
-                enabled: true
+                enabled: false
                 className: "nginx"
                 annotations:
                     cert-manager.io/issuer: cdi-selfsigned-issuer
@@ -332,41 +320,94 @@ charts:
                     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
                     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
                 hosts:
-                    - host: cdi-uploadproxy.maas-eng.sc
+                    - host: cdi-uploadproxy.maas.sc
                       paths:
                         - path: /
                           pathType: ImplementationSpecific
-                tls:
-                    - secretName: cdi-uploadproxy-tls
-                      hosts:
-                        - cdi-uploadproxy.maas-eng.sc
-                        #  - secretName: chart-example-tls
-                        #    hosts:
-                        #      - cdi-uploadproxy.maas.sc
+                tls: []
+                #  - secretName: chart-example-tls
+                #    hosts:
+                #      - cdi-uploadproxy.maas.sc
+            resources: {}
+            # We usually recommend not to specify default resources and to leave this as a conscious
+            # choice for the user. This also increases chances charts run on environments with little
+            # resources, such as Minikube. If you do want to specify resources, uncomment the following
+            # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+            # limits:
+            #   cpu: 100m
+            #   memory: 128Mi
+            # requests:
+            #   cpu: 100m
+            #   memory: 128Mi
+
+            ## The CDI CR that gets created
+            cdiResource:
+                additionalFeatureGates: # - FeatureName
+                additionalConfig:
+                    filesystemOverhead:
+                        global: "0.08"
+                        storageClass:
+                            spectro-storage-class: "0.08"
+                    podResourceRequirements:
+                        requests:
+                            cpu: 250m
+                            memory: 1G
+                        limits:
+                            cpu: 1
+                            memory: 8G
+                    insecureRegistries: [] # List of insecure registries to allow in the CDI importer, preffered in air-gapped environments
+                    importProxy:
+                    #HTTPProxy: "http://username:password@your-proxy-server:3128"
+                    #HTTPSProxy: "http://username:password@your-proxy-server:3128"
+                    #noProxy: "127.0.0.1,localhost,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.company.local"
+                    #TrustedCAProxy: configmap-name # optional: the ConfigMap name of an user-provided trusted certificate authority (CA) bundle to be added to the importer pod CA bundle
+                additionalSpec:
+                    infra:
+                        nodeSelector:
+                            kubernetes.io/os: linux
+                        tolerations:
+                            - key: CriticalAddonsOnly
+                              operator: Exists
+                    workload:
+                        nodeSelector:
+                            kubernetes.io/os: linux
+                    imagePullPolicy: IfNotPresent
         multus:
             enabled: true
             image:
                 repository: ghcr.io/k8snetworkplumbingwg/multus-cni
                 pullPolicy: IfNotPresent
                 # Overrides the image tag whose default is the chart appVersion.
-                tag: "v4.0.2-thick"
+                tag: "v4.1.4-thick"
             networkController:
                 criSocket:
                     enableK3SHostPath: false # true for K3S and RKE2, false for PXK-E
-                    criSocketContainerPath: /host/run/containerd/containerd.sock
+                    paletteAgentMode: false # true for running Palette Agent Mode clusters with PXK-E
+                    # criSocketHostPathOverride: /run/containerd/containerd.sock
             imagePullSecrets: []
             podAnnotations: {}
+            resources:
+                # We usually recommend not to specify default resources and to leave this as a conscious
+                # choice for the user. This also increases chances charts run on environments with little
+                # resources, such as Minikube. If you do want to specify resources, uncomment the following
+                # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+                limits:
+                    cpu: 100m
+                    memory: 1Gi
+                requests:
+                    cpu: 100m
+                    memory: 50Mi
             nodeSelector: {}
             affinity: {}
             dpdkCompatibility: false
             cleanup:
-                image: gcr.io/spectro-images-public/release/spectro-cleanup
-                tag: "1.0.2"
+                image: us-docker.pkg.dev/palette-images/palette/spectro-cleanup
+                tag: "1.0.3"
             networkAttachDef:
                 create: false
                 # a json string to apply
-                config: ''
-                # a sample config 
+                config: ""
+                # a sample config
                 # '{
                 #   "cniVersion": "0.3.0",
                 #   "type": "macvlan",
@@ -391,10 +432,9 @@ charts:
             image:
                 repository: registry.k8s.io/descheduler/descheduler
                 # Overrides the image tag whose default is the chart version
-                tag: "v0.30.1"
+                tag: "v0.32.0"
                 pullPolicy: IfNotPresent
-            imagePullSecrets:
-            #   - name: container-registry-secret
+            imagePullSecrets: #   - name: container-registry-secret
             resources:
                 requests:
                     cpu: 500m
@@ -402,6 +442,9 @@ charts:
                 limits:
                     cpu: 500m
                     memory: 256Mi
+            ports:
+                - containerPort: 10258
+                  protocol: TCP
             securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:
@@ -412,15 +455,15 @@ charts:
                 runAsNonRoot: true
                 runAsUser: 1000
             # podSecurityContext -- [Security context for pod](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-            podSecurityContext: {}
-            # fsGroup: 1000
-
+            podSecurityContext: {} # fsGroup: 1000
             nameOverride: ""
             fullnameOverride: "descheduler"
+            # -- Override the deployment namespace; defaults to .Release.Namespace
+            namespaceOverride: ""
             # labels that'll be applied to all resources
             commonLabels: {}
             cronJobApiVersion: "batch/v1"
-            schedule: "*/2 * * * *"
+            schedule: "*/15 * * * *"
             suspend: false
             # startingDeadlineSeconds: 200
             # successfulJobsHistoryLimit: 3
@@ -429,7 +472,7 @@ charts:
             # timeZone: Etc/UTC
 
             # Required when running as a Deployment
-            deschedulingInterval: 5m
+            deschedulingInterval: 15m
             # Specifies the replica count for Deployment
             # Set leaderElection if you want to use more than 1 replica
             # Set affinity.podAntiAffinity rule if you want to schedule onto a node
@@ -445,7 +488,7 @@ charts:
             #  retryPeriod: 2s
             #  resourceLock: "leases"
             #  resourceName: "descheduler"
-            #  resourceNamescape: "kube-system"
+            #  resourceNamespace: "kube-system"
 
             command:
                 - "/bin/descheduler"
@@ -453,10 +496,16 @@ charts:
                 v: 3
             # Recommended to use the latest Policy API version supported by the Descheduler app version
             deschedulerPolicyAPIVersion: "descheduler/v1alpha2"
+            # deschedulerPolicy contains the policies the descheduler executes.
+            # To use policies stored in an existing configMap use:
+            # NOTE: The name of the cm should comply to {{ template "descheduler.fullname" . }}
+            # deschedulerPolicy: {}
             deschedulerPolicy:
-                # nodeSelector: "key1=value1,key2=value2"
-                # maxNoOfPodsToEvictPerNode: 10
+                nodeSelector: kubevirt.io/schedulable=true
+                maxNoOfPodsToEvictPerNode: 10
                 # maxNoOfPodsToEvictPerNamespace: 10
+                metricsCollector:
+                    enabled: true
                 # ignorePvcPods: true
                 # evictLocalStoragePods: true
                 # evictDaemonSetPods: true
@@ -474,6 +523,8 @@ charts:
                           args:
                             ignorePvcPods: true
                             evictLocalStoragePods: true
+                            nodeFit: true
+                            ignorePodsWithoutPDB: true
                         - name: RemoveDuplicates
                         - name: RemovePodsHavingTooManyRestarts
                           args:
@@ -484,18 +535,34 @@ charts:
                             nodeAffinityType:
                                 - requiredDuringSchedulingIgnoredDuringExecution
                         - name: RemovePodsViolatingNodeTaints
+                          args:
+                            excludedTaints:
+                                - node.kubernetes.io/unschedulable
                         - name: RemovePodsViolatingInterPodAntiAffinity
                         - name: RemovePodsViolatingTopologySpreadConstraint
                         - name: LowNodeUtilization
                           args:
                             thresholds:
                                 cpu: 20
-                                memory: 20
-                                pods: 20
+                                memory: 25
+                                pods: 100
                             targetThresholds:
-                                cpu: 50
-                                memory: 50
-                                pods: 50
+                                cpu: 60
+                                memory: 75
+                                pods: 100
+                            metricsUtilization:
+                                metricsServer: true
+                            evictableNamespaces:
+                                exclude:
+                                    - "cert-manager"
+                                    - "kube-system"
+                                    - "palette-system"
+                                    - "metallb-system"
+                                    - "cluster-{{ .spectro.system.cluster.uid }}"
+                                    - "kubevirt"
+                                    - "monitoring"
+                                    - "nginx"
+                                    - "vm-dashboard"
                       plugins:
                         balance:
                             enabled:
@@ -552,11 +619,11 @@ charts:
                 create: true
                 # The name of the ServiceAccount to use.
                 # If not set and create is true, a name is generated using the fullname template
-                name:
-                # Specifies custom annotations for the serviceAccount
+                name: # Specifies custom annotations for the serviceAccount
                 annotations: {}
             podAnnotations: {}
-            podLabels: {}
+            podLabels:
+                spectrocloud.com/connection: proxy
             dnsConfig: {}
             livenessProbe:
                 failureThreshold: 3
@@ -583,8 +650,7 @@ charts:
                 # The namespace where Prometheus expects to find service monitors.
                 # namespace: ""
                 # Add custom labels to the ServiceMonitor resource
-                additionalLabels: {}
-                # prometheus: kube-prometheus-stack
+                additionalLabels: {} # prometheus: kube-prometheus-stack
                 interval: ""
                 # honorLabels: true
                 insecureSkipVerify: true

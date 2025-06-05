@@ -18,7 +18,8 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   }
 
   labels = {
-    "tf"             = "spectrocloud-tutorials"
+    labels = var.vm-labels
+    # "tf"             = "spectrocloud-tutorials"
     "kubevirt.io/vm" = "ubuntu-tutorial-vm"
   }
 

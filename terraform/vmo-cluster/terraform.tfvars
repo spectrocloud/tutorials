@@ -26,30 +26,54 @@ maas-control-plane-resource-pool = "Palette-Sustaining"     # Provide a resourc
 maas-control-plane-azs           = ["az1"]                  # Provide a set of availability zones for the control plane nodes.
 maas-control-plane-node-tags     = ["docs-cp"]              # Provide a set of node tags for the control plane nodes.
 
-
-# #####################
-# # cluster_profiles.tf
-# #####################
-vmo-cluster-name        = "vmo-cluster-maas"
-cluster-profile-type      = "cluster"                          # Infrastructure, Full, or Add-on
-cluster-profile-version   = "1.0.0"                          # Version number for the cluster profile in Palette
+ctl-node-min-cpu          = "6"                             # Minimum number of CPU cores required for control plane nodes
+ctl-node-min-memory-mb    = "16384"                         # Minimum amount of RAM (memory) required for control plane nodes
+wrk-node-min-cpu          = "8"                             # Minimum number of CPU cores required for worker nodes
+wrk-node-min-memory-mb    = "16384"                         # Minimum amount of RAM (memory) required for worker nodes
 
 
-# ##############
-# # clusters.tf
-# ##############
-ctl-node-min-cpu          = 6                             # Minimum number of CPU cores required for control plane nodes
-ctl-node-min-memory-mb    = 16384                         # Minimum amount of RAM (memory) required for control plane nodes
-wrk-node-min-cpu          = 8                             # Minimum number of CPU cores required for worker nodes
-wrk-node-min-memory-mb    = 16384                         # Minimum amount of RAM (memory) required for worker nodes
+#####################
+# cluster_profiles.tf
+#####################
+vmo_cluster_name        = "vmo-cluster-maas"
+clusterProfileType      =   "Full"                          # Infrastructure, Full, or Add-on
+clusterProfileVersion   =   1.0.0                           # Version number for the cluster profile in Palette
 
 
-# #####################
-# # virtual_machines.tf
-# #####################
+####################
+# ubuntu-values.tf
+#####################
+maas-host-cidr = "10.11.110.130/24"
+
+
+#####################
+# vmo-values.tf
+#####################
+vmo-network-interface = "br0"
+vm-vlans = ["1"]
+host-vlans = ["1"]
+
+
+
+###########################
+# manifests/k8s-values.yaml
+###########################
+pod-CIDR                =   "100.64.0.0/16"                                      # Set the subnet that your pods will run on
+clusterServicesCIDR   =   "100.64.64.0/16"
+
+
+###############################
+# manifests/metallb-values.yaml
+###############################
+metallb-ip-pool         =   "10.11.130.129-10.11.130.131"                # IP addresses to be assigned for use by MetalLB
+
+
+#####################
+# virtual_machines.tf
+#####################
 vm-deploy-namespace       = "default"                       # Namespace where your VM will be deployed.
 vm-deploy-name            = "vmo-vm"                        # The name of your VM
-# vm_labels                 = "my-vmo-vm"                     # Labels that will be applied to your VM. For this tutorial, use a single label.
+vm-labels                 = ["my-vmo-vm"]                     # Labels that will be applied to your VM. For this tutorial, use a single label.
 vm-storage-Gi             = "50Gi"                          # Size of the disk (PVC) that your VM will have.
 vm-cpu-cores              = 2                               # Number of CPU cores your VM will have.
 vm-cpu-sockets            = 1                               # Number of physical CPU sockets the CPU cores should be spread over.

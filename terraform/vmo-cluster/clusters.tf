@@ -8,7 +8,7 @@
 resource "spectrocloud_cluster_maas" "maas-cluster" {
   count = var.deploy-maas ? 1 : 0
 
-  name                 = var.vmo-cluster-name
+  name                 = "vmo-cluster-maas"
   tags                 = concat(var.tags, ["env:maas"])
   cloud_account_id     = data.spectrocloud_cloudaccount_maas.account[0].id
   pause_agent_upgrades = "unlock"
@@ -43,7 +43,7 @@ resource "spectrocloud_cluster_maas" "maas-cluster" {
     node_tags = var.maas-worker-node-tags
     instance_type {
       min_cpu       = var.wrk-node-min-cpu
-      min_memory_mb = var.wrk-node-min-memory-mb 
+      min_memory_mb = var.wrk-node-min-memory-mb
     }
     placement {
       resource_pool = var.maas-worker-resource-pool

@@ -5,7 +5,7 @@ kubeadmconfig:
     - apt update
     - apt install -y grepcidr
     - |
-      NETWORKS="10.11.136.128/27"
+      NETWORKS=${maas-host-cidr} #"###.###.###.###/###"
       IPS=$(hostname -I)
       for IP in $IPS
       do

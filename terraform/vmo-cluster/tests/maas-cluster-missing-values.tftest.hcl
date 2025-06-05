@@ -15,23 +15,6 @@ variables {
   maas-control-plane-resource-pool = "" 
   maas-control-plane-azs           = [] 
   maas-control-plane-node-tags     = []
-  vmo-cluster-name                 = ""
-  cluster-profile-type             = ""
-  cluster-profile-version          = ""
-  ctl-node-min-cpu          = 1
-  ctl-node-min-memory-mb    = 16384
-  wrk-node-min-cpu          = 1
-  wrk-node-min-memory-mb    = 16384
-  pod_CIDR                  = ""
-  serviceClusterIpRange     = ""
-  metallb-ip-pool           = []
-  vm-deploy-namespace       = ""
-  vm-deploy-name            = ""
-  vm-storage-Gi             = ""
-  vm-cpu-cores              = 2
-  vm-cpu-sockets            = 1
-  vm-cpu-threads            = 2
-  vm-memory-Gi              = ""
 }
 
 mock_provider "spectrocloud" {

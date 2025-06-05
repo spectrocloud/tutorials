@@ -31,29 +31,77 @@ variable "tags" {
   ]
 }
 
-# ###########################
-# # manifests/k8s-values.yaml
-# ###########################
-
-# variable "pod_CIDR" {
-#   type        = string
-#   description = "Subnet range to be used for pods in the cluster."
-# }
-
-# variable "serviceClusterIpRange" {
-#   type        = string
-#   description = "Subnet range to use for Cluster Services."
-#}
 
 
-# ################################
-# #  manifests/metallb-values.yaml
-# ################################
 
-# variable "metallb_ip_pool" {
-#   type        = number
-#   description = "IP addresses to be assigned to MetalLB. Format 1.1.1.1, 1.1.1.2 or '1.1.1.1-1.1.1.2"
-#}
+#####################
+# cluster_profiles.tf
+#####################
+
+variable "clusterProfileType" {
+  type        = string
+  description = "The name of the PCG that will be used to deploy the cluster."
+
+  validation {
+    condition     = var.deploy-maas ? var.clusterProfileType != "REPLACE ME" && lower(var.clusterProfileType) == "full" || lower(var.clusterProfileType) == "infrastructure" || lower(var.clusterProfileType) == "add-on" || lower(var.clusterProfileType) == "app" : true
+    error_message = "Cluster profile type must be "full", "infrastructure", "add-on", or "app"."
+  }
+}
+
+variable "clusterProfileVersion" {
+  type        = string
+  description = "The name of the PCG that will be used to deploy the cluster."
+
+  validation {
+    condition     = var.deploy-maas ? var.clusterProfileVersion != "REPLACE ME" && var.clusterProfileVersion > 0 : true
+    error_message = "Cluster profile version must be set."
+  }
+}
+
+#########################
+# clusters.tf
+#########################
+
+variable "ctl-node-min-cpu" {
+  type        = number
+  description = "Minimum number of CPU cores allocated to the Control Plane node."
+
+  validation {
+    condition     = var.deploy-maas ? var.ctl-node-min-cpu > 0 : true
+    error_message = "Provide a valid number of cores for your Control Plane node."
+  }
+}
+
+variable "ctl-node-min-memory-mb" {
+  type        = number
+  description = "Minimum amount of RAM allocated to the Control Plane node."
+
+  validation {
+    condition     = var.deploy-maas ? var.ctl-node-min-cpu > 0 : true
+    error_message = "Provide a valid amount of RAM (MB) for your Control Plane node."
+  }
+}
+
+variable "wrk-node-min-cpu" {
+  type        = number
+  description = "Minimum number of CPU cores allocated to the Control Plane node."
+
+  validation {
+    condition     = var.deploy-maas ? var.wrk-node-min-cpu > 0 : true
+    error_message = "Provide a valid number of cores for your worker node."
+  }
+}
+
+variable "wrk-node-min-memory-mb" {
+  type        = number
+  description = "Minimum amount of RAM allocated to the Control Plane node."
+
+  validation {
+    condition     = var.deploy-maas ? var.wrk-node-min-cpu > 0 : true
+    error_message = "Provide a valid amount of RAM (MB) for your worker node."
+  }
+}
+
 
 ######
 # MAAS
@@ -171,142 +219,167 @@ variable "maas-control-plane-node-tags" {
   }
 }
 
-variable "vmo-cluster-name" {
+#################
+# ubuntu-values.yaml
+#################
+
+variable "maas-host-cidr" {
   type        = string
-  description = "Set of node tags for the MAAS control plane nodes."
+  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
 
   validation {
-    condition     = var.deploy-maas ? var.vmo-cluster-name != "REPLACE ME" && var.vmo-cluster-name != "" : true
-    error_message = "Provide a valid set of node tags for control plane nodes."
+    condition     = var.deploy-maas ? !contains(var.maas-host-cidr, "REPLACE ME") && length(var.maas-host-cidr) != 0 : true
+    error_message = "Provide a valid Subnet (CIDR Notation) for MAAS server network."
   }
 }
 
-variable "cluster-profile-type" {
+#################
+# k8s-values.yaml
+#################
+
+variable "pod-cidr" {
   type        = string
-  description = "Identifies profile type of Infrastructure, Full, or Add-on."
+  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
 
   validation {
-    condition     = var.deploy-maas ? var.cluster-profile-type != "REPLACE ME" && var.cluster-profile-type != "" : true
-    error_message = "Provide a valid cluster profile type."
+    condition     = var.deploy-maas ? !contains(var.pod-cidr, "REPLACE ME") && length(var.pod-cidr) != 0 : true
+    error_message = "Provide a valid Subnet (CIDR Notation) for the pod network."
   }
 }
 
-variable "cluster-profile-version" {
+variable "clusterServicesCIDR" {
   type        = string
-  description = "Set the version number of the cluster profile to be created"
-  
+  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
+
   validation {
-    condition     = var.deploy-maas ? var.cluster-profile-version != "REPLACE ME" && var.cluster-profile-version != "" : true
-    error_message = "Provide a valid version number."
+    condition     = var.deploy-maas ? !contains(var.clusterServicesCIDR, "REPLACE ME") && length(var.clusterServicesCIDR) != 0 : true
+    error_message = "Provide a valid Subnet (CIDR Notation for cluster services."
   }
 }
 
-variable "ctl-node-min-cpu" {
+#####################
+# metallb-values.yaml
+#####################
+
+variable "metallb-ip-pool" {
+  type        = set(string)
+  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
+
+  validation {
+    condition     = var.deploy-maas ? !contains(var.metallb-ip-pool, "REPLACE ME") && length(var.metallb-ip-pool) != 0 : true
+    error_message = "Provide a valid Subnet (CIDR Notation) or IP Range (192.168.1.0-192.168.1.255) for MetalLB."
+  }
+}
+
+#################
+# vmo-values.yaml
+#################
+
+variable "vmo-network-interface" {
+  type        = string
+  description = "The network interface VMO will use for VM traffic."
+
+  validation {
+    condition     = var.deploy-maas ? !contains(var.vmo-network-interface, "REPLACE ME") && length(var.vmo-network-interface) != 0 : true
+    error_message = "Provide a valid network interface for the VMO service to use."
+  }
+}
+
+variable "vm-vlans" {
   type        = number
-  description = "Set the minimum number of CPU cores to be used for the control plane nodes."
-
-  validation {
-    condition     = var.deploy-maas ? var.ctl-node-min-cpu > 0 : true
-    error_message = "Provide a valid number of CPU cores to be used for control plane nodes."
-  }
+  description = "VM allowed VLANs."
+  default     = 1
 }
 
-variable "ctl-node-min-memory-mb" {
+variable "host-vlans" {
   type        = number
-  description = "Set the minimum amount of Memory to be used for the control plane nodes."
-
-  validation {
-    condition     = var.deploy-maas ? var.ctl-node-min-memory-mb > 0 : true
-    error_message = "Provide a valid number  amount of Memory to be used control plane nodes."
-  }
+  description = "Node Allowed VLANs"
+  default     = 1
 }
 
-variable "wrk-node-min-cpu" {
-  type        = number
-  description = "Set the minimum number of CPU cores to be used for the worker nodes."
-
-  validation {
-    condition     = var.deploy-maas ? var.wrk-node-min-cpu > 0 : true
-    error_message = "Provide a valid number of CPU cores to be used for control plane nodes."
-  }
-}
-
-variable "wrk-node-min-memory-mb" {
-  type        = number
-  description = "Set the minimum amount of Memory to be used for the worker nodes."
-
-  validation {
-    condition     = var.deploy-maas ? var.wrk-node-min-memory-mb > 0 : true
-    error_message = "Provide a valid amount of Memory to be used for the worker nodes."
-  }
-}
+#####################
+# virtual_machines.tf
+#####################
 
 variable "vm-deploy-namespace" {
   type        = string
-  description = "Set the target namespace where your VM will be deployed."
+  description = "The namespace where your VMs will be deployed."
 
   validation {
-    condition     = var.deploy-maas ? var.vm-deploy-namespace != "REPLACE ME" && var.vm-deploy-namespace != "" : true
-    error_message = "Provide valid namespace where your VM will be deployed."
+    condition     = var.deploy-maas ? !contains(var.vm-deploy-namespace, "REPLACE ME") && length(var.vm-deploy-namespace) != 0 : true
+    error_message = "Provide a valid target namespace for your VM deployment."
   }
 }
 
 variable "vm-deploy-name" {
   type        = string
-  description = "Provide a valid name for your VM."
+  description = "The namespace where your VMs will be deployed."
 
   validation {
-    condition     = var.deploy-maas ? var.vm-deploy-name != "REPLACE ME" && var.vm-deploy-name != "" : true
+    condition     = var.deploy-maas ? !contains(var.vm-deploy-name, "REPLACE ME") && length(var.vm-deploy-name) != 0 : true
     error_message = "Provide a valid name for your VM."
+  }
+}
+
+variable "vm-labels" {
+  type        = set(string)
+  description = "The namespace where your VMs will be deployed."
+
+  validation {
+    condition     = var.deploy-maas ? !contains(var.vm-labels, "REPLACE ME") && length(var.vm-labels) != 0 : true
+    error_message = "Provide valid labels for your VM."
   }
 }
 
 variable "vm-storage-Gi" {
   type        = string
-  description = "The amount of storage your VM will have."
+  description = "The amount of storage to provision for your VM in Gi."
 
   validation {
-    condition     = var.deploy-maas ? var.vm-storage-Gi != "REPLACE ME" && var.vm-storage-Gi != "" : true
-    error_message = "Provide a valid amount of storage for your VM. Include Gi at the end. Example 50Gi."
+    condition     = var.deploy-maas ? !contains(var.vm-storage-Gi, "REPLACE ME") && length(var.vm-storage-Gi) != 0  && endswith((var.vm-storage-Gi), "Gi") : true
+    error_message = "Provide a valid amount of storage for your VM. You must include "Gi" at the end of your numerical value. Example: "50Gi"."
   }
 }
 
 variable "vm-cpu-cores" {
   type        = number
-  description = "Set the minimum number of CPU cores to be used for the control plane nodes."
+  description = "Number of CPU cores to allocate to your VM."
+  default     = 1
 
   validation {
-    condition     = var.deploy-maas-vm ? var.vm-cpu-cores > 0 : true
-    error_message = "Provide a valid number of CPU cores to be used for control plane nodes."
+    condition     = var.deploy-maas ? var.vm-cpu-cores > 0 : true
+    error_message = "Provide a valid number of CPU cores to allocate to your VM."
   }
 }
 
 variable "vm-cpu-sockets" {
   type        = number
-  description = "The number of CPU sockets the VM will use. This can be multiple to allow for hardware failure."
+  description = "Number of CPU cores to allocate to your VM."
+  default     = 1
 
   validation {
-    condition     = var.deploy-maas-vm ? var.vm-cpu-sockets > 0 : true
-    error_message = "Provide a valid number of CPU sockets to be used by the VM. This can be multiple to allow for hardware failure."
+    condition     = var.deploy-maas ? var.vm-cpu-sockets > 0 : true
+    error_message = "Provide a valid number of CPU Sockets that your VM must use."
   }
 }
 
 variable "vm-cpu-threads" {
   type        = number
-  description = "Set the number of CPU threads the VM will use."
+  description = "Number of CPU cores to allocate to your VM."
+  default     = 1
 
   validation {
-    condition     = var.deploy-maas-vm ? var.vm-cpu-threads > 0 : true
-    error_message = "Provide a valid number of CPU threads the VM will use."
+    condition     = var.deploy-maas ? var.vm-cpu-threads > 0 : true
+    error_message = "Provide a valid number of CPU threads that your VM should use."
   }
 }
 
 variable "vm-memory-Gi" {
   type        = string
-  description = "The amount of memory your VM will have."
+  description = "The amount of storage to provision for your VM in Gi."
 
   validation {
-    condition     = var.deploy-maas ? var.vm-memory-Gi != "REPLACE ME" && var.vm-memory-Gi != "" : true
-    error_message = "Provide a valid amount of memory for your VM. Include Gi at the end. Example 4Gi."
+    condition     = var.deploy-maas ? !contains(var.vm-memory-Gi, "REPLACE ME") && length(var.vm-memory-Gi) != 0  && endswith((var.vm-memory-Gi), "Gi") : true
+    error_message = "Provide a valid amount of memory to allocate your VM. You must include "Gi" at the end of your numerical value. Example: "4Gi"."
   }
 }

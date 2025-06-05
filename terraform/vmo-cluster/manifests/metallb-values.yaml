@@ -19,9 +19,9 @@ charts:
         first-pool:
           spec:
             addresses:
-              - "REPLACE_ME"
+              - ${metallb-ip-pool} ###.###.###.###                   # Add your static IP addresses for MetalLB
               # - 192.168.100.50-192.168.100.60
-            avoidBuggyIPs: true                     # Buggy IPs are any .0 or .255 addresses. These are commonly used for subnet ID and broadcast addresses.
+            avoidBuggyIPs: true
             autoAssign: true
       l2advertisements:
         default:
