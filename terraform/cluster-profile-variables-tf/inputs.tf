@@ -310,6 +310,11 @@ variable "tags" {
 variable "wordpress_replica" {
   type        = number
   description = "The number of pods to be created."
+
+  validation {
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_replica != "REPLACE ME" && var.wordpress_replica >=0 : true
+    error_message = "The number of WordPress replicas must be  at least 0 or more."
+  }
 }
 
 variable "wordpress_namespace" {
@@ -328,8 +333,9 @@ variable "wordpress_port" {
   type        = number
   description = "The password to use for Wordpress."
   sensitive   = true
+  validation {
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_port != "REPLACE ME" && var.wordpress_replica !=0 : true
+    error_message = "The number of WordPress replicas must be  at least 0 or more."
+  }
 
 }
-
-
-

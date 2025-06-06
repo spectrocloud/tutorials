@@ -10,9 +10,9 @@ palette-project = "Default" # The name of your project in Palette.
 ##############################
 # Application Configuration
 ##############################
-wordpress_replica   = "REPLACE ME" # The number of pods to be created for Wordpress.
-wordpress_namespace = "REPLACE ME" # The namespace to be created for Wordpress.
-wordpress_port      = "REPLACE ME" # The port to be created for HTTP for Wordpress.
+wordpress_replica   = 1 # The number of pods to be created for Wordpress.
+wordpress_namespace = "wordpress" # The namespace to be created for Wordpress.
+wordpress_port      = 80 # The port to be created for HTTP for Wordpress.
 
 
 ############################
@@ -85,7 +85,7 @@ gcp_project_name       = "REPLACE ME"
 gcp_control_plane_nodes = {
   count              = "1"
   control_plane      = true
-  instance_type      = "n1-standard-4"
+  instance_type      = "e2-standard-4"
   disk_size_gb       = "60"
   availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }
@@ -93,7 +93,7 @@ gcp_control_plane_nodes = {
 gcp_worker_nodes = {
   count              = "1"
   control_plane      = false
-  instance_type      = "n1-standard-4"
+  instance_type      = "e2-standard-4"
   disk_size_gb       = "60"
   availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }

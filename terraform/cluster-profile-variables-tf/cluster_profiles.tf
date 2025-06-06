@@ -65,7 +65,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     }
     variable {
       name          = "wordpress_namespace"
-      display_name  = "Wordpress: Namespace"
+      display_name  = "WordPress: Namespace"
       format        = "string"
       description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
@@ -73,7 +73,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     }
     variable {
       name          = "wordpress_port"
-      display_name  = "Wordpress: Port"
+      display_name  = "WordPress: Port"
       format        = "number"
       description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port
@@ -133,11 +133,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-chart-variables.yaml", {
-      wordpress_namespace = var.wordpress_namespace,
-      wordpress_port      = var.wordpress_port,
-      replicas            = var.wordpress_replica
-    })
+    values = file("manifests/wordpress-chart-variables.yaml")
     type = "oci"
   }
 
@@ -152,7 +148,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
     }
     variable {
       name          = "wordpress_namespace"
-      display_name  = "Wordpress: Namespace"
+      display_name  = "WordPress: Namespace"
       format        = "string"
       description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
@@ -160,7 +156,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
     }
     variable {
       name          = "wordpress_port"
-      display_name  = "Wordpress: Port"
+      display_name  = "WordPress: Port"
       format        = "number"
       description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port
@@ -235,7 +231,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     }
     variable {
       name          = "wordpress_namespace"
-      display_name  = "Wordpress: Namespace"
+      display_name  = "WordPress: Namespace"
       format        = "string"
       description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
@@ -243,7 +239,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     }
     variable {
       name          = "wordpress_port"
-      display_name  = "Wordpress: Port"
+      display_name  = "WordPress: Port"
       format        = "number"
       description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port
@@ -316,7 +312,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
     }
     variable {
       name          = "wordpress_namespace"
-      display_name  = "Wordpress: Namespace"
+      display_name  = "WordPress: Namespace"
       format        = "string"
       description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
@@ -324,7 +320,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
     }
     variable {
       name          = "wordpress_port"
-      display_name  = "Wordpress: Port"
+      display_name  = "WordPress: Port"
       format        = "number"
       description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port
@@ -398,7 +394,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     }
     variable {
       name          = "wordpress_namespace"
-      display_name  = "Wordpress: Namespace"
+      display_name  = "WordPress: Namespace"
       format        = "string"
       description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
@@ -406,7 +402,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     }
     variable {
       name          = "wordpress_port"
-      display_name  = "Wordpress: Port"
+      display_name  = "WordPress: Port"
       format        = "number"
       description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port
@@ -479,7 +475,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
     }
     variable {
       name          = "wordpress_namespace"
-      display_name  = "Wordpress: Namespace"
+      display_name  = "WordPress: Namespace"
       format        = "string"
       description   = "Enter a new namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
@@ -487,7 +483,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
     }
     variable {
       name          = "wordpress_port"
-      display_name  = "Wordpress: Port"
+      display_name  = "WordPress: Port"
       format        = "number"
       description   = "Set a new port for Wordpress HTTP"
       default_value = var.wordpress_port

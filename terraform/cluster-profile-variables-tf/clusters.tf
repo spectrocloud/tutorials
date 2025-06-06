@@ -7,7 +7,7 @@
 resource "spectrocloud_cluster_aws" "aws-cluster" {
   count = var.deploy-aws ? 1 : 0
 
-  name             = "tf-aws-profile-variables" #Enter your unique AWS Cluster name
+  name             = "aws-profile-variables-tf" #Enter your unique AWS Cluster name
   tags             = concat(var.tags, ["env:aws"])
   cloud_account_id = data.spectrocloud_cloudaccount_aws.account[0].id
 
@@ -39,8 +39,8 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   timeouts {
-    create = "45m"
-    delete = "45m"
+    create = "30m"
+    delete = "30m"
   }
 }
 
@@ -50,7 +50,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
 resource "spectrocloud_cluster_azure" "azure-cluster" {
   count = var.deploy-azure ? 1 : 0
 
-  name             = "azure-cluster"
+  name             = "azure-cluster-var-tf"
   tags             = concat(var.tags, ["env:azure"])
   cloud_account_id = data.spectrocloud_cloudaccount_azure.account[0].id
 
@@ -88,8 +88,8 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   timeouts {
-    create = "45m"
-    delete = "45m"
+    create = "30m"
+    delete = "30m"
   }
 }
 
@@ -99,7 +99,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
 resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   count = var.deploy-gcp ? 1 : 0
 
-  name             = "gcp-cluster"
+  name             = "gcp-cluster-var-tf"
   tags             = concat(var.tags, ["env:gcp"])
   cloud_account_id = data.spectrocloud_cloudaccount_gcp.account[0].id
 
@@ -131,7 +131,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   timeouts {
-    create = "45m"
-    delete = "45m"
+    create = "30m"
+    delete = "30m"
   }
 }

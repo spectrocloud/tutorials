@@ -54,19 +54,19 @@ data "spectrocloud_cloudaccount_azure" "account" {
 
 data "spectrocloud_pack" "azure_csi" {
   name         = "csi-azure"
-  version      = "1.28.3"
+  version      = "1.32.0"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "azure_cni" {
   name         = "cni-calico-azure"
-  version      = "3.26.1"
+  version      = "3.29.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "azure_k8s" {
   name         = "kubernetes"
-  version      = "1.30.4"
+  version      = "1.30.11"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
@@ -86,19 +86,19 @@ data "spectrocloud_cloudaccount_gcp" "account" {
 
 data "spectrocloud_pack" "gcp_csi" {
   name         = "csi-gcp-driver"
-  version      = "1.12.4"
+  version      = "1.15.4"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "gcp_cni" {
   name         = "cni-calico"
-  version      = "3.27.0"
+  version      = "3.29.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "gcp_k8s" {
   name         = "kubernetes"
-  version      = "1.28.3"
+  version      = "1.30.11"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
