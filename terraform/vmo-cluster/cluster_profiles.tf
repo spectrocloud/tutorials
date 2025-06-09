@@ -9,15 +9,15 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
   description = "A basic cluster profile for MAAS VMO"
   tags        = concat(var.tags, ["env:maas"])
   cloud       = "maas"
-  type        = var.clusterProfileType # "cluster"
-  version     = var.clusterProfileVersion
+  type        = var.cluster-profile-type
+  version     = var.cluster-profile-version
 
   pack {
     name   = data.spectrocloud_pack.maas_ubuntu.name
     tag    = data.spectrocloud_pack.maas_ubuntu.version
     uid    = data.spectrocloud_pack.maas_ubuntu.id
     values = templatefile("manifests/ubuntu-values.yaml", {
-      maas-host-cidr = var.maas-host-cidr
+      node-network = var.node-network
     })
     type   = "spectro"
   }
@@ -27,8 +27,8 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
     tag    = data.spectrocloud_pack.maas_k8s.version
     uid    = data.spectrocloud_pack.maas_k8s.id
     values = templatefile("manifests/k8s-values.yaml", {
-      pod-cidr = var.pod-cidr,
-      clusterServicesCIDR = var.clusterServicesCIDR
+      pod-CIDR = var.pod-CIDR,
+      clusterServicesCIDR = var.cluster-services-CIDR
     type   = "spectro"
   })
   }
@@ -66,7 +66,7 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
     tag    = data.spectrocloud_pack.maas_vmo.version
     uid    = data.spectrocloud_pack.maas_vmo.id
     values = templatefile("manifests/vmo-values.yaml", {
-      network-bridge = var.vmo-network-interface,
+      vmo-network-interface = var.vmo-network-interface,
       vm-vlans = var.vm-vlans,
       host-vlans = var.host-vlans
     })

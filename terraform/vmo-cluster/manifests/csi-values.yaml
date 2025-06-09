@@ -1,28 +1,47 @@
 pack:
   content:
-    images: []
+    images:
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/k8s-sidecar:v0.11.0
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/cephcsi:v3.13.0
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-node-driver-registrar:v2.13.0
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-resizer:v1.13.1
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-provisioner:v5.1.0
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-snapshotter:v8.2.0
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-attacher:v4.8.0
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/rook/ceph:v1.16.3
+      - image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/ceph/ceph:v19.2.0
 
   charts:
     - repo: https://charts.rook.io/release
       name: rook-release/rook-ceph
-      version: 1.14.9
+      version: 1.16.3
     - repo: https://charts.rook.io/release
       name: rook-release/rook-ceph-cluster
-      version: 1.14.9
+      version: 1.16.3
 
   namespace: rook-ceph
   namespaceLabels:
     "rook-ceph": "pod-security.kubernetes.io/enforce=privileged,pod-security.kubernetes.io/enforce-version=v{{ .spectro.system.kubernetes.version | substr 0 4 }}"
+
+readinessCheck:
+  v1beta1:
+    - name: "rook-ceph"
+      namespace: "rook-ceph"
+      kind: "CephCluster"
+      group: "ceph.rook.io"
+      version: "v1"
+      expectedValue: "Ready"
+      keyToCheck: "status.phase"
 
 charts:
   rook-ceph:
     # Default values for rook-ceph-operator
     image:
       # -- Image
-      repository: rook/ceph
+      repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/rook/ceph
       # -- Image tag
       # @default -- `master`
-      tag: v1.14.9
+      tag: v1.16.3
       # -- Image pull policy
       pullPolicy: IfNotPresent
 
@@ -156,7 +175,7 @@ charts:
       enableMetadata: false
 
       # -- Set replicas for csi provisioner deployment
-      provisionerReplicas: 2
+      provisionerReplicas: 1
 
       # -- Cluster name identifier to set as metadata on the CephFS subvolume and RBD images. This will be useful
       # in cases like for example, when two container orchestrator clusters (Kubernetes/OCP) are using a single ceph cluster
@@ -502,39 +521,39 @@ charts:
 
       cephcsi:
         # -- Ceph CSI image repository
-        repository: quay.io/cephcsi/cephcsi
+        repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/cephcsi
         # -- Ceph CSI image tag
-        tag: v3.11.0
+        tag: v3.13.0
 
       registrar:
         # -- Kubernetes CSI registrar image repository
-        repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
+        repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-node-driver-registrar
         # -- Registrar image tag
-        tag: v2.10.1
+        tag: v2.13.0
 
       provisioner:
         # -- Kubernetes CSI provisioner image repository
-        repository: registry.k8s.io/sig-storage/csi-provisioner
+        repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-provisioner
         # -- Provisioner image tag
-        tag: v4.0.1
+        tag: v5.1.0
 
       snapshotter:
         # -- Kubernetes CSI snapshotter image repository
-        repository: registry.k8s.io/sig-storage/csi-snapshotter
+        repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-snapshotter
         # -- Snapshotter image tag
-        tag: v7.0.2
+        tag: v8.2.0
 
       attacher:
         # -- Kubernetes CSI Attacher image repository
-        repository: registry.k8s.io/sig-storage/csi-attacher
+        repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-attacher
         # -- Attacher image tag
-        tag: v4.5.1
+        tag: v4.8.0
 
       resizer:
         # -- Kubernetes CSI resizer image repository
-        repository: registry.k8s.io/sig-storage/csi-resizer
+        repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/csi-resizer
         # -- Resizer image tag
-        tag: v1.10.1
+        tag: v1.13.1
 
       # -- Image pull policy
       imagePullPolicy: IfNotPresent
@@ -552,9 +571,9 @@ charts:
         # -- Enable CSIAddons
         enabled: false
         # -- CSIAddons sidecar image repository
-        repository: quay.io/csiaddons/k8s-sidecar
+        repository: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/k8s-sidecar
         # -- CSIAddons sidecar image tag
-        tag: v0.8.0
+        tag: v0.11.0
 
       nfs:
         # -- Enable the nfs csi driver
@@ -649,11 +668,20 @@ charts:
         #       cpu: 100m
         #       memory: 128Mi
 
-        # -- Runs Ceph Pods as privileged to be able to write to `hostPaths` in OpenShift with SELinux restrictions.
+        # -- Custom label to identify node hostname. If not set `kubernetes.io/hostname` will be used
+    customHostnameLabel:
+
+    # -- Runs Ceph Pods as privileged to be able to write to `hostPaths` in OpenShift with SELinux restrictions.
     hostpathRequiresPrivileged: false
+
+    # -- Whether to create all Rook pods to run on the host network, for example in environments where a CNI is not enabled
+    enforceHostNetwork: false
 
     # -- Disable automatic orchestration when new devices are discovered.
     disableDeviceHotplug: false
+
+    # -- The revision history limit for all pods created by Rook. If blank, the K8s default is 10.
+    revisionHistoryLimit:
 
     # -- Blacklist certain disks according to the regex provided.
     discoverDaemonUdev:
@@ -697,7 +725,7 @@ charts:
       enabled: true
       # -- Toolbox image, defaults to the image used by the Ceph cluster
       image:
-        #quay.io/ceph/ceph:v18.2.4
+        #us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/ceph/ceph:v19.2.0
         # -- Toolbox tolerations
 
       tolerations: []
@@ -725,6 +753,8 @@ charts:
       # -- Enable Prometheus integration, will also create necessary RBAC rules to allow Operator to create ServiceMonitors.
       # Monitoring requires Prometheus to be pre-installed
       enabled: false
+      # -- Whether to disable the metrics reported by Ceph. If false, the prometheus mgr module and Ceph exporter are enabled
+      metricsDisabled: false
       # -- Whether to create the Prometheus rules for Ceph alerts
       createPrometheusRules: false
       # -- The namespace in which to create the prometheus rules, if different from the rook cluster namespace.
@@ -763,18 +793,18 @@ charts:
       # For more details, check https://rook.io/docs/rook/v1.10/CRDs/Cluster/ceph-cluster-crd/
       cephVersion:
         # The container image used to launch the Ceph daemon pods (mon, mgr, osd, mds, rgw).
-        # v17 is Quincy, v18 is Reef.
+        # v18 is Reef, v19 is Squid
         # RECOMMENDATION: In production, use a specific version tag instead of the general v18 flag, which pulls the latest release and could result in different
         # versions running within the cluster. See tags available at https://hub.docker.com/r/ceph/ceph/tags/.
-        # If you want to be more precise, you can always use a timestamp tag such as quay.io/ceph/ceph:v18.2.4-20240724
+        # If you want to be more precise, you can always use a timestamp tag such as quay.io/ceph/ceph:v19.2.0-20240927
         # This tag might not contain a new Ceph version, just security fixes from the underlying operating system, which will reduce vulnerabilities
-        image: quay.io/ceph/ceph:v18.2.4
-        # Whether to allow unsupported versions of Ceph. Currently `quincy`, and `reef` are supported.
-        # Future versions such as `squid` (v19) would require this to be set to `true`.
+        image: us-docker.pkg.dev/palette-images/packs/rook-ceph-helm/1.16.3/ceph/ceph:v19.2.0
+        # Whether to allow unsupported versions of Ceph. Currently Reef and Squid are supported.
+        # Future versions such as Tentacle (v20) would require this to be set to `true`.
         # Do not set to true in production.
         allowUnsupported: false
 
-      # The path on the host where configuration files will be persisted. Must be specified.
+      # The path on the host where configuration files will be persisted. Must be specified. If there are multiple clusters, the directory must be unique for each cluster.
       # Important: if you reinstall the cluster, make sure you delete this directory from each host or else the mons will fail to start on the new cluster.
       # In Minikube, the '/data' directory is configured to persist across reboots. Use "/data/rook" in Minikube environment.
       dataDirHostPath: /var/lib/rook
@@ -812,8 +842,6 @@ charts:
         # When higher availability of the mgr is needed, increase the count to 2.
         # In that case, one mgr will be active and one in standby. When Ceph updates which
         # mgr is active, Rook will update the mgr services to match the active mgr.
-        count: 1
-        allowMultiplePerNode: true
         modules:
           # List of modules to optionally enable or disable.
           # Note the "dashboard" and "monitoring" modules are already configured by other settings in the cluster CR.
@@ -821,10 +849,12 @@ charts:
           #   enabled: true
 
           # enable the ceph dashboard for viewing cluster status
+        count: 1
+        allowMultiplePerNode: true
       dashboard:
         enabled: true
         # serve the dashboard under a subpath (useful when you are accessing the dashboard via a reverse proxy)
-        urlPrefix: /ceph-dashboard
+        # urlPrefix: /ceph-dashboard
         # serve the dashboard at the given port.
         # port: 8443
         # Serve the dashboard using SSL (if using ingress to expose the dashboard and `ssl: true` you need to set
@@ -843,7 +873,7 @@ charts:
           encryption:
             enabled: false
           # Whether to compress the data in transit across the wire. The default is false.
-          # Requires Ceph Quincy (v17) or newer. Also see the kernel requirements above for encryption.
+          # The kernel requirements above for encryption also apply to compression.
           compression:
             enabled: false
           # Whether to require communication over msgr2. If true, the msgr v1 port (6789) will be disabled
@@ -871,7 +901,7 @@ charts:
 
       # enable the crash collector for ceph daemon crash collection
       crashCollector:
-        disable: true
+        disable: false
         # Uncomment daysToRetain to prune ceph crash entries older than the
         # specified number of days.
         # daysToRetain: 30
@@ -1021,7 +1051,7 @@ charts:
             memory: "50Mi"
 
       # The option to automatically remove OSDs that are out and are safe to destroy.
-      removeOSDsIfOutAndSafeToRemove: true
+      removeOSDsIfOutAndSafeToRemove: false
 
       # priority classes to apply to ceph resources
       priorityClassNames:
@@ -1092,20 +1122,24 @@ charts:
 
     ingress:
       # -- Enable an ingress for the ceph-dashboard
-      dashboard:
-        annotations:
-          cert-manager.io/issuer: selfsigned-issuer
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-          nginx.ingress.kubernetes.io/server-snippet: |
-            proxy_ssl_verify off;
-        host:
-          name: ceph-vmo-lab.maas-eng.sc
-          path: "/ceph-dashboard/"
-        tls:
-          - hosts:
-              - ceph-vmo-lab.maas-eng.sc
-            secretName: ceph-dashboard-tls
-        ingressClassName: nginx
+      dashboard: {}
+        # annotations:
+        #   external-dns.alpha.kubernetes.io/hostname: dashboard.example.com
+        #   nginx.ingress.kubernetes.io/rewrite-target: /ceph-dashboard/$2
+        # If the dashboard has ssl: true the following will make sure the NGINX Ingress controller can expose the dashboard correctly
+        #   nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        #   nginx.ingress.kubernetes.io/server-snippet: |
+        #     proxy_ssl_verify off;
+        # host:
+        #   name: dashboard.example.com
+        #   path: "/ceph-dashboard(/|$)(.*)"
+        # tls:
+        # - hosts:
+        #     - dashboard.example.com
+        #   secretName: testsecret-tls
+        ## Note: Only one of ingress class annotation or the `ingressClassName:` can be used at a time
+        ## to set the ingress class
+        # ingressClassName: nginx
 
     # -- A list of CephBlockPool configurations to deploy
     # @default -- See [below](#ceph-block-pools)
@@ -1115,15 +1149,14 @@ charts:
         spec:
           failureDomain: host
           replicated:
-            size: ${worker_nodes}
+            size: 1
           # Enables collecting RBD per-image IO statistics by enabling dynamic OSD performance counters. Defaults to false.
           # For reference: https://docs.ceph.com/docs/latest/mgr/prometheus/#rbd-io-statistics
           # enableRBDStats: true
         storageClass:
           enabled: true
           name: ceph-block
-          annotations:
-            storageclass.kubevirt.io/is-default-virt-class: "true"
+          annotations: {}
           labels: {}
           isDefault: false
           reclaimPolicy: Delete
@@ -1181,11 +1214,11 @@ charts:
         spec:
           metadataPool:
             replicated:
-              size: ${worker_nodes}
+              size: 1
           dataPools:
             - failureDomain: host
               replicated:
-                size: ${worker_nodes}
+                size: 1
               # Optional and highly recommended, 'data0' by default, see https://github.com/rook/rook/blob/master/Documentation/CRDs/Shared-Filesystem/ceph-filesystem-crd.md#pools
               name: data0
           metadataServer:
@@ -1250,63 +1283,120 @@ charts:
 
     # -- A list of CephObjectStore configurations to deploy
     # @default -- See [below](#ceph-object-stores)
-    cephObjectStores: []
-    ## cephECBlockPools are disabled by default, please remove the comments and set desired values to enable it
-    ## For erasure coded a replicated metadata pool is required.
-    ## https://rook.io/docs/rook/latest/CRDs/Shared-Filesystem/ceph-filesystem-crd/#erasure-coded
-    #cephECBlockPools:
-    #  - name: ec-pool
-    #    spec:
-    #      metadataPool:
-    #        replicated:
-    #          size: 2
-    #      dataPool:
-    #        failureDomain: osd
-    #        erasureCoded:
-    #          dataChunks: 2
-    #          codingChunks: 1
-    #        deviceClass: hdd
-    #
-    #    parameters:
-    #      # clusterID is the namespace where the rook cluster is running
-    #      # If you change this namespace, also change the namespace below where the secret namespaces are defined
-    #      clusterID: rook-ceph # namespace:cluster
-    #      # (optional) mapOptions is a comma-separated list of map options.
-    #      # For krbd options refer
-    #      # https://docs.ceph.com/docs/latest/man/8/rbd/#kernel-rbd-krbd-options
-    #      # For nbd options refer
-    #      # https://docs.ceph.com/docs/latest/man/8/rbd-nbd/#options
-    #      # mapOptions: lock_on_read,queue_depth=1024
-    #
-    #      # (optional) unmapOptions is a comma-separated list of unmap options.
-    #      # For krbd options refer
-    #      # https://docs.ceph.com/docs/latest/man/8/rbd/#kernel-rbd-krbd-options
-    #      # For nbd options refer
-    #      # https://docs.ceph.com/docs/latest/man/8/rbd-nbd/#options
-    #      # unmapOptions: force
-    #
-    #      # RBD image format. Defaults to "2".
-    #      imageFormat: "2"
-    #
-    #      # RBD image features, equivalent to OR'd bitfield value: 63
-    #      # Available for imageFormat: "2". Older releases of CSI RBD
-    #      # support only the `layering` feature. The Linux kernel (KRBD) supports the
-    #      # full feature complement as of 5.4
-    #      # imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
-    #      imageFeatures: layering
-    #
-    #    storageClass:
-    #      provisioner: rook-ceph.rbd.csi.ceph.com # csi-provisioner-name
-    #      enabled: true
-    #      name: rook-ceph-block
-    #      isDefault: false
-    #      annotations: { }
-    #      labels: { }
-    #      allowVolumeExpansion: true
-    #      reclaimPolicy: Delete
+    cephObjectStores:
+      - name: ceph-objectstore
+        # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Object-Storage/ceph-object-store-crd.md#object-store-settings for available configuration
+        spec:
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 1
+          dataPool:
+            failureDomain: host
+            erasureCoded:
+              dataChunks: 2
+              codingChunks: 1
+            parameters:
+              bulk: "true"
+          preservePoolsOnDelete: true
+          gateway:
+            port: 80
+            resources:
+              limits:
+                memory: "2Gi"
+              requests:
+                cpu: "1000m"
+                memory: "1Gi"
+            # securePort: 443
+            # sslCertificateRef:
+            instances: 1
+            priorityClassName: system-cluster-critical
+            # opsLogSidecar:
+            #   resources:
+            #     limits:
+            #       memory: "100Mi"
+            #     requests:
+            #       cpu: "100m"
+            #       memory: "40Mi"
+        storageClass:
+          enabled: true
+          name: ceph-bucket
+          reclaimPolicy: Delete
+          volumeBindingMode: "Immediate"
+          annotations: {}
+          labels: {}
+          # see https://github.com/rook/rook/blob/master/Documentation/Storage-Configuration/Object-Storage-RGW/ceph-object-bucket-claim.md#storageclass for available configuration
+          parameters:
+            # note: objectStoreNamespace and objectStoreName are configured by the chart
+            region: us-east-1
+        ingress:
+          # Enable an ingress for the ceph-objectstore
+          enabled: false
+          # annotations: {}
+          # host:
+          #   name: objectstore.example.com
+          #   path: /
+          # tls:
+          # - hosts:
+          #     - objectstore.example.com
+          #   secretName: ceph-objectstore-tls
+          # ingressClassName: nginx
+          ## cephECBlockPools are disabled by default, please remove the comments and set desired values to enable it
+          ## For erasure coded a replicated metadata pool is required.
+          ## https://rook.io/docs/rook/latest/CRDs/Shared-Filesystem/ceph-filesystem-crd/#erasure-coded
+          #cephECBlockPools:
+          #  - name: ec-pool
+          #    spec:
+          #      metadataPool:
+          #        replicated:
+          #          size: 2
+          #      dataPool:
+          #        failureDomain: osd
+          #        erasureCoded:
+          #          dataChunks: 2
+          #          codingChunks: 1
+          #        deviceClass: hdd
+          #
+          #    parameters:
+          #      # clusterID is the namespace where the rook cluster is running
+          #      # If you change this namespace, also change the namespace below where the secret namespaces are defined
+          #      clusterID: rook-ceph # namespace:cluster
+          #      # (optional) mapOptions is a comma-separated list of map options.
+          #      # For krbd options refer
+          #      # https://docs.ceph.com/docs/latest/man/8/rbd/#kernel-rbd-krbd-options
+          #      # For nbd options refer
+          #      # https://docs.ceph.com/docs/latest/man/8/rbd-nbd/#options
+          #      # mapOptions: lock_on_read,queue_depth=1024
+          #
+          #      # (optional) unmapOptions is a comma-separated list of unmap options.
+          #      # For krbd options refer
+          #      # https://docs.ceph.com/docs/latest/man/8/rbd/#kernel-rbd-krbd-options
+          #      # For nbd options refer
+          #      # https://docs.ceph.com/docs/latest/man/8/rbd-nbd/#options
+          #      # unmapOptions: force
+          #
+          #      # RBD image format. Defaults to "2".
+          #      imageFormat: "2"
+          #
+          #      # RBD image features, equivalent to OR'd bitfield value: 63
+          #      # Available for imageFormat: "2". Older releases of CSI RBD
+          #      # support only the `layering` feature. The Linux kernel (KRBD) supports the
+          #      # full feature complement as of 5.4
+          #      # imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
+          #      imageFeatures: layering
+          #
+          #    storageClass:
+          #      provisioner: rook-ceph.rbd.csi.ceph.com # csi-provisioner-name
+          #      enabled: true
+          #      name: rook-ceph-block
+          #      isDefault: false
+          #      annotations: { }
+          #      labels: { }
+          #      allowVolumeExpansion: true
+          #      reclaimPolicy: Delete
 
-    # -- CSI driver name prefix for cephfs, rbd and nfs.
-    # @default -- `namespace name where rook-ceph operator is deployed`
+          # -- CSI driver name prefix for cephfs, rbd and nfs.
+          # @default -- `namespace name where rook-ceph operator is deployed`
     csiDriverNamePrefix:
     configOverride: |
       [global]

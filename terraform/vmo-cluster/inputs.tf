@@ -38,22 +38,22 @@ variable "tags" {
 # cluster_profiles.tf
 #####################
 
-variable "clusterProfileType" {
+variable "cluster-profile-type" {
   type        = string
   description = "The name of the PCG that will be used to deploy the cluster."
 
   validation {
-    condition     = var.deploy-maas ? var.clusterProfileType != "REPLACE ME" && lower(var.clusterProfileType) == "full" || lower(var.clusterProfileType) == "infrastructure" || lower(var.clusterProfileType) == "add-on" || lower(var.clusterProfileType) == "app" : true
-    error_message = "Cluster profile type must be "full", "infrastructure", "add-on", or "app"."
+    condition     = var.deploy-maas ? var.cluster-profile-type != "REPLACE ME" && lower(var.cluster-profile-type) == "full" || lower(var.cluster-profile-type) == "infrastructure" || lower(var.cluster-profile-type) == "add-on" : true
+    error_message = "Cluster profile type must be 'full', 'infrastructure', 'add-on', or 'app'."
   }
 }
 
-variable "clusterProfileVersion" {
+variable "cluster-profile-version" {
   type        = string
   description = "The name of the PCG that will be used to deploy the cluster."
 
   validation {
-    condition     = var.deploy-maas ? var.clusterProfileVersion != "REPLACE ME" && var.clusterProfileVersion > 0 : true
+    condition     = var.deploy-maas ? var.cluster-profile-version != "REPLACE ME" && var.cluster-profile-version != "" : true
     error_message = "Cluster profile version must be set."
   }
 }
@@ -77,7 +77,7 @@ variable "ctl-node-min-memory-mb" {
   description = "Minimum amount of RAM allocated to the Control Plane node."
 
   validation {
-    condition     = var.deploy-maas ? var.ctl-node-min-cpu > 0 : true
+    condition     = var.deploy-maas ? var.ctl-node-min-memory-mb > 0 : true
     error_message = "Provide a valid amount of RAM (MB) for your Control Plane node."
   }
 }
@@ -97,15 +97,20 @@ variable "wrk-node-min-memory-mb" {
   description = "Minimum amount of RAM allocated to the Control Plane node."
 
   validation {
-    condition     = var.deploy-maas ? var.wrk-node-min-cpu > 0 : true
+    condition     = var.deploy-maas ? var.wrk-node-min-memory-mb > 0 : true
     error_message = "Provide a valid amount of RAM (MB) for your worker node."
   }
 }
 
+variable "vmo-cluster-name" {
+  type        = string
+  description = "The name of the cluster."
 
-######
-# MAAS
-######
+  validation {
+    condition     = var.deploy-maas ? var.vmo-cluster-name != "REPLACE ME" && var.vmo-cluster-name != "" : true
+    error_message = "Provide the correct MAAS PCG name."
+  }
+}
 
 variable "deploy-maas" {
   type        = bool
@@ -220,45 +225,31 @@ variable "maas-control-plane-node-tags" {
 }
 
 #################
-# ubuntu-values.yaml
+# /manifests/k8s-values.yaml
 #################
 
-variable "maas-host-cidr" {
-  type        = string
-  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
+variable "pod-CIDR" {
+  type        = set(string)
+  description = "CIDR notation subnets for the pd network ex. 192.168.1.0/24."
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.maas-host-cidr, "REPLACE ME") && length(var.maas-host-cidr) != 0 : true
-    error_message = "Provide a valid Subnet (CIDR Notation) for MAAS server network."
-  }
-}
-
-#################
-# k8s-values.yaml
-#################
-
-variable "pod-cidr" {
-  type        = string
-  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
-
-  validation {
-    condition     = var.deploy-maas ? !contains(var.pod-cidr, "REPLACE ME") && length(var.pod-cidr) != 0 : true
+    condition     = var.deploy-maas ? !contains(var.pod-CIDR, "REPLACE ME") && length(var.pod-CIDR) != 0 : true
     error_message = "Provide a valid Subnet (CIDR Notation) for the pod network."
   }
 }
 
-variable "clusterServicesCIDR" {
-  type        = string
-  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
+variable "cluster-services-CIDR" {
+  type        = set(string)
+  description = "CIDR notation subnets for cluster services ex. 192.168.1.0/24."
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.clusterServicesCIDR, "REPLACE ME") && length(var.clusterServicesCIDR) != 0 : true
+    condition     = var.deploy-maas ? !contains(var.cluster-services-CIDR, "REPLACE ME") && length(var.cluster-services-CIDR) != 0 : true
     error_message = "Provide a valid Subnet (CIDR Notation for cluster services."
   }
 }
 
 #####################
-# metallb-values.yaml
+# /manifests/metallb-values.yaml
 #####################
 
 variable "metallb-ip-pool" {
@@ -272,11 +263,11 @@ variable "metallb-ip-pool" {
 }
 
 #################
-# vmo-values.yaml
+# /manifests/vmo-values.yaml
 #################
 
 variable "vmo-network-interface" {
-  type        = string
+  type        = set(string)
   description = "The network interface VMO will use for VM traffic."
 
   validation {
@@ -297,6 +288,21 @@ variable "host-vlans" {
   default     = 1
 }
 
+#################
+# /manifests/ubuntu-values.yaml
+#################
+
+variable "node-network" {
+  type        = string
+  description = "The subnet the Ubuntu nodes will use."
+
+  validation {
+    condition     = var.deploy-maas ? var.node-network != "REPLACE ME" && length(var.node-network) != 0 : true
+    error_message = "Provide a valid network interface for the VMO service to use."
+  }
+}
+
+
 #####################
 # virtual_machines.tf
 #####################
@@ -306,7 +312,7 @@ variable "vm-deploy-namespace" {
   description = "The namespace where your VMs will be deployed."
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.vm-deploy-namespace, "REPLACE ME") && length(var.vm-deploy-namespace) != 0 : true
+    condition     = var.deploy-maas ? var.vm-deploy-namespace != "REPLACE ME" && length(var.vm-deploy-namespace) != 0 : true
     error_message = "Provide a valid target namespace for your VM deployment."
   }
 }
@@ -316,7 +322,7 @@ variable "vm-deploy-name" {
   description = "The namespace where your VMs will be deployed."
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.vm-deploy-name, "REPLACE ME") && length(var.vm-deploy-name) != 0 : true
+    condition     = var.deploy-maas ? var.vm-deploy-name != "REPLACE ME" && length(var.vm-deploy-name) != 0 : true
     error_message = "Provide a valid name for your VM."
   }
 }
@@ -326,7 +332,7 @@ variable "vm-labels" {
   description = "The namespace where your VMs will be deployed."
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.vm-labels, "REPLACE ME") && length(var.vm-labels) != 0 : true
+    condition     = var.deploy-maas ? var.vm-labels != "REPLACE ME" && length(var.vm-labels) != 0 : true
     error_message = "Provide valid labels for your VM."
   }
 }
@@ -336,8 +342,8 @@ variable "vm-storage-Gi" {
   description = "The amount of storage to provision for your VM in Gi."
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.vm-storage-Gi, "REPLACE ME") && length(var.vm-storage-Gi) != 0  && endswith((var.vm-storage-Gi), "Gi") : true
-    error_message = "Provide a valid amount of storage for your VM. You must include "Gi" at the end of your numerical value. Example: "50Gi"."
+    condition     = var.deploy-maas ? var.vm-storage-Gi != "REPLACE ME" && length(var.vm-storage-Gi) != 0  && endswith((var.vm-storage-Gi), "Gi") : true
+    error_message = "Provide a valid amount of storage for your VM. You must include 'Gi' at the end of your numerical value. Example: '50Gi'."
   }
 }
 
@@ -379,7 +385,7 @@ variable "vm-memory-Gi" {
   description = "The amount of storage to provision for your VM in Gi."
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.vm-memory-Gi, "REPLACE ME") && length(var.vm-memory-Gi) != 0  && endswith((var.vm-memory-Gi), "Gi") : true
-    error_message = "Provide a valid amount of memory to allocate your VM. You must include "Gi" at the end of your numerical value. Example: "4Gi"."
+    condition     = var.deploy-maas ? var.vm-memory-Gi != "REPLACE ME" && length(var.vm-memory-Gi) != 0  && endswith((var.vm-memory-Gi), "Gi") : true
+    error_message = "Provide a valid amount of memory to allocate your VM. You must include 'Gi' at the end of your numerical value. Example: '4Gi'."
   }
 }

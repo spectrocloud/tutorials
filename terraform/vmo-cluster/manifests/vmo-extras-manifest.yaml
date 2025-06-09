@@ -6,16 +6,14 @@ spec:
   description: Ubuntu 22.04
   displayName: Ubuntu 22.04
   icon: https://s3.amazonaws.com/manifests.spectrocloud.com/logos/ubuntu.png
-  running: false
   dataVolumeTemplates:
     - metadata:
         name: ubuntu-2204
       spec:
         source:
-          pvc: 
+          pvc:
             name: template-ubuntu-2204
             namespace: vmo-golden-images
-        #storage: (errors in VMO GUI)
         pvc:
           accessModes:
             - ReadWriteMany
@@ -39,12 +37,12 @@ spec:
           threads: 1
         devices:
           disks:
-          - disk:
-              bus: virtio
-            name: datavolume-os
-          - disk:
-              bus: virtio
-            name: cloudinitdisk
+            - disk:
+                bus: virtio
+              name: datavolume-os
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
           interfaces:
             - masquerade: {}
               name: default
@@ -58,37 +56,37 @@ spec:
           requests:
             memory: 2Gi
       networks:
-      - name: default
-        pod: {}
+        - name: default
+          pod: {}
       volumes:
-      - dataVolume:
-          name: ubuntu-2204
-        name: datavolume-os
-      - cloudInitNoCloud:
-          userData: |
-            #cloud-config
-            ssh_pwauth: True
-            chpasswd: { expire: False }
-            password: spectro
-            disable_root: false
-            runcmd:
-              - apt-get update
-              - apt-get install -y qemu-guest-agent
-              - systemctl start qemu-guest-agent
-              - | 
-                apt-get -y install ca-certificates curl
-                install -m 0755 -d /etc/apt/keyrings
-                curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-                chmod a+r /etc/apt/keyrings/docker.asc
-                echo \
-                  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-                  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-                  tee /etc/apt/sources.list.d/docker.list > /dev/null
-                apt-get update
-                apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-                groupadd docker
-                gpasswd -a ubuntu docker
-        name: cloudinitdisk
+        - dataVolume:
+            name: ubuntu-2204
+          name: datavolume-os
+        - cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              ssh_pwauth: True
+              chpasswd: { expire: False }
+              password: spectro
+              disable_root: false
+              runcmd:
+                - apt-get update
+                - apt-get install -y qemu-guest-agent
+                - systemctl start qemu-guest-agent
+                - | 
+                  apt-get -y install ca-certificates curl
+                  install -m 0755 -d /etc/apt/keyrings
+                  curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+                  chmod a+r /etc/apt/keyrings/docker.asc
+                  echo \
+                    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+                    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+                    tee /etc/apt/sources.list.d/docker.list > /dev/null
+                  apt-get update
+                  apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+                  groupadd docker
+                  gpasswd -a ubuntu docker
+          name: cloudinitdisk
 ---
 apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
@@ -116,11 +114,10 @@ kind: StorageProfile
 metadata:
   name: ceph-filesystem
 spec:
-  claimPropertySets: 
-  - accessModes:
-    - ReadWriteMany
-    volumeMode: 
-      Filesystem
+  claimPropertySets:
+    - accessModes:
+        - ReadWriteMany
+      volumeMode: Filesystem
   cloneStrategy: csi-clone
 ---
 apiVersion: cdi.kubevirt.io/v1beta1
@@ -128,9 +125,8 @@ kind: StorageProfile
 metadata:
   name: ceph-block
 spec:
-  claimPropertySets: 
-  - accessModes:
-    - ReadWriteMany
-    volumeMode: 
-      Block
+  claimPropertySets:
+    - accessModes:
+        - ReadWriteMany
+      volumeMode: Block
   cloneStrategy: csi-clone

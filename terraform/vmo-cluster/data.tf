@@ -25,19 +25,19 @@ data "spectrocloud_pack" "maas_ubuntu" {
 
 data "spectrocloud_pack" "maas_k8s" {
   name         = "kubernetes"
-  version      = "1.30.6"
+  version      = "1.32.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "maas_cni" {
   name         = "cni-cilium-oss"
-  version      = "1.15.3"
+  version      = "1.17.1"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "maas_csi" {
   name         = "csi-rook-ceph-helm"
-  version      = "1.14.9"
+  version      = "1.16.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
@@ -49,7 +49,7 @@ data "spectrocloud_pack" "maas_metallb" {
 
 data "spectrocloud_pack" "maas_vmo" {
   name         = "virtual-machine-orchestrator"
-  version      = "4.4.10"
+  version      = "4.6.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 

@@ -19,7 +19,7 @@ charts:
         first-pool:
           spec:
             addresses:
-              - ${metallb-ip-pool} ###.###.###.###                   # Add your static IP addresses for MetalLB
+              - 10.11.130.129-10.11.130.131
               # - 192.168.100.50-192.168.100.60
             avoidBuggyIPs: true
             autoAssign: true

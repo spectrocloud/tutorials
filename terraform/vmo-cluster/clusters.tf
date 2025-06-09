@@ -8,7 +8,7 @@
 resource "spectrocloud_cluster_maas" "maas-cluster" {
   count = var.deploy-maas ? 1 : 0
 
-  name                 = "vmo-cluster-maas"
+  name                 = var.vmo-cluster-name
   tags                 = concat(var.tags, ["env:maas"])
   cloud_account_id     = data.spectrocloud_cloudaccount_maas.account[0].id
   pause_agent_upgrades = "unlock"
