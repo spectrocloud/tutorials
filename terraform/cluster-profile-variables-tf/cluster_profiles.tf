@@ -50,7 +50,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-chart-default.yaml")
+    values = file("manifests/wordpress-default.yaml")
     type = "oci"
   }
 
@@ -133,7 +133,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-chart-variables.yaml")
+    values = file("manifests/wordpress-variables.yaml")
     type = "oci"
   }
 
@@ -216,7 +216,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-chart-default.yaml")
+    values = file("manifests/wordpress-default.yaml")
     type = "oci"
   }
 
@@ -298,7 +298,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-chart-variables.yaml")
+    values = file("manifests/wordpress-variables.yaml")
     type = "oci"
   }
   profile_variables {
@@ -380,7 +380,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-chart-default.yaml")
+    values = file("manifests/wordpress-default.yaml")
     type = "oci"
   }
   profile_variables {
@@ -461,7 +461,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-chart-variables.yaml")
+    values = file("manifests/wordpress-variables.yaml")
     type = "oci"
   }
   profile_variables {
