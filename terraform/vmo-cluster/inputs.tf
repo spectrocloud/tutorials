@@ -43,8 +43,8 @@ variable "cluster-profile-type" {
   description = "The name of the PCG that will be used to deploy the cluster."
 
   validation {
-    condition     = var.deploy-maas ? var.cluster-profile-type != "REPLACE ME" && lower(var.cluster-profile-type) == "full" || lower(var.cluster-profile-type) == "infrastructure" || lower(var.cluster-profile-type) == "add-on" : true
-    error_message = "Cluster profile type must be 'full', 'infrastructure', 'add-on', or 'app'."
+    condition     = var.deploy-maas ? var.cluster-profile-type != "REPLACE ME" && lower(var.cluster-profile-type) == "cluster" || lower(var.cluster-profile-type) == "infra" || lower(var.cluster-profile-type) == "add-on" || lower(var.cluster-profile-type) == "system" : true
+    error_message = "Cluster profile type must be 'cluster', 'infra', 'add-on', or 'system'."
   }
 }
 
@@ -342,7 +342,7 @@ variable "vm-storage-Gi" {
   description = "The amount of storage to provision for your VM in Gi."
 
   validation {
-    condition     = var.deploy-maas ? var.vm-storage-Gi != "REPLACE ME" && length(var.vm-storage-Gi) != 0  && endswith((var.vm-storage-Gi), "Gi") : true
+    condition     = var.deploy-maas ? var.vm-storage-Gi != "REPLACE ME" && length(var.vm-storage-Gi) != 0 && endswith((var.vm-storage-Gi), "Gi") : true
     error_message = "Provide a valid amount of storage for your VM. You must include 'Gi' at the end of your numerical value. Example: '50Gi'."
   }
 }
@@ -385,7 +385,17 @@ variable "vm-memory-Gi" {
   description = "The amount of storage to provision for your VM in Gi."
 
   validation {
-    condition     = var.deploy-maas ? var.vm-memory-Gi != "REPLACE ME" && length(var.vm-memory-Gi) != 0  && endswith((var.vm-memory-Gi), "Gi") : true
+    condition     = var.deploy-maas ? var.vm-memory-Gi != "REPLACE ME" && length(var.vm-memory-Gi) != 0 && endswith((var.vm-memory-Gi), "Gi") : true
     error_message = "Provide a valid amount of memory to allocate your VM. You must include 'Gi' at the end of your numerical value. Example: '4Gi'."
+  }
+}
+
+variable "palette-user-id" {
+  type        = string
+  description = "The amount of storage to provision for your VM in Gi."
+
+  validation {
+    condition     = var.deploy-maas ? var.palette-user-id != "REPLACE ME" && length(var.palette-user-id) != 0 : true
+    error_message = "Provide a valid Palette user ID."
   }
 }

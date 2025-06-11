@@ -15,6 +15,13 @@ variables {
   maas-control-plane-resource-pool = "REPLACE ME" 
   maas-control-plane-azs           = ["REPLACE ME"] 
   maas-control-plane-node-tags     = ["REPLACE ME"]
+  vmo-network-interface   = ["REPLACE ME"]
+  vm-vlans                = 1
+  host-vlans              = 1
+  pod-CIDR                = ["REPLACE ME"]
+  cluster-services-CIDR   = ["REPLACE ME"]
+  metallb-ip-pool         = ["REPLACE ME"]
+  node-network            = "REPLACE ME"
 }
 
 mock_provider "spectrocloud" {
@@ -32,6 +39,11 @@ run "verify_maas" {
     var.maas-worker-node-tags,
     var.maas-control-plane-resource-pool,
     var.maas-control-plane-azs, 
-    var.maas-control-plane-node-tags
+    var.maas-control-plane-node-tags,
+    var.vmo-network-interface,
+    var.pod-CIDR,
+    var.cluster-services-CIDR,
+    var.metallb-ip-pool,
+    var.node-network
   ]
 }

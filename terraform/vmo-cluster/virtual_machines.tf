@@ -9,9 +9,10 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   cluster_uid     = data.spectrocloud_cluster.maas_vmo_cluster[0].id
   cluster_context = data.spectrocloud_cluster.maas_vmo_cluster[0].context
 
-  run_on_launch = true
-  namespace     = var.vm-deploy-namespace
-  name          = var.vm-deploy-name
+  #run_on_launch = true
+  run_strategy = "Halted"
+  namespace    = var.vm-deploy-namespace
+  name         = var.vm-deploy-name
 
   timeouts {
     create = "60m"
@@ -20,12 +21,13 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   labels = {
     #var.vm-labels
     # "tf"             = "spectrocloud-tutorials"
-    "kubevirt.io/vm" = "ubuntu-tutorial-vm"
+    "kubevirt.io/vm" = "ubuntu-2204"
   }
 
   data_volume_templates {
     metadata {
-      name = "ubuntu-tutorial-vm"
+      name      = "ubuntu-2204"
+      namespace = var.vm-deploy-namespace
     }
     spec {
       source {
@@ -48,10 +50,10 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   }
 
   volume {
-    name = "ubuntu-tutorial-vm"
+    name = "ubuntu-2204"
     volume_source {
       data_volume {
-        name = "ubuntu-tutorial-vm"
+        name = "ubuntu-2204"
       }
     }
   }
@@ -66,7 +68,7 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   }
 
   disk {
-    name = "ubuntu-tutorial-vm"
+    name = "ubuntu-2204"
     disk_device {
       disk {
         bus = "virtio"

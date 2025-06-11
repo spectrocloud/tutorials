@@ -15,6 +15,14 @@ variables {
   maas-control-plane-resource-pool = "test-cp-pool"
   maas-control-plane-azs           = ["test-cp-az"] 
   maas-control-plane-node-tags     = ["test-cp-tags"]
+  vm-deploy-namespace     = "virtual-machines"
+  vm-deploy-name          = "test-vm"
+  vm-labels               = ["my-vm"]
+  vm-storage-Gi           = "50Gi"
+  vm-cpu-cores            = 2
+  vm-cpu-sockets          = 1
+  vm-cpu-threads          = 2
+  vm-memory-Gi            = "4Gi"  
 }
 
 mock_provider "spectrocloud" {
