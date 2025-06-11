@@ -17,7 +17,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-aws && var.deploy-aws-var ? resource.spectrocloud_cluster_profile.aws-profile-var[0].id : resource.spectrocloud_cluster_profile.aws-profile[0].id
+    id = var.deploy-aws ? resource.spectrocloud_cluster_profile.aws-profile-var[0].id : resource.spectrocloud_cluster_profile.aws-profile[0].id
   }
 
   machine_pool {
@@ -62,7 +62,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-azure && var.deploy-azure-var ? resource.spectrocloud_cluster_profile.azure-profile-var[0].id : resource.spectrocloud_cluster_profile.azure-profile[0].id
+    id = var.deploy-azure ? resource.spectrocloud_cluster_profile.azure-profile-var[0].id : resource.spectrocloud_cluster_profile.azure-profile[0].id
   }
 
   machine_pool {
@@ -109,7 +109,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-gcp && var.deploy-gcp-var ? resource.spectrocloud_cluster_profile.gcp-profile-var[0].id : resource.spectrocloud_cluster_profile.gcp-profile[0].id
+    id = var.deploy-gcp ? resource.spectrocloud_cluster_profile.gcp-profile-var[0].id : resource.spectrocloud_cluster_profile.gcp-profile[0].id
   }
 
   machine_pool {

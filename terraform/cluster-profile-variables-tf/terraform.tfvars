@@ -19,7 +19,7 @@ wordpress_port      = 80 # The port to be created for HTTP for Wordpress.
 # AWS Deployment Settings
 ############################
 deploy-aws     = false # Set to true to deploy to AWS.
-deploy-aws-var = false # Set to true to deploy to AWS with cluster profile variables.
+
 
 aws-cloud-account-name = "REPLACE ME"
 aws-region             = "REPLACE ME"
@@ -45,7 +45,6 @@ aws_worker_nodes = {
 # Azure Deployment Settings
 ############################
 deploy-azure     = false # Set to true to deploy to Azure.
-deploy-azure-var = false # Set to true to deploy to Azure with cluster profile variables.
 azure-use-azs    = false # Set to false when you deploy to a region without AZs.
 
 azure-cloud-account-name = "REPLACE ME"
@@ -76,7 +75,6 @@ azure_worker_nodes = {
 # GCP Deployment Settings
 ############################
 deploy-gcp     = false # Set to true to deploy to GCP.
-deploy-gcp-var = false # Set to true to deploy to GCP with cluster profile variables.
 
 gcp-cloud-account-name = "REPLACE ME"
 gcp-region             = "REPLACE ME"

@@ -59,7 +59,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
       name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
-      description   = "This is the number of replicas to deploy for Wordpress"
+      description   = "Number of replicas to deploy for Wordpress"
       default_value = var.wordpress_replica
       required      = true
     }
@@ -67,7 +67,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
       name          = "wordpress_namespace"
       display_name  = "WordPress: Namespace"
       format        = "string"
-      description   = "Enter a new namespace for the Wordpress pack"
+      description   = "Namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
       required      = true
     }
@@ -75,7 +75,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
       name          = "wordpress_port"
       display_name  = "WordPress: Port"
       format        = "number"
-      description   = "Set a new port for Wordpress HTTP"
+      description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
       is_sensitive  = true
       required      = true
@@ -136,13 +136,12 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
     values = file("manifests/wordpress-variables.yaml")
     type = "oci"
   }
-
   profile_variables {
     variable {
       name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
-      description   = "This is the number of replicas to deploy for Wordpress"
+      description   = "Number of replicas to deploy for Wordpress"
       default_value = var.wordpress_replica
       required      = true
     }
@@ -150,7 +149,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
       name          = "wordpress_namespace"
       display_name  = "WordPress: Namespace"
       format        = "string"
-      description   = "Enter a new namespace for the Wordpress pack"
+      description   = "Namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
       required      = true
     }
@@ -158,7 +157,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
       name          = "wordpress_port"
       display_name  = "WordPress: Port"
       format        = "number"
-      description   = "Set a new port for Wordpress HTTP"
+      description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
       is_sensitive  = true
       required      = true
@@ -219,13 +218,12 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     values = file("manifests/wordpress-default.yaml")
     type = "oci"
   }
-
   profile_variables {
     variable {
       name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
-      description   = "This is the number of replicas to deploy for Wordpress"
+      description   = "Number of replicas to deploy for Wordpress"
       default_value = var.wordpress_replica
       required      = true
     }
@@ -233,7 +231,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
       name          = "wordpress_namespace"
       display_name  = "WordPress: Namespace"
       format        = "string"
-      description   = "Enter a new namespace for the Wordpress pack"
+      description   = "Namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
       required      = true
     }
@@ -241,7 +239,7 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
       name          = "wordpress_port"
       display_name  = "WordPress: Port"
       format        = "number"
-      description   = "Set a new port for Wordpress HTTP"
+      description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
       is_sensitive  = true
       required      = true
@@ -306,7 +304,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
       name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
-      description   = "This is the number of replicas to deploy for Wordpress"
+      description   = "Number of replicas to deploy for Wordpress"
       default_value = var.wordpress_replica
       required      = true
     }
@@ -314,7 +312,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
       name          = "wordpress_namespace"
       display_name  = "WordPress: Namespace"
       format        = "string"
-      description   = "Enter a new namespace for the Wordpress pack"
+      description   = "Namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
       required      = true
     }
@@ -322,7 +320,7 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
       name          = "wordpress_port"
       display_name  = "WordPress: Port"
       format        = "number"
-      description   = "Set a new port for Wordpress HTTP"
+      description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
       is_sensitive  = true
       required      = true
@@ -388,7 +386,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
       name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
-      description   = "This is the number of replicas to deploy for Wordpress"
+      description   = "Number of replicas to deploy for Wordpress"
       default_value = var.wordpress_replica
       required      = true
     }
@@ -396,7 +394,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
       name          = "wordpress_namespace"
       display_name  = "WordPress: Namespace"
       format        = "string"
-      description   = "Enter a new namespace for the Wordpress pack"
+      description   = "Namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
       required      = true
     }
@@ -404,7 +402,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
       name          = "wordpress_port"
       display_name  = "WordPress: Port"
       format        = "number"
-      description   = "Set a new port for Wordpress HTTP"
+      description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
       is_sensitive  = true
       required      = true
@@ -469,7 +467,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
       name          = "wordpress_replica"
       display_name  = "Number of replicas"
       format        = "number"
-      description   = "This is the number of replicas to deploy for Wordpress"
+      description   = "Number of replicas to deploy for Wordpress"
       default_value = var.wordpress_replica
       required      = true
     }
@@ -477,7 +475,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
       name          = "wordpress_namespace"
       display_name  = "WordPress: Namespace"
       format        = "string"
-      description   = "Enter a new namespace for the Wordpress pack"
+      description   = "Namespace for the Wordpress pack"
       default_value = var.wordpress_namespace
       required      = true
     }
@@ -485,7 +483,7 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
       name          = "wordpress_port"
       display_name  = "WordPress: Port"
       format        = "number"
-      description   = "Set a new port for Wordpress HTTP"
+      description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
       is_sensitive  = true
       required      = true

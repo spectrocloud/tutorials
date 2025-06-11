@@ -34,11 +34,6 @@ variable "deploy-aws" {
   description = "A flag for enabling a deployment on AWS."
 }
 
-variable "deploy-aws-var" {
-  type        = bool
-  description = "A flag for enabling a deployment on AWS with cluster profile variables."
-}
-
 variable "aws-region" {
   type        = string
   description = "AWS region"
@@ -122,11 +117,6 @@ variable "azure-cloud-account-name" {
 variable "deploy-azure" {
   type        = bool
   description = "A flag for enabling a deployment on Azure."
-}
-
-variable "deploy-azure-var" {
-  type        = bool
-  description = "A flag for enabling a deployment on Azure with cluster profile variables."
 }
 
 variable "azure_subscription_id" {
@@ -235,11 +225,6 @@ variable "deploy-gcp" {
   description = "A flag for enabling a deployment on GCP."
 }
 
-variable "deploy-gcp-var" {
-  type        = bool
-  description = "A flag for enabling a deployment on GCP with cluster profile variables."
-}
-
 variable "gcp-region" {
   type        = string
   description = "GCP region"
@@ -326,7 +311,6 @@ variable "wordpress_namespace" {
     condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_namespace != "REPLACE ME" && var.wordpress_namespace != "" : true
     error_message = "Provide the namespace for Wordpress."
   }
-
 }
 
 variable "wordpress_port" {

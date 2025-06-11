@@ -8,13 +8,13 @@ The Terraform code has three main toggle variables that you can use to deploy to
 | Variable        | Provider       | Description                                   | Default |
 | --------------- | -------------- | --------------------------------------------- | ------- |
 | `deploy-aws`    | AWS            | Enable to deploy a cluster to AWS.            | `false` |
-| `deploy-azure`  | GCP            | Enable to deploy a cluster to Azure.          | `false` |
-| `deploy-gcp`    | Azure          | Enable to deploy a cluster to GCP.            | `false` |
+| `deploy-azure`  | Azure          | Enable to deploy a cluster to Azure.          | `false` |
+| `deploy-gcp`    | GCP            | Enable to deploy a cluster to GCP.            | `false` |
 
 
 > You can enable as many providers as you want, just make sure to specify all required values for each provider.
 
-To get started, open the **terraform.tfvars** file. Toggle the provider variable as specified in the table and provide values to your cloud provider variables, replacing all instances of the string `REPLACE ME`.
+To get started, open the **terraform.tfvars** file. Set the provider variable as specified in the table to `true` and provide values to your cloud provider variables, replacing all instances of the string `REPLACE ME`.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -23,15 +23,14 @@ To get started, open the **terraform.tfvars** file. Toggle the provider variable
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.4.1 |
-| <a name="requirement_spectrocloud"></a> [spectrocloud](#requirement\_spectrocloud) | >= 0.23.5 |
+| <a name="requirement_spectrocloud"></a> [spectrocloud](#requirement\_spectrocloud) | >= 0.23.6 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.4 |
-| <a name="requirement_vsphere"></a> [vsphere](#requirement\_vsphere) | >= 2.6.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_spectrocloud"></a> [spectrocloud](#provider\_spectrocloud) | 0.23.5 |
+| <a name="provider_spectrocloud"></a> [spectrocloud](#provider\_spectrocloud) | 0.23.6 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.4 |
 
 ## Modules
@@ -48,9 +47,7 @@ No modules.
 | [spectrocloud_cluster_profile.aws-profile-novar](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/resources/cluster_profile) | resource |
 | [spectrocloud_cluster_profile.aws-profile-var](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/resources/cluster_profile) | resource |
 | [spectrocloud_cluster_profile.azure-profile](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/resources/cluster_profile) | resource |
-| [spectrocloud_cluster_profile.azure-profile-kubecost](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/resources/cluster_profile) | resource |
 | [spectrocloud_cluster_profile.gcp-profile](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/resources/cluster_profile) | resource |
-| [spectrocloud_cluster_profile.gcp-profile-kubecost](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/resources/cluster_profile) | resource |
 | [tls_private_key.tutorial_ssh_key_azure](https://registry.terraform.io/providers/hashicorp/tls/4.0.4/docs/resources/private_key) | resource |
 | [spectrocloud_cloudaccount_aws.account](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/cloudaccount_aws) | data source |
 | [spectrocloud_cloudaccount_azure.account](https://registry.terraform.io/providers/spectrocloud/spectrocloud/latest/docs/data-sources/cloudaccount_azure) | data source |
@@ -91,11 +88,11 @@ No modules.
 | <a name="input_azure_worker_nodes"></a> [azure\_worker\_nodes](#input\_azure\_worker\_nodes) | Azure worker nodes configuration. | <pre>object({<br/>    count               = string<br/>    control_plane       = bool<br/>    instance_type       = string<br/>    disk_size_gb        = string<br/>    azs                 = list(string)<br/>    is_system_node_pool = bool<br/>  })</pre> | <pre>{<br/>  "azs": [<br/>    "1"<br/>  ],<br/>  "control_plane": false,<br/>  "count": "1",<br/>  "disk_size_gb": "60",<br/>  "instance_type": "Standard_A8_v2",<br/>  "is_system_node_pool": false<br/>}</pre> | no |
 | <a name="input_db_password"></a> [db\_password](#input\_db\_password) | The base64 encoded database password to connect to the API database. | `string` | n/a | yes |
 | <a name="input_deploy-aws-novar"></a> [deploy-aws-novar](#input\_deploy-aws-novar) | A flag for enabling a deployment on AWS. | `bool` | n/a | yes |
-| <a name="input_deploy-aws-var"></a> [deploy-aws-var](#input\_deploy-aws-var) | A flag for enabling a deployment on AWS with Kubecost. | `bool` | n/a | yes |
+| <a name="input_deploy-aws-var"></a> [deploy-aws-var](#input\_deploy-aws-var) | A flag for enabling a deployment on AWS using cluster profile variables. | `bool` | n/a | yes |
 | <a name="input_deploy-azure"></a> [deploy-azure](#input\_deploy-azure) | A flag for enabling a deployment on Azure. | `bool` | n/a | yes |
-| <a name="input_deploy-azure-kubecost"></a> [deploy-azure-kubecost](#input\_deploy-azure-kubecost) | A flag for enabling a deployment on Azure with Kubecost. | `bool` | n/a | yes |
+| <a name="input_deploy-azure-var"></a> [deploy-azure-var](#input\_deploy-azure-var) | A flag for enabling a deployment on Azure using cluster profile variables. | `bool` | n/a | yes |
 | <a name="input_deploy-gcp"></a> [deploy-gcp](#input\_deploy-gcp) | A flag for enabling a deployment on GCP. | `bool` | n/a | yes |
-| <a name="input_deploy-gcp-kubecost"></a> [deploy-gcp-kubecost](#input\_deploy-gcp-kubecost) | A flag for enabling a deployment on GCP with Kubecost. | `bool` | n/a | yes |
+| <a name="input_deploy-gcp-var"></a> [deploy-gcp-var](#input\_deploy-gcp-var) | A flag for enabling a deployment on GCP using cluster profile variables. | `bool` | n/a | yes |
 | <a name="input_gcp-cloud-account-name"></a> [gcp-cloud-account-name](#input\_gcp-cloud-account-name) | The name of your GCP account as assigned in Palette. | `string` | `""` | no |
 | <a name="input_gcp-region"></a> [gcp-region](#input\_gcp-region) | GCP region | `string` | `"us-central1"` | no |
 | <a name="input_gcp_control_plane_nodes"></a> [gcp\_control\_plane\_nodes](#input\_gcp\_control\_plane\_nodes) | GCP control plane nodes configuration. | <pre>object({<br/>    count              = string<br/>    control_plane      = bool<br/>    instance_type      = string<br/>    disk_size_gb       = string<br/>    availability_zones = list(string)<br/>  })</pre> | <pre>{<br/>  "availability_zones": [<br/>    "us-central1-a"<br/>  ],<br/>  "control_plane": true,<br/>  "count": "1",<br/>  "disk_size_gb": "60",<br/>  "instance_type": "n1-standard-4"<br/>}</pre> | no |
