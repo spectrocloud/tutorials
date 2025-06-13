@@ -36,5 +36,4 @@ run "wrong_variables" {
     var.wordpress_namespace,
     var.wordpress_replica
   ]
-
 }

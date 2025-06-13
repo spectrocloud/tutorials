@@ -2,7 +2,6 @@
 
 This folder contains the demo code for the **Cluster Profile Variables** tutorial.
 
-
 The Terraform code has three main toggle variables that you can use to deploy to one of the following cloud providers.
 
 | Variable        | Provider       | Description                                   | Default |

@@ -21,7 +21,6 @@ terraform {
   required_version = ">= 1.9"
 }
 
-
 provider "spectrocloud" {
   # API key set through the environment variable SPECTROCLOUD_APIKEY
   project_name = var.palette-project

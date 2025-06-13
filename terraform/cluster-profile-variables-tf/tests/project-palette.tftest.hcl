@@ -13,6 +13,4 @@ run "project_variable" {
   expect_failures = [
     var.palette-project
   ]
-
-
 }

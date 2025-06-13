@@ -112,7 +112,6 @@ data "spectrocloud_pack" "gcp_ubuntu" {
 #####################
 # Wordpress Chart
 #####################
-
 data "spectrocloud_pack" "wordpress_chart" {
   name         = "wordpress-chart"
   version      = "6.4.3"

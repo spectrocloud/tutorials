@@ -4,7 +4,6 @@
 #########
 # Palette
 #########
-
 variable "palette-project" {
   type        = string
   description = "The name of your project in Palette."
@@ -13,7 +12,6 @@ variable "palette-project" {
     condition     = var.palette-project != ""
     error_message = "Provide the correct Palette project."
   }
-
 }
 
 ########
@@ -82,6 +80,7 @@ variable "aws_control_plane_nodes" {
     error_message = "The availability_zones parameter must be set correctly"
   }
 }
+
 variable "aws_worker_nodes" {
   type = object({
     count              = string
@@ -126,7 +125,7 @@ variable "deploy-azure" {
 
 variable "deploy-azure-var" {
   type        = bool
-  description = "A flag for enabling a deployment on AWS with cluster profile variables."
+  description = "A flag for enabling a deployment on Azure with cluster profile variables."
 }
 
 variable "azure_subscription_id" {
@@ -311,8 +310,8 @@ variable "wordpress_replica" {
   description = "The number of pods to be created."
 
   validation {
-    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_replica != "REPLACE ME" && var.wordpress_replica >=0 : true
-    error_message = "The number of WordPress replicas must be  at least 0 or more."
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_replica != "REPLACE ME" && var.wordpress_replica >=1 : true
+    error_message = "The number of WordPress replicas must be at least 1 or more."
   }
 }
 
@@ -329,11 +328,9 @@ variable "wordpress_namespace" {
 
 variable "wordpress_port" {
   type        = number
-  description = "The password to use for Wordpress."
-  sensitive   = true
+  description = "The port to be used for Wordpress."
   validation {
     condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_port != "REPLACE ME" && var.wordpress_replica !=0 : true
-    error_message = "The number of WordPress replicas must be  at least 0 or more."
+    error_message = "The WordPress port must be set."
   }
-
 }

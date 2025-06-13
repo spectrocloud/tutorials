@@ -17,7 +17,7 @@ wordpress_port      = 9090 # The port to be created for HTTP for Wordpress.
 # AWS Deployment Settings
 ############################
 deploy-aws     = false # Set to true to deploy to AWS.
-deploy-aws-var = false # Set to true to deploy AWS with WordPress Pack and cluster profile variables
+deploy-aws-var = false # Set to true to deploy to AWS with cluster profile variables.
 
 aws-cloud-account-name = "REPLACE ME"
 aws-region             = "REPLACE ME"
@@ -74,7 +74,7 @@ azure_worker_nodes = {
 # GCP Deployment Settings
 ############################
 deploy-gcp     = false # Set to true to deploy to GCP.
-deploy-gcp-var = false # Set to true to deploy to GCP with cluster profile variables
+deploy-gcp-var = false # Set to true to deploy to GCP with cluster profile variables.
 
 gcp-cloud-account-name = "REPLACE ME"
 gcp-region             = "REPLACE ME"

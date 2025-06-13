@@ -24,7 +24,7 @@ The following tutorial code is available:
 
 - [getting-started-deployment-tf](./terraform/getting-started-deployment-tf/README.md) - Learn how to deploy and update a cluster to AWS, Azure, GCP, and VMware vSphere with Palette. [Link](https://docs.spectrocloud.com/getting-started/terraform)
 
-- [cluster-profile-variables-tf](./terraform/cluster-profile-variables-tf/README.md) - Learn how to deploy and update a cluster profile using cluster profile variables to AWS, Azure, and GCP. [Link](https://docs.spectrocloud.com/getting-started/terraform)
+- [cluster-profile-variables-tf](./terraform/cluster-profile-variables-tf/README.md) - Learn how to deploy a cluster using cluster profile variables to AWS, Azure, and GCP. [Link](https://docs.spectrocloud.com/getting-started/terraform)
 
 
 ## Docker
