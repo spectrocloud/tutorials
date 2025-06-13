@@ -4,8 +4,6 @@
 
 variables {
   deploy-azure = true
-  db_password = "test_password"
-  auth_token = "test_token"
   azure-cloud-account-name = "test-account"
   azure-region             = "test-region"
   azure_subscription_id    = "test-azure-subscription-id"

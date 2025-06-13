@@ -6,7 +6,7 @@ variables {
   deploy-aws = true
   wordpress_namespace = "REPLACE ME"   
   wordpress_replica = -1  
-  wordpress_port = 0  
+  wordpress_port = -1 
   aws-cloud-account-name = "test-account"
   aws-region             = "test-region"
   aws-key-pair-name      = "test-aws-key-pair"
@@ -34,6 +34,7 @@ run "wrong_variables" {
 
   expect_failures = [
     var.wordpress_namespace,
-    var.wordpress_replica
+    var.wordpress_replica,
+    var.wordpress_port
   ]
 }

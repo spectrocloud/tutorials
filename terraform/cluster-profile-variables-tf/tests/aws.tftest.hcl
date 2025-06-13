@@ -4,8 +4,6 @@
 
 variables {
   deploy-aws = true
-  db_password = "test_password"
-  auth_token = "test_token"
   aws-cloud-account-name = "test-account"
   aws-region             = "test-region"
   aws-key-pair-name      = "test-aws-key-pair"

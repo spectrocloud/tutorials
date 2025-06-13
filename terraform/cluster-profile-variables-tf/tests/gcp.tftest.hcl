@@ -5,8 +5,6 @@
 variables {
   deploy-gcp = true
   deploy-gcp-var = true
-  db_password = "test_password"
-  auth_token = "test_token"
   gcp-cloud-account-name = "test-account"
   gcp-region             = "test-region"
   gcp_project_name      = "test-aws-key-pair"

@@ -328,9 +328,10 @@ variable "wordpress_namespace" {
 
 variable "wordpress_port" {
   type        = number
-  description = "The port to be used for Wordpress."
+  description = "The port for the WordPress application."
+
   validation {
-    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_port != "REPLACE ME" && var.wordpress_replica !=0 : true
-    error_message = "The WordPress port must be set."
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_port != "REPLACE ME" && var.wordpress_port >=1 : true
+    error_message = "Set the port number for WordPress"
   }
 }

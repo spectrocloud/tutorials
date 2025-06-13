@@ -9,9 +9,9 @@ palette-project = "Default" # The name of your project in Palette.
 ##############################
 # Application Configuration
 ##############################
-wordpress_replica   = 3 # The number of pods to be created for Wordpress.
-wordpress_namespace = "new-wordpress-ns" # The namespace to be created for Wordpress.
-wordpress_port      = 9090 # The port to be created for HTTP for Wordpress.
+wordpress_replica   = "REPLACE ME" # The number of pods to be created for Wordpress.
+wordpress_namespace = "REPLACE ME" # The namespace to be created for Wordpress.
+wordpress_port      = "REPLACE ME" # The port to be created for HTTP for Wordpress.
 
 ############################
 # AWS Deployment Settings
