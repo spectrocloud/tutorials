@@ -4,6 +4,7 @@
 
 variables {
   deploy-gcp = true
+  deploy-gcp-var = true
   db_password = "test_password"
   auth_token = "test_token"
   gcp-cloud-account-name = "REPLACE ME"

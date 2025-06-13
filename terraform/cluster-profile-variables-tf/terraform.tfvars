@@ -6,20 +6,18 @@
 #####################
 palette-project = "Default" # The name of your project in Palette.
 
-
 ##############################
 # Application Configuration
 ##############################
-wordpress_replica   = 1 # The number of pods to be created for Wordpress.
-wordpress_namespace = "wordpress" # The namespace to be created for Wordpress.
-wordpress_port      = 80 # The port to be created for HTTP for Wordpress.
-
+wordpress_replica   = 3 # The number of pods to be created for Wordpress.
+wordpress_namespace = "new-wordpress-ns" # The namespace to be created for Wordpress.
+wordpress_port      = 9090 # The port to be created for HTTP for Wordpress.
 
 ############################
 # AWS Deployment Settings
 ############################
 deploy-aws     = false # Set to true to deploy to AWS.
-
+deploy-aws-var = false # Set to true to deploy AWS with WordPress Pack and cluster profile variables
 
 aws-cloud-account-name = "REPLACE ME"
 aws-region             = "REPLACE ME"
@@ -45,6 +43,7 @@ aws_worker_nodes = {
 # Azure Deployment Settings
 ############################
 deploy-azure     = false # Set to true to deploy to Azure.
+deploy-azure-var = false # Set to true to deploy to Azure with cluster profile variables
 azure-use-azs    = false # Set to false when you deploy to a region without AZs.
 
 azure-cloud-account-name = "REPLACE ME"
@@ -75,6 +74,7 @@ azure_worker_nodes = {
 # GCP Deployment Settings
 ############################
 deploy-gcp     = false # Set to true to deploy to GCP.
+deploy-gcp-var = false # Set to true to deploy to GCP with cluster profile variables
 
 gcp-cloud-account-name = "REPLACE ME"
 gcp-region             = "REPLACE ME"

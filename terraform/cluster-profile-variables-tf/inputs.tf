@@ -34,10 +34,15 @@ variable "deploy-aws" {
   description = "A flag for enabling a deployment on AWS."
 }
 
+variable "deploy-aws-var" {
+  type        = bool
+  description = "A flag for enabling a deployment on AWS with cluster profile variables."
+}
+
 variable "aws-region" {
   type        = string
   description = "AWS region"
-  default     = "us-east-2"
+  default     = "us-east-1"
 
   validation {
     condition     = var.deploy-aws ? var.aws-region != "REPLACE ME" && var.aws-region != "" : true
@@ -68,7 +73,7 @@ variable "aws_control_plane_nodes" {
     control_plane      = true
     instance_type      = "m4.2xlarge"
     disk_size_gb       = "60"
-    availability_zones = ["us-east-2a"]
+    availability_zones = ["us-east-1a"]
   }
   description = "AWS control plane nodes configuration."
 
@@ -90,7 +95,7 @@ variable "aws_worker_nodes" {
     control_plane      = false
     instance_type      = "m4.2xlarge"
     disk_size_gb       = "60"
-    availability_zones = ["us-east-2a"]
+    availability_zones = ["us-east-1a"]
   }
   description = "AWS worker nodes configuration."
 
@@ -117,6 +122,11 @@ variable "azure-cloud-account-name" {
 variable "deploy-azure" {
   type        = bool
   description = "A flag for enabling a deployment on Azure."
+}
+
+variable "deploy-azure-var" {
+  type        = bool
+  description = "A flag for enabling a deployment on AWS with cluster profile variables."
 }
 
 variable "azure_subscription_id" {
@@ -223,6 +233,10 @@ variable "gcp_project_name" {
 variable "deploy-gcp" {
   type        = bool
   description = "A flag for enabling a deployment on GCP."
+}
+variable "deploy-gcp-var" {
+  type        = bool
+  description = "A flag for enabling a deployment on GCP with cluster profile variables."
 }
 
 variable "gcp-region" {

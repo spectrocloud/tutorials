@@ -4,6 +4,7 @@
 
 variables {
   deploy-azure = true
+  deploy-azure-var = true
   db_password = "test_password"
   auth_token = "test_token"
   azure-cloud-account-name = "REPLACE ME"

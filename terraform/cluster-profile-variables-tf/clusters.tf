@@ -7,7 +7,7 @@
 resource "spectrocloud_cluster_aws" "aws-cluster" {
   count = var.deploy-aws ? 1 : 0
 
-  name             = "aws-profile-variables-tf" #Enter your unique AWS Cluster name
+  name             = "aws-profile-var-tf" #Enter your unique AWS Cluster name
   tags             = concat(var.tags, ["env:aws"])
   cloud_account_id = data.spectrocloud_cloudaccount_aws.account[0].id
 
@@ -17,7 +17,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-aws ? resource.spectrocloud_cluster_profile.aws-profile-var[0].id : resource.spectrocloud_cluster_profile.aws-profile[0].id
+    id = var.deploy-aws && var.deploy-aws-var ? resource.spectrocloud_cluster_profile.aws-profile-var[0].id : resource.spectrocloud_cluster_profile.aws-profile[0].id
   }
 
   machine_pool {
@@ -39,8 +39,8 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   timeouts {
-    create = "30m"
-    delete = "30m"
+    create = "45m"
+    delete = "45m"
   }
 }
 
@@ -48,7 +48,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
 # Azure Cluster 
 ###############
 resource "spectrocloud_cluster_azure" "azure-cluster" {
-  count = var.deploy-azure ? 1 : 0
+ count = var.deploy-azure ? 1 : 0
 
   name             = "azure-cluster-var-tf"
   tags             = concat(var.tags, ["env:azure"])
@@ -62,7 +62,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-azure ? resource.spectrocloud_cluster_profile.azure-profile-var[0].id : resource.spectrocloud_cluster_profile.azure-profile[0].id
+    id = var.deploy-azure && var.deploy-azure-var ? resource.spectrocloud_cluster_profile.azure-profile-var[0].id : resource.spectrocloud_cluster_profile.azure-profile[0].id
   }
 
   machine_pool {
@@ -88,7 +88,7 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   timeouts {
-    create = "30m"
+    create = "45m"
     delete = "30m"
   }
 }
@@ -109,7 +109,7 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   cluster_profile {
-    id = var.deploy-gcp ? resource.spectrocloud_cluster_profile.gcp-profile-var[0].id : resource.spectrocloud_cluster_profile.gcp-profile[0].id
+    id = var.deploy-gcp && var.deploy-gcp-var ? resource.spectrocloud_cluster_profile.gcp-profile-var[0].id : resource.spectrocloud_cluster_profile.gcp-profile[0].id
   }
 
   machine_pool {

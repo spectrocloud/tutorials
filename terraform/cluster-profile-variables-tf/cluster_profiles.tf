@@ -8,7 +8,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
   count = var.deploy-aws ? 1 : 0
 
 
-  name        = "aws-profile-variables-tf" 
+  name        = "aws-profile-var-tf" 
   description = "A basic cluster profile for AWS"
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
@@ -45,41 +45,12 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     values = data.spectrocloud_pack.aws_csi.values
     type   = "spectro"
   }
-
-  pack {
+    pack {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-default.yaml")
     type = "oci"
-  }
-
-  profile_variables {
-    variable {
-      name          = "wordpress_replica"
-      display_name  = "Number of replicas"
-      format        = "number"
-      description   = "Number of replicas to deploy for Wordpress"
-      default_value = var.wordpress_replica
-      required      = true
-    }
-    variable {
-      name          = "wordpress_namespace"
-      display_name  = "WordPress: Namespace"
-      format        = "string"
-      description   = "Namespace for the Wordpress pack"
-      default_value = var.wordpress_namespace
-      required      = true
-    }
-    variable {
-      name          = "wordpress_port"
-      display_name  = "WordPress: Port"
-      format        = "number"
-      description   = "Port for Wordpress HTTP"
-      default_value = var.wordpress_port
-      is_sensitive  = true
-      required      = true
-    }
   }
 }
 
@@ -90,7 +61,7 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
 resource "spectrocloud_cluster_profile" "aws-profile-var" {
   count = var.deploy-aws ? 1 : 0
 
-  name        = "aws-profile-variables-tf"
+  name        = "aws-profile-var-tf"
   description = "Updated version with new profile variable values"
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
@@ -159,12 +130,10 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
       format        = "number"
       description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
-      is_sensitive  = true
       required      = true
     }
   }
 }
-
 
 ##############################
 # Azure Cluster Profile v1.0.0
@@ -215,35 +184,15 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
     name = data.spectrocloud_pack.wordpress_chart.name
     tag  = data.spectrocloud_pack.wordpress_chart.version
     uid  = data.spectrocloud_pack.wordpress_chart.id
-    values = file("manifests/wordpress-default.yaml")
+    values = file("manifests/wordpress-variables.yaml")
     type = "oci"
   }
-  profile_variables {
-    variable {
-      name          = "wordpress_replica"
-      display_name  = "Number of replicas"
-      format        = "number"
-      description   = "Number of replicas to deploy for Wordpress"
-      default_value = var.wordpress_replica
-      required      = true
-    }
-    variable {
-      name          = "wordpress_namespace"
-      display_name  = "WordPress: Namespace"
-      format        = "string"
-      description   = "Namespace for the Wordpress pack"
-      default_value = var.wordpress_namespace
-      required      = true
-    }
-    variable {
-      name          = "wordpress_port"
-      display_name  = "WordPress: Port"
-      format        = "number"
-      description   = "Port for Wordpress HTTP"
-      default_value = var.wordpress_port
-      is_sensitive  = true
-      required      = true
-    }
+pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-default.yaml")
+    type = "oci"
   }
 }
 
@@ -299,6 +248,13 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
     values = file("manifests/wordpress-variables.yaml")
     type = "oci"
   }
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-variables.yaml")
+    type = "oci"
+  }
   profile_variables {
     variable {
       name          = "wordpress_replica"
@@ -322,7 +278,6 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
       format        = "number"
       description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
-      is_sensitive  = true
       required      = true
     }
   }
@@ -381,33 +336,6 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
     values = file("manifests/wordpress-default.yaml")
     type = "oci"
   }
-  profile_variables {
-    variable {
-      name          = "wordpress_replica"
-      display_name  = "Number of replicas"
-      format        = "number"
-      description   = "Number of replicas to deploy for Wordpress"
-      default_value = var.wordpress_replica
-      required      = true
-    }
-    variable {
-      name          = "wordpress_namespace"
-      display_name  = "WordPress: Namespace"
-      format        = "string"
-      description   = "Namespace for the Wordpress pack"
-      default_value = var.wordpress_namespace
-      required      = true
-    }
-    variable {
-      name          = "wordpress_port"
-      display_name  = "WordPress: Port"
-      format        = "number"
-      description   = "Port for Wordpress HTTP"
-      default_value = var.wordpress_port
-      is_sensitive  = true
-      required      = true
-    }
-  }
 }
 
 ############################
@@ -462,6 +390,13 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
     values = file("manifests/wordpress-variables.yaml")
     type = "oci"
   }
+  pack {
+    name = data.spectrocloud_pack.wordpress_chart.name
+    tag  = data.spectrocloud_pack.wordpress_chart.version
+    uid  = data.spectrocloud_pack.wordpress_chart.id
+    values = file("manifests/wordpress-variables.yaml")
+    type = "oci"
+  }
   profile_variables {
     variable {
       name          = "wordpress_replica"
@@ -485,7 +420,6 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
       format        = "number"
       description   = "Port for Wordpress HTTP"
       default_value = var.wordpress_port
-      is_sensitive  = true
       required      = true
     }
   }
