@@ -70,7 +70,3 @@ vm-cpu-sockets      = 1                  # Number of physical CPU sockets the CP
 vm-cpu-threads      = 2                  # Number of CPU threads to use for the VM CPU
 vm-memory-Gi        = "4Gi"              # Amount of RAM (memory) your VM will have
 
-#####################
-# vmo-extras-manifest.yaml
-#####################
-palette-user-id     = "kenneth.heaslip@spectrocloud.com"
