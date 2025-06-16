@@ -1,4 +1,3 @@
-
 ##########################
 # MAAS VMO Cluster Profile
 ##########################
@@ -29,8 +28,8 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
     values = templatefile("manifests/k8s-values.yaml", {
       pod-CIDR            = var.pod-CIDR,
       clusterServicesCIDR = var.cluster-services-CIDR
-      type                = "spectro"
     })
+    type                = "spectro"
   }
 
   pack {
@@ -80,9 +79,7 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
     values = file("manifests/vmo-extras-values.yaml")
     manifest {
       name = "vmo-extras"
-      content = templatefile("manifests/vmo-extras-manifest.yaml", {
-        palette-user-id = var.palette-user-id
-      })
+      content = file("manifests/vmo-extras-manifest.yaml")
     }
   }
 

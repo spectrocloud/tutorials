@@ -389,13 +389,3 @@ variable "vm-memory-Gi" {
     error_message = "Provide a valid amount of memory to allocate your VM. You must include 'Gi' at the end of your numerical value. Example: '4Gi'."
   }
 }
-
-variable "palette-user-id" {
-  type        = string
-  description = "The amount of storage to provision for your VM in Gi."
-
-  validation {
-    condition     = var.deploy-maas ? var.palette-user-id != "REPLACE ME" && length(var.palette-user-id) != 0 : true
-    error_message = "Provide a valid Palette user ID."
-  }
-}

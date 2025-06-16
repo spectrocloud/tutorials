@@ -50,7 +50,7 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   }
 
   volume {
-    name = "ubuntu-2204"
+    name = "ubuntu-2204-vm"
     volume_source {
       data_volume {
         name = "ubuntu-2204"
@@ -68,7 +68,7 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
   }
 
   disk {
-    name = "ubuntu-2204"
+    name = "ubuntu-2204-vm"
     disk_device {
       disk {
         bus = "virtio"

@@ -6,12 +6,12 @@ kubeadmconfig:
     - apt install -y grepcidr
     - |
       # Enter as a CIDR '10.11.130.0/24'
-      NETWORKS=${node-network}  
+      NETWORKS="10.11.130.0/24"  
       IPS=$(hostname -I)
       for IP in $IPS
       do
-        echo "$IP" | grepcidr "$NETWORKS" >/dev/null && echo " --node-ip=$IP" >> /etc/default/kubelet
-        if [ $? == 0 ]; then break; fi
+         echo "$IP" | grepcidr "$NETWORKS" >/dev/null && echo " --node-ip=$IP" >> /etc/default/kubelet
+         if [ $? == 0 ]; then break; fi
       done
     # Increase audit_backlog_limit
     - sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="audit_backlog_limit=256"/g' /etc/default/grub

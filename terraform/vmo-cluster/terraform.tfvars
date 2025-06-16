@@ -11,7 +11,7 @@ palette-project = "Default" # The name of your project in Palette.
 ############################
 
 deploy-maas                      = true        # Set to true to deploy to a new VMO cluster to MAAS.
-deploy-maas-vm                   = false       # Set to true to create a VM on MAAS VMO cluster once deployed.
+deploy-maas-vm                   = true     # Set to true to create a VM on MAAS VMO cluster once deployed.
 pcg-name                         = "maas-pcg"  # Provide the name of the PCG that will be used to deploy the Palette cluster.
 maas-domain                      = "maas.sc"   # Provide the MAAS domain that will be used to deploy the Palette cluster.
 maas-control-plane-nodes         = 1           # Provide the number of control plane nodes that will be used for the Palette cluster.
@@ -62,8 +62,8 @@ node-network = "10.11.130.129-10.11.130.131" # IP addresses to be assigned for u
 # virtual_machines.tf
 #####################
 vm-deploy-namespace = "virtual-machines" # Namespace where your VM will be deployed.
-vm-deploy-name      = "vmo-vm"           # The name of your VM
-vm-labels           = ["my-vmo-vm"]      # Labels that will be applied to your VM.
+vm-deploy-name      = "tf-new-template"           # The name of your VM
+vm-labels           = ["tf-new-tamplate"]      # Labels that will be applied to your VM.
 vm-storage-Gi       = "50Gi"             # Size of the disk (PVC) that your VM will have.
 vm-cpu-cores        = 2                  # Number of CPU cores your VM will have.
 vm-cpu-sockets      = 1                  # Number of physical CPU sockets the CPU cores should be spread over.
@@ -73,4 +73,4 @@ vm-memory-Gi        = "4Gi"              # Amount of RAM (memory) your VM will h
 #####################
 # vmo-extras-manifest.yaml
 #####################
-palette-user-id = "kenneth.heaslip@spectrocloud.com"
+palette-user-id     = "kenneth.heaslip@spectrocloud.com"

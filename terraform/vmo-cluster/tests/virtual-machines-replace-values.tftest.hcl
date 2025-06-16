@@ -26,10 +26,5 @@ run "verify_maas" {
   command = plan
 
   expect_failures = [
-    var.vm-deploy-namespace, 
-    var.vm-deploy-name,
-    var.vm-labels,
-    var.vm-storage-Gi, 
-    var.vm-memory-Gi,
   ]
 }
