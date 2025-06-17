@@ -8,8 +8,8 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
   description = "A basic cluster profile for MAAS VMO"
   tags        = concat(var.tags, ["env:maas"])
   cloud       = "maas"
-  type        = var.cluster-profile-type
-  version     = var.cluster-profile-version
+  type        = "cluster"
+  version     = "1.0.0"
 
   pack {
     name = data.spectrocloud_pack.maas_ubuntu.name
@@ -22,14 +22,11 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
   }
 
   pack {
-    name = data.spectrocloud_pack.maas_k8s.name
-    tag  = data.spectrocloud_pack.maas_k8s.version
-    uid  = data.spectrocloud_pack.maas_k8s.id
-    values = templatefile("manifests/k8s-values.yaml", {
-      pod-CIDR            = var.pod-CIDR,
-      clusterServicesCIDR = var.cluster-services-CIDR
-    })
-    type                = "spectro"
+    name   = data.spectrocloud_pack.maas_k8s.name
+    tag    = data.spectrocloud_pack.maas_k8s.version
+    uid    = data.spectrocloud_pack.maas_k8s.id
+    values = file("manifests/k8s-values.yaml")
+    type   = "spectro"
   }
 
   pack {
@@ -41,13 +38,11 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
   }
 
   pack {
-    name = data.spectrocloud_pack.maas_csi.name
-    tag  = data.spectrocloud_pack.maas_csi.version
-    uid  = data.spectrocloud_pack.maas_csi.id
-    values = templatefile("manifests/csi-values.yaml", {
-      worker_nodes = var.maas-worker-nodes
-    })
-    type = "spectro"
+    name   = data.spectrocloud_pack.maas_csi.name
+    tag    = data.spectrocloud_pack.maas_csi.version
+    uid    = data.spectrocloud_pack.maas_csi.id
+    values = file("manifests/csi-values.yaml")
+    type   = "spectro"
   }
 
   pack {
@@ -79,8 +74,9 @@ resource "spectrocloud_cluster_profile" "maas-vmo-profile" {
     values = file("manifests/vmo-extras-values.yaml")
     manifest {
       name = "vmo-extras"
-      content = file("manifests/vmo-extras-manifest.yaml")
+      content = templatefile("manifests/vmo-extras-manifest.yaml", {
+        palette-user-id = var.palette-user-id
+      })
     }
   }
-
 }

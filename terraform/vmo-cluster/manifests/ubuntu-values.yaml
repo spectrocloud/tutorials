@@ -6,7 +6,7 @@ kubeadmconfig:
     - apt install -y grepcidr
     - |
       # Enter as a CIDR '10.11.130.0/24'
-      NETWORKS="10.11.130.0/24"  
+      NETWORKS=${node-network}  
       IPS=$(hostname -I)
       for IP in $IPS
       do

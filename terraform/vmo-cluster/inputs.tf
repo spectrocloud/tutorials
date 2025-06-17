@@ -11,9 +11,18 @@ variable "palette-project" {
 
   validation {
     condition     = var.palette-project != ""
-    error_message = "Provide the correct Palette project."
+    error_message = "Provide a Palette project name."
   }
+}
 
+variable "palette-user-id" {
+  type        = string
+  description = "The name of your project in Palette."
+
+  validation {
+    condition     = var.palette-user-id != ""
+    error_message = "Please provide a Palette user ID."
+  }
 }
 
 ######################
@@ -31,73 +40,46 @@ variable "tags" {
   ]
 }
 
-
-
-
-#####################
-# cluster_profiles.tf
-#####################
-
-variable "cluster-profile-type" {
-  type        = string
-  description = "The name of the PCG that will be used to deploy the cluster."
-
-  validation {
-    condition     = var.deploy-maas ? var.cluster-profile-type != "REPLACE ME" && lower(var.cluster-profile-type) == "cluster" || lower(var.cluster-profile-type) == "infra" || lower(var.cluster-profile-type) == "add-on" || lower(var.cluster-profile-type) == "system" : true
-    error_message = "Cluster profile type must be 'cluster', 'infra', 'add-on', or 'system'."
-  }
-}
-
-variable "cluster-profile-version" {
-  type        = string
-  description = "The name of the PCG that will be used to deploy the cluster."
-
-  validation {
-    condition     = var.deploy-maas ? var.cluster-profile-version != "REPLACE ME" && var.cluster-profile-version != "" : true
-    error_message = "Cluster profile version must be set."
-  }
-}
-
 #########################
 # clusters.tf
 #########################
 
-variable "ctl-node-min-cpu" {
+variable "maas-control-node-min-cpu" {
   type        = number
   description = "Minimum number of CPU cores allocated to the Control Plane node."
 
   validation {
-    condition     = var.deploy-maas ? var.ctl-node-min-cpu > 0 : true
+    condition     = var.deploy-maas ? var.maas-control-node-min-cpu > 0 : true
     error_message = "Provide a valid number of cores for your Control Plane node."
   }
 }
 
-variable "ctl-node-min-memory-mb" {
+variable "maas-control-node-min-memory-mb" {
   type        = number
   description = "Minimum amount of RAM allocated to the Control Plane node."
 
   validation {
-    condition     = var.deploy-maas ? var.ctl-node-min-memory-mb > 0 : true
+    condition     = var.deploy-maas ? var.maas-control-node-min-memory-mb > 0 : true
     error_message = "Provide a valid amount of RAM (MB) for your Control Plane node."
   }
 }
 
-variable "wrk-node-min-cpu" {
+variable "maas-worker-node-min-cpu" {
   type        = number
-  description = "Minimum number of CPU cores allocated to the Control Plane node."
+  description = "Minimum number of CPU cores allocated to the worker node."
 
   validation {
-    condition     = var.deploy-maas ? var.wrk-node-min-cpu > 0 : true
-    error_message = "Provide a valid number of cores for your worker node."
+    condition     = var.deploy-maas ? var.maas-worker-node-min-cpu > 0 : true
+    error_message = "Provide a valid number of CPU cores for your worker node."
   }
 }
 
-variable "wrk-node-min-memory-mb" {
+variable "maas-worker-node-min-memory-mb" {
   type        = number
-  description = "Minimum amount of RAM allocated to the Control Plane node."
+  description = "Minimum amount of RAM allocated to the worker node."
 
   validation {
-    condition     = var.deploy-maas ? var.wrk-node-min-memory-mb > 0 : true
+    condition     = var.deploy-maas ? var.maas-worker-node-min-memory-mb > 0 : true
     error_message = "Provide a valid amount of RAM (MB) for your worker node."
   }
 }
@@ -105,6 +87,7 @@ variable "wrk-node-min-memory-mb" {
 variable "vmo-cluster-name" {
   type        = string
   description = "The name of the cluster."
+  default     = "vmo-tutorial-cluster"
 
   validation {
     condition     = var.deploy-maas ? var.vmo-cluster-name != "REPLACE ME" && var.vmo-cluster-name != "" : true
@@ -128,7 +111,7 @@ variable "pcg-name" {
 
   validation {
     condition     = var.deploy-maas ? var.pcg-name != "REPLACE ME" && var.pcg-name != "" : true
-    error_message = "Provide the correct MAAS PCG name."
+    error_message = "Provide a valid MAAS PCG name."
   }
 }
 
@@ -138,18 +121,7 @@ variable "maas-domain" {
 
   validation {
     condition     = var.deploy-maas ? var.maas-domain != "REPLACE ME" && var.maas-domain != "" : true
-    error_message = "Provide the correct MAAS domain."
-  }
-}
-
-variable "maas-worker-nodes" {
-  type        = number
-  description = "Number of MaaS worker nodes"
-  default     = 1
-
-  validation {
-    condition     = var.deploy-maas ? var.maas-worker-nodes > 0 : true
-    error_message = "Provide a valid number of worker nodes."
+    error_message = "Provide a valid MAAS domain."
   }
 }
 
@@ -183,24 +155,13 @@ variable "maas-worker-node-tags" {
   }
 }
 
-variable "maas-control-plane-nodes" {
-  type        = number
-  description = "Number of MaaS control plane nodes"
-  default     = 1
-
-  validation {
-    condition     = var.deploy-maas ? var.maas-control-plane-nodes > 0 : true
-    error_message = "Provide a valid number of control plane nodes."
-  }
-}
-
 variable "maas-control-plane-resource-pool" {
   type        = string
   description = "Resource pool for the MAAS control plane nodes."
 
   validation {
     condition     = var.deploy-maas ? var.maas-control-plane-resource-pool != "REPLACE ME" && var.maas-control-plane-resource-pool != "" : true
-    error_message = "Provide a valid resource pool for worker nodes."
+    error_message = "Provide a valid resource pool for MAAS control plane nodes."
   }
 }
 
@@ -210,7 +171,7 @@ variable "maas-control-plane-azs" {
 
   validation {
     condition     = var.deploy-maas ? !contains(var.maas-control-plane-azs, "REPLACE ME") && length(var.maas-control-plane-azs) != 0 : true
-    error_message = "Provide a valid set of AZs for control plane nodes."
+    error_message = "Provide a valid set of AZs for MAAS control plane nodes."
   }
 }
 
@@ -220,31 +181,7 @@ variable "maas-control-plane-node-tags" {
 
   validation {
     condition     = var.deploy-maas ? !contains(var.maas-control-plane-node-tags, "REPLACE ME") && length(var.maas-control-plane-node-tags) != 0 : true
-    error_message = "Provide a valid set of node tags for control plane nodes."
-  }
-}
-
-#################
-# /manifests/k8s-values.yaml
-#################
-
-variable "pod-CIDR" {
-  type        = set(string)
-  description = "CIDR notation subnets for the pd network ex. 192.168.1.0/24."
-
-  validation {
-    condition     = var.deploy-maas ? !contains(var.pod-CIDR, "REPLACE ME") && length(var.pod-CIDR) != 0 : true
-    error_message = "Provide a valid Subnet (CIDR Notation) for the pod network."
-  }
-}
-
-variable "cluster-services-CIDR" {
-  type        = set(string)
-  description = "CIDR notation subnets for cluster services ex. 192.168.1.0/24."
-
-  validation {
-    condition     = var.deploy-maas ? !contains(var.cluster-services-CIDR, "REPLACE ME") && length(var.cluster-services-CIDR) != 0 : true
-    error_message = "Provide a valid Subnet (CIDR Notation for cluster services."
+    error_message = "Provide a valid set of node tags for MAAS control plane nodes."
   }
 }
 
@@ -253,11 +190,11 @@ variable "cluster-services-CIDR" {
 #####################
 
 variable "metallb-ip-pool" {
-  type        = set(string)
+  type        = string
   description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.metallb-ip-pool, "REPLACE ME") && length(var.metallb-ip-pool) != 0 : true
+    condition     = var.deploy-maas ? var.metallb-ip-pool != "REPLACE ME" && length(var.metallb-ip-pool) != 0 : true
     error_message = "Provide a valid Subnet (CIDR Notation) or IP Range (192.168.1.0-192.168.1.255) for MetalLB."
   }
 }
@@ -267,25 +204,26 @@ variable "metallb-ip-pool" {
 #################
 
 variable "vmo-network-interface" {
-  type        = set(string)
-  description = "The network interface VMO will use for VM traffic."
+  type        = string
+  description = "The host network interface VMO will use for VM traffic."
+  default     = "br0"
 
   validation {
-    condition     = var.deploy-maas ? !contains(var.vmo-network-interface, "REPLACE ME") && length(var.vmo-network-interface) != 0 : true
-    error_message = "Provide a valid network interface for the VMO service to use."
+    condition     = var.deploy-maas ? var.vmo-network-interface != "REPLACE ME" && length(var.vmo-network-interface) != 0 : true
+    error_message = "Provide a valid host network interface for the VMO service to use."
   }
 }
 
 variable "vm-vlans" {
-  type        = number
+  type        = string
   description = "VM allowed VLANs."
-  default     = 1
+  default     = "1"
 }
 
 variable "host-vlans" {
-  type        = number
+  type        = string
   description = "Node Allowed VLANs"
-  default     = 1
+  default     = "1"
 }
 
 #################
@@ -298,10 +236,9 @@ variable "node-network" {
 
   validation {
     condition     = var.deploy-maas ? var.node-network != "REPLACE ME" && length(var.node-network) != 0 : true
-    error_message = "Provide a valid network interface for the VMO service to use."
+    error_message = "Provide a valid network (CIDR notation) for the OS to use."
   }
 }
-
 
 #####################
 # virtual_machines.tf
@@ -310,6 +247,7 @@ variable "node-network" {
 variable "vm-deploy-namespace" {
   type        = string
   description = "The namespace where your VMs will be deployed."
+  default     = "virtual-machines"
 
   validation {
     condition     = var.deploy-maas ? var.vm-deploy-namespace != "REPLACE ME" && length(var.vm-deploy-namespace) != 0 : true
@@ -320,6 +258,7 @@ variable "vm-deploy-namespace" {
 variable "vm-deploy-name" {
   type        = string
   description = "The namespace where your VMs will be deployed."
+  default     = "vmo-tutorial-vm"
 
   validation {
     condition     = var.deploy-maas ? var.vm-deploy-name != "REPLACE ME" && length(var.vm-deploy-name) != 0 : true
@@ -329,7 +268,8 @@ variable "vm-deploy-name" {
 
 variable "vm-labels" {
   type        = set(string)
-  description = "The namespace where your VMs will be deployed."
+  description = "The labels that will be applied to your VM."
+  default     = ["vmo-tutorial-vm"]
 
   validation {
     condition     = var.deploy-maas ? var.vm-labels != "REPLACE ME" && length(var.vm-labels) != 0 : true
@@ -360,7 +300,7 @@ variable "vm-cpu-cores" {
 
 variable "vm-cpu-sockets" {
   type        = number
-  description = "Number of CPU cores to allocate to your VM."
+  description = "Number of CPU sockets the assigned CPU cores should be spread across."
   default     = 1
 
   validation {
@@ -371,7 +311,7 @@ variable "vm-cpu-sockets" {
 
 variable "vm-cpu-threads" {
   type        = number
-  description = "Number of CPU cores to allocate to your VM."
+  description = "Number of CPU threads your VM can use."
   default     = 1
 
   validation {

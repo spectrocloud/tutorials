@@ -56,6 +56,6 @@ data "spectrocloud_pack" "maas_vmo" {
 data "spectrocloud_cluster" "maas_vmo_cluster" {
   count      = var.deploy-maas-vm ? 1 : 0
   depends_on = [spectrocloud_cluster_maas.maas-cluster]
-  name       = "vmo-cluster-maas"
+  name       = "vmo-tutorial-cluster"
   context    = "project"
 }

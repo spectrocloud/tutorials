@@ -24,6 +24,8 @@ The following tutorial code is available:
 
 - [getting-started-deployment-tf](./terraform/getting-started-deployment-tf/README.md) - Learn how to deploy and update a cluster to AWS, Azure, GCP, and VMware vSphere with Palette. [Link](https://docs.spectrocloud.com/getting-started/terraform)
 
+- [maas-vmo-cluster-deployment-tf](./terraform/vmo-cluster/README.md) - Learn how to deploy a VMO cluster to MAAS and deploy VMs with Palette. [Link](https://docs.spectrocloud.com/tutorials/vmo/vmo-maas)
+
 ## Docker
 
 All the tutorials are available in a Docker image that you can use to get started with the tutorials.

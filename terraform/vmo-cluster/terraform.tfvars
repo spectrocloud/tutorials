@@ -4,69 +4,52 @@
 #####################
 # Palette Settings
 #####################
-palette-project = "Default" # The name of your project in Palette.
+palette-project = "REPLACE_ME" # The name of your project in Palette.
+palette-user-id = "REPLACE_ME" # Your Palette user ID
 
 ############################
 # MAAS Deployment Settings
 ############################
 
-deploy-maas                      = false        # Set to true to deploy to a new VMO cluster to MAAS.
-deploy-maas-vm                   = false    # Set to true to create a VM on MAAS VMO cluster once deployed.
-pcg-name                         = "REPLACE ME"  # Provide the name of the PCG that will be used to deploy the Palette cluster.
-maas-domain                      = "REPLACE ME"   # Provide the MAAS domain that will be used to deploy the Palette cluster.
-maas-control-plane-nodes         = 1           # Provide the number of control plane nodes that will be used for the Palette cluster.
-maas-control-plane-resource-pool = "REPLACE ME"      # Provide a resource pool for the control plane nodes.
-maas-control-plane-azs           = ["REPLACE ME"]     # Provide a set of availability zones for the control plane nodes.
-maas-control-plane-node-tags     = ["REPLACE ME"] # Provide a set of node tags for the control plane nodes.
-ctl-node-min-cpu                 = 6           # Minimum number of CPU cores required for control plane nodes
-ctl-node-min-memory-mb           = 8096        # Minimum amount of RAM (memory) required for control plane nodes
-maas-worker-nodes                = 1           # Provide the number of worker nodes that will be used for the Palette cluster.
-maas-worker-resource-pool        = "REPLACE ME"      # Provide a resource pool for the worker nodes.
-maas-worker-azs                  = ["REPLACE ME"]     # Provide a set of availability zones for the worker nodes.
-maas-worker-node-tags            = ["REPLACE ME"]    # Provide a set of node tags for the worker nodes.
-wrk-node-min-cpu                 = 8           # Minimum number of CPU cores required for worker nodes
-wrk-node-min-memory-mb           = 16384       # Minimum amount of RAM (memory) required for worker nodes
-
-#####################
-# cluster_profiles.tf
-#####################
-
-vmo-cluster-name        = "REPLACE ME"
-cluster-profile-type    = "cluster" # infra, cluster, add-on, or system
-cluster-profile-version = "1.0.0"   # Version number for the cluster profile in Palette
-
-#####################
-# vmo-values.tf
-####################
-vmo-network-interface = ["br0"]
-vm-vlans              = 1
-host-vlans            = 1
-
-###########################
-# manifests/k8s-values.yaml
-###########################
-pod-CIDR              = ["100.64.0.0/18"] # Set the subnet that your pods will run on
-cluster-services-CIDR = ["100.64.64.0/18"]
+deploy-maas                      = true           # Set to true to deploy to a new VMO cluster to MAAS.
+deploy-maas-vm                   = true           # Set to true to create a VM on MAAS VMO cluster once deployed.
+pcg-name                         = "REPLACE_ME"   # Provide the name of the PCG that will be used to deploy the Palette cluster.
+maas-domain                      = "REPLACE_ME"   # Provide the MAAS domain that will be used to deploy the Palette cluster.
+maas-control-plane-resource-pool = "REPLACE_ME"   # Provide a resource pool for the control plane nodes.
+maas-control-plane-azs           = ["REPLACE_ME"] # Provide a set of availability zones for the control plane nodes.
+maas-control-plane-node-tags     = ["REPLACE_ME"] # Provide a set of node tags for the control plane nodes.
+maas-control-node-min-cpu        = REPLACE_ME     # Minimum number of CPU cores required for control plane nodes
+maas-control-node-min-memory-mb  = REPLACE_ME     # Minimum amount of RAM (memory) required for control plane nodes
+maas-worker-resource-pool        = "REPLACE_ME"   # Provide a resource pool for the worker nodes.
+maas-worker-azs                  = ["REPLACE_ME"] # Provide a set of availability zones for the worker nodes.
+maas-worker-node-tags            = ["REPLACE_ME"] # Provide a set of node tags for the worker nodes.
+maas-worker-node-min-cpu         = REPLACE_ME     # Minimum number of CPU cores required for worker nodes
+maas-worker-node-min-memory-mb   = REPLACE_ME     # Minimum amount of RAM (memory) required for worker nodes
 
 ###############################
 # manifests/metallb-values.yaml
 ###############################
-metallb-ip-pool = ["REPLACE ME"] # IP addresses to be assigned for use by MetalLB
+metallb-ip-pool = "REPLACE_ME" # IP addresses to be assigned for use by MetalLB. Example 192.168.0.1-192.168.0.4
 
 ###############################
 # manifests/ubuntu-values.yaml
 ###############################
-node-network = "REPLACE ME" # IP addresses to be assigned for use by MetalLB
+node-network = "REPLACE_ME" # IP addresses to be assigned for use by the Ubuntu Kubelet services.
 
 #####################
-# virtual_machines.tf
+# virtual_machines.tf - we recommend leaving these values as is to avoid issues with other resource requirements.
 #####################
 vm-deploy-namespace = "virtual-machines" # Namespace where your VM will be deployed.
-vm-deploy-name      = "REPLACE ME"           # The name of your VM
-vm-labels           = ["REPLACE ME"]      # Labels that will be applied to your VM.
-vm-storage-Gi       = "50Gi"             # Size of the disk (PVC) that your VM will have.
+vm-storage-Gi       = "50Gi"             # Size of the disk (PVC) that your VM will have. Leave this value at 50Gi.
 vm-cpu-cores        = 2                  # Number of CPU cores your VM will have.
 vm-cpu-sockets      = 1                  # Number of physical CPU sockets the CPU cores should be spread over.
-vm-cpu-threads      = 2                  # Number of CPU threads to use for the VM CPU
+vm-cpu-threads      = 1                  # Number of CPU threads to use for the VM CPU
 vm-memory-Gi        = "4Gi"              # Amount of RAM (memory) your VM will have
 
+
+#####################
+# vmo-values.tf
+####################
+vmo-network-interface = "br0" # The name of the host network interface VMO will use. Default is 'br0'
+vm-vlans              = "1"   # VLANs your VMs must be able to communicate on. Default is "1" which is `untagged`.
+host-vlans            = "1"   # VLANs your VMO host needs to communicate on. Default is "1" which is `untagged`.
