@@ -1,0 +1,160 @@
+apiVersion: spectrocloud.com/v1
+kind: VmTemplate
+metadata:
+  name: ubuntu-2204
+spec:
+  description: Ubuntu 22.04
+  displayName: Ubuntu 22.04
+  icon: https://s3.amazonaws.com/manifests.spectrocloud.com/logos/ubuntu.png
+  dataVolumeTemplates:
+    - metadata:
+        name: ubuntu-2204
+      spec:
+        source:
+          pvc:
+            name: template-ubuntu-2204
+            namespace: vmo-golden-images
+        pvc:
+          accessModes:
+            - ReadWriteMany
+          resources:
+            requests:
+              storage: 50Gi
+          volumeMode: Block
+          storageClassName: ceph-block
+  template:
+    metadata:
+      annotations:
+        descheduler.alpha.kubernetes.io/evict: "true"
+      labels:
+        kubevirt.io/size: small
+        kubevirt.io/domain: hellouni
+    spec:
+      domain:
+        cpu:
+          cores: 2
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - disk:
+                bus: virtio
+              name: datavolume-os
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+          interfaces:
+            - masquerade: {}
+              name: default
+              model: virtio
+              #macAddress: '00:5e:ab:cd:ef:01'
+        machine:
+          type: q35
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            memory: 2Gi
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - dataVolume:
+            name: ubuntu-2204
+          name: datavolume-os
+        - cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              ssh_pwauth: True
+              chpasswd: { expire: False }
+              password: spectro
+              disable_root: false
+              runcmd:
+                - apt-get update
+                - apt-get install -y qemu-guest-agent
+                - systemctl start qemu-guest-agent
+                - | 
+                  apt-get -y install ca-certificates curl
+                  install -m 0755 -d /etc/apt/keyrings
+                  curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+                  chmod a+r /etc/apt/keyrings/docker.asc
+                  echo \
+                    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+                    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+                    tee /etc/apt/sources.list.d/docker.list > /dev/null
+                  apt-get update
+                  apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+                  groupadd docker
+                  gpasswd -a ubuntu docker
+          name: cloudinitdisk
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: "template-ubuntu-2204"
+  namespace: "vmo-golden-images"
+  annotations:
+    cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
+    cdi.kubevirt.io/storage.bind.immediate.requested: ""
+spec:
+  storage:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 50Gi
+    volumeMode: Block
+    storageClassName: ceph-block
+  source:
+    registry:
+      url: "docker://gcr.io/spectro-images-public/release/vm-dashboard/os/ubuntu-container-disk:22.04"
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: StorageProfile
+metadata:
+  name: ceph-filesystem
+spec:
+  claimPropertySets:
+    - accessModes:
+        - ReadWriteMany
+      volumeMode: Filesystem
+  cloneStrategy: csi-clone
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: StorageProfile
+metadata:
+  name: ceph-block
+spec:
+  claimPropertySets:
+    - accessModes:
+        - ReadWriteMany
+      volumeMode: Block
+  cloneStrategy: csi-clone
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: virtual-machine-orchestrator
+  name: virtual-machine-orchestrator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: virtual-machine-orchestrator
+  namespace: vm-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-admin
+subjects:
+- kind: User
+  name: ${palette-user-id}
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
