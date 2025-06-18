@@ -13,6 +13,7 @@ env:
   TERRAFORM_VERSION: 1.9.0
   PALETTE_REGISTRY_CLI_VERSION: 4.6.1
   K9S_VERSION: 0.32.5
+  SPECTRO_CLI_VERSION: 4.6.0
 
 jobs:
   docker:
@@ -68,6 +69,7 @@ jobs:
             TERRAFORM_VERSION=${{env.TERRAFORM_VERSION}}
             PALETTE_REGISTRY_CLI_VERSION=${{env.PALETTE_REGISTRY_CLI_VERSION}}
             K9S_VERSION=${{env.K9S_VERSION}}
+            SPECTRO_CLI_VERSION=${{env.SPECTRO_CLI_VERSION}}
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}
