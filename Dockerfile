@@ -3,7 +3,7 @@
 
 ARG PALETTE_VERSION
 
-FROM us-docker.pkg.dev/palette-images/palette/spectro-registry:${PALETTE_VERSION} AS server
+FROM us-docker.pkg.dev/palette-images/palette/spectro-registry:${PALETTE_REGISTRY_CLI_VERSION} AS server
 
 FROM alpine:latest
 
