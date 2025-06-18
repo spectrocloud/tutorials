@@ -1,9 +1,9 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
 
-ARG PALETTE_VERSION
+ARG PALETTE_REGISTRY_CLI_VERSION
 
-FROM us-docker.pkg.dev/palette-images/palette/spectro-registry:${PALETTE_VERSION} AS server
+FROM us-docker.pkg.dev/palette-images/palette/spectro-registry:${PALETTE_REGISTRY_CLI_VERSION} AS server
 
 FROM alpine:latest
 
@@ -20,11 +20,11 @@ ADD  static/defaults/registry-config.yml etc/spectro/config.yml
 
 ARG PALETTE_CLI_VERSION
 ARG PALETTE_EDGE_VERSION
-ARG PALETTE_REGISTRY_CLI_VERSION
 ARG PACKER_VERSION
 ARG ORAS_VERSION
 ARG TERRAFORM_VERSION
 ARG K9S_VERSION
+ARG SPECTRO_CLI_VERSION
 
 ENV REGISTRY_LOG_LEVEL=info
 ENV REGISTRY_AUTH=htpasswd
@@ -39,7 +39,7 @@ RUN adduser -u 1002 -D appuser appuser && \
     apk add --no-cache bash curl git openssl jq bind-tools wget ca-certificates nano aws-cli xorriso govc podman
 
 
-RUN  wget https://spectro-cli.s3.amazonaws.com/v$PALETTE_REGISTRY_CLI_VERSION/linux/spectro && \
+RUN  wget https://spectro-cli.s3.amazonaws.com/v$SPECTRO_CLI_VERSION/linux/spectro && \
         mv spectro /usr/local/bin/spectro && \
         chmod +x /usr/local/bin/spectro && \
         wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && \
