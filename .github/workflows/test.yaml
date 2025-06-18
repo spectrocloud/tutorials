@@ -6,7 +6,6 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ github.token }}
-  PALETTE_VERSION: 4.6.32
   PALETTE_CLI_VERSION: 4.6.6
   PALETTE_EDGE_VERSION: 4.6.21
   PACKER_VERSION: 1.11.0
@@ -71,7 +70,6 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:dev
           build-args: |
-            PALETTE_VERSION=${{env.PALETTE_VERSION}}
             PALETTE_CLI_VERSION=${{env.PALETTE_CLI_VERSION}}
             PALETTE_EDGE_VERSION=${{env.PALETTE_EDGE_VERSION}}
             PACKER_VERSION=${{env.PACKER_VERSION}}

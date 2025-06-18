@@ -1,7 +1,7 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
 
-ARG PALETTE_VERSION
+ARG PALETTE_REGISTRY_CLI_VERSION
 
 FROM us-docker.pkg.dev/palette-images/palette/spectro-registry:${PALETTE_REGISTRY_CLI_VERSION} AS server
 
@@ -20,7 +20,6 @@ ADD  static/defaults/registry-config.yml etc/spectro/config.yml
 
 ARG PALETTE_CLI_VERSION
 ARG PALETTE_EDGE_VERSION
-ARG PALETTE_REGISTRY_CLI_VERSION
 ARG PACKER_VERSION
 ARG ORAS_VERSION
 ARG TERRAFORM_VERSION
