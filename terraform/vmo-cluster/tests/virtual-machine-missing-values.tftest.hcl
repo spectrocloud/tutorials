@@ -1,6 +1,6 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
-# Test case 4 - Verify PCG name, domain, resource pools, AZs and node tags cannot be empty.
+# Test case 4 - Verify VM Variables cannot be empty.
 
 variables {
   deploy-maas = true

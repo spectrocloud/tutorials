@@ -47,6 +47,7 @@ variable "tags" {
 variable "maas-control-node-min-cpu" {
   type        = number
   description = "Minimum number of CPU cores allocated to the Control Plane node."
+  default = 8
 
   validation {
     condition     = var.deploy-maas ? var.maas-control-node-min-cpu > 0 : true
@@ -57,6 +58,7 @@ variable "maas-control-node-min-cpu" {
 variable "maas-control-node-min-memory-mb" {
   type        = number
   description = "Minimum amount of RAM allocated to the Control Plane node."
+  default = 32
 
   validation {
     condition     = var.deploy-maas ? var.maas-control-node-min-memory-mb > 0 : true
@@ -67,6 +69,7 @@ variable "maas-control-node-min-memory-mb" {
 variable "maas-worker-node-min-cpu" {
   type        = number
   description = "Minimum number of CPU cores allocated to the worker node."
+  default = 8
 
   validation {
     condition     = var.deploy-maas ? var.maas-worker-node-min-cpu > 0 : true
@@ -77,6 +80,7 @@ variable "maas-worker-node-min-cpu" {
 variable "maas-worker-node-min-memory-mb" {
   type        = number
   description = "Minimum amount of RAM allocated to the worker node."
+  default = 32
 
   validation {
     condition     = var.deploy-maas ? var.maas-worker-node-min-memory-mb > 0 : true
@@ -117,7 +121,7 @@ variable "pcg-name" {
 
 variable "maas-domain" {
   type        = string
-  description = "MAAS domain"
+  description = "The name of the MAAS domain."
 
   validation {
     condition     = var.deploy-maas ? var.maas-domain != "REPLACE ME" && var.maas-domain != "" : true
@@ -185,23 +189,23 @@ variable "maas-control-plane-node-tags" {
   }
 }
 
-#####################
+################################
 # /manifests/metallb-values.yaml
-#####################
+################################
 
 variable "metallb-ip-pool" {
   type        = string
-  description = "CIDR notation subnets or IP range ex. 192.168.1.0/24 or 192.168.1.0-192.168.1.255"
+  description = "CIDR notation subnets or IP range for MetalLb. For example, 192.168.1.0/24 or 192.168.1.0-192.168.1.255."
 
   validation {
     condition     = var.deploy-maas ? var.metallb-ip-pool != "REPLACE ME" && length(var.metallb-ip-pool) != 0 : true
-    error_message = "Provide a valid Subnet (CIDR Notation) or IP Range (192.168.1.0-192.168.1.255) for MetalLB."
+    error_message = "Provide a valid subnet (CIDR Notation) or IP Range (192.168.1.0-192.168.1.255) for MetalLB."
   }
 }
 
-#################
+############################
 # /manifests/vmo-values.yaml
-#################
+############################
 
 variable "vmo-network-interface" {
   type        = string
@@ -226,9 +230,9 @@ variable "host-vlans" {
   default     = "1"
 }
 
-#################
+###############################
 # /manifests/ubuntu-values.yaml
-#################
+###############################
 
 variable "node-network" {
   type        = string
@@ -283,14 +287,14 @@ variable "vm-storage-Gi" {
 
   validation {
     condition     = var.deploy-maas ? var.vm-storage-Gi != "REPLACE ME" && length(var.vm-storage-Gi) != 0 && endswith((var.vm-storage-Gi), "Gi") : true
-    error_message = "Provide a valid amount of storage for your VM. You must include 'Gi' at the end of your numerical value. Example: '50Gi'."
+    error_message = "Provide a valid amount of storage for your VM. You must include 'Gi' at the end of your numerical value. For example, '50Gi'."
   }
 }
 
 variable "vm-cpu-cores" {
   type        = number
   description = "Number of CPU cores to allocate to your VM."
-  default     = 1
+  default     = 4
 
   validation {
     condition     = var.deploy-maas ? var.vm-cpu-cores > 0 : true
@@ -323,9 +327,9 @@ variable "vm-cpu-threads" {
 variable "vm-memory-Gi" {
   type        = string
   description = "The amount of storage to provision for your VM in Gi."
-
+  default = "8Gi"
   validation {
     condition     = var.deploy-maas ? var.vm-memory-Gi != "REPLACE ME" && length(var.vm-memory-Gi) != 0 && endswith((var.vm-memory-Gi), "Gi") : true
-    error_message = "Provide a valid amount of memory to allocate your VM. You must include 'Gi' at the end of your numerical value. Example: '4Gi'."
+    error_message = "Provide a valid amount of memory to allocate your VM. You must include 'Gi' at the end of your numerical value. For example, '4Gi'."
   }
 }

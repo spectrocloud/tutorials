@@ -8,10 +8,6 @@ data "spectrocloud_registry" "public_registry" {
   name = "Public Repo"
 }
 
-######
-# MAAS
-######
-
 data "spectrocloud_cloudaccount_maas" "account" {
   count = var.deploy-maas ? 1 : 0
   name  = var.pcg-name

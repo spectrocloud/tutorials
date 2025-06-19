@@ -1,6 +1,6 @@
 # Copyright (c) Spectro Cloud
 # SPDX-License-Identifier: Apache-2.0
-# Test case 5 - Verify PCG name, domain, resource pools, AZs and node tags cannot have REPLACE ME values.
+# Test case 5 - Verify VM variables cannot have REPLACE ME values.
 
 variables {
 
@@ -12,10 +12,6 @@ vm-cpu-cores            = 2
 vm-cpu-sockets          = 1
 vm-cpu-threads          = 2
 vm-memory-Gi            = "REPLACE ME"
-
-
-
-
 }
 
 mock_provider "spectrocloud" {

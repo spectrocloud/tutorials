@@ -8,9 +8,7 @@ resource "spectrocloud_virtual_machine" "virtual-machine" {
 
   cluster_uid     = data.spectrocloud_cluster.maas_vmo_cluster[0].id
   cluster_context = data.spectrocloud_cluster.maas_vmo_cluster[0].context
-
-  #run_on_launch = true
-  run_strategy = "Halted"
+  run_strategy = "Always"
   namespace    = var.vm-deploy-namespace
   name         = var.vm-deploy-name
 
