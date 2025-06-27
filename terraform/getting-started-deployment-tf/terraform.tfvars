@@ -4,7 +4,7 @@
 #####################
 # Palette Settings
 #####################
-palette-project = "Default" # The name of your project in Palette.
+palette-project = "REPLACE ME" # The name of your project in Palette.
 
 
 ##############################
