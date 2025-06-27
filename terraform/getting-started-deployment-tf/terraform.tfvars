@@ -6,7 +6,6 @@
 #####################
 palette-project = "REPLACE ME" # The name of your project in Palette.
 
-
 ##############################
 # Hello Universe Configuration
 ##############################
@@ -14,7 +13,7 @@ app_namespace   = "hello-universe" # The namespace in which the application will
 app_port        = 8080             # The cluster port number on which the service will listen for incoming traffic.
 replicas_number = 1                # The number of pods to be created.
 db_password     = "REPLACE ME"     # The database password to connect to the API database.
-auth_token      = "REPLACE ME"     # The authentication token to connect to the API service.
+auth_token      = "REPLACE ME"     # The auth token for the API connection.
 
 ###########################
 # AWS Deployment Settings
