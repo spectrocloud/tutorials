@@ -39,8 +39,8 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
   }
 
   timeouts {
-    create = "30m"
-    delete = "15m"
+    create = "45m"
+    delete = "45m"
   }
 }
 ###############
@@ -87,8 +87,8 @@ resource "spectrocloud_cluster_azure" "azure-cluster" {
   }
 
   timeouts {
-    create = "30m"
-    delete = "15m"
+    create = "45m"
+    delete = "45m"
   }
 }
 
@@ -130,8 +130,8 @@ resource "spectrocloud_cluster_gcp" "gcp-cluster" {
   }
 
   timeouts {
-    create = "30m"
-    delete = "15m"
+    create = "45m"
+    delete = "45m"
   }
 }
 
