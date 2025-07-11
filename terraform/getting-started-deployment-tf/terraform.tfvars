@@ -6,16 +6,14 @@
 #####################
 palette-project = "Default" # The name of your project in Palette.
 
-
 ##############################
 # Hello Universe Configuration
 ##############################
 app_namespace   = "hello-universe" # The namespace in which the application will be deployed.
 app_port        = 8080             # The cluster port number on which the service will listen for incoming traffic.
 replicas_number = 1                # The number of pods to be created.
-db_password     = "REPLACE ME"     # The database password to connect to the API database.
-auth_token      = "REPLACE ME"     # The auth token for the API connection.
-
+db_password     = "cGFzc3dvcmQ="     # The database password to connect to the API database.
+auth_token      = "OTMxQTNCMDItOERDQy01NDNGLUExQjItNjk0MjNEMUEwQjk0"     # The auth token for the API connection.
 
 ###########################
 # AWS Deployment Settings
@@ -30,7 +28,7 @@ aws-key-pair-name      = "REPLACE ME"
 aws_control_plane_nodes = {
   count              = "1"
   control_plane      = true
-  instance_type      = "m4.xlarge"
+  instance_type      = "m4.2xlarge"
   disk_size_gb       = "60"
   availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"].
 }
@@ -38,7 +36,7 @@ aws_control_plane_nodes = {
 aws_worker_nodes = {
   count              = "1"
   control_plane      = false
-  instance_type      = "m4.xlarge"
+  instance_type      = "m4.2xlarge"
   disk_size_gb       = "60"
   availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-east-1a", "us-east-1b"].
 }
@@ -59,7 +57,7 @@ azure_resource_group     = "REPLACE ME"
 azure_control_plane_nodes = {
   count               = "1"
   control_plane       = true
-  instance_type       = "Standard_A8_v2"
+  instance_type       = "Standard_D4s_v3"
   disk_size_gb        = "60"
   azs                 = ["1"] # If you want to deploy to multiple AZs, add them here.
   is_system_node_pool = false
@@ -68,7 +66,7 @@ azure_control_plane_nodes = {
 azure_worker_nodes = {
   count               = "1"
   control_plane       = false
-  instance_type       = "Standard_A8_v2"
+  instance_type       = "Standard_D4s_v3"
   disk_size_gb        = "60"
   azs                 = ["1"] # If you want to deploy to multiple AZs, add them here.
   is_system_node_pool = false
@@ -77,7 +75,7 @@ azure_worker_nodes = {
 ###########################
 # GCP Deployment Settings
 ############################
-deploy-gcp          = false # Set to true to deploy to GCP.
+deploy-gcp          = true # Set to true to deploy to GCP.
 deploy-gcp-kubecost = false # Set to true to deploy to GCP and include Kubecost to your cluster profile.
 
 gcp-cloud-account-name = "REPLACE ME"
@@ -87,7 +85,7 @@ gcp_project_name       = "REPLACE ME"
 gcp_control_plane_nodes = {
   count              = "1"
   control_plane      = true
-  instance_type      = "n1-standard-4"
+  instance_type      = "n2-standard-4"
   disk_size_gb       = "60"
   availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }
@@ -95,7 +93,7 @@ gcp_control_plane_nodes = {
 gcp_worker_nodes = {
   count              = "1"
   control_plane      = false
-  instance_type      = "n1-standard-4"
+  instance_type      = "n2-standard-4"
   disk_size_gb       = "60"
   availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }
