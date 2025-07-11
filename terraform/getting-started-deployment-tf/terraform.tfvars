@@ -87,7 +87,7 @@ gcp_control_plane_nodes = {
   control_plane      = true
   instance_type      = "n2-standard-4"
   disk_size_gb       = "60"
-  availability_zones = ["us-east1-b"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
+  availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }
 
 gcp_worker_nodes = {
@@ -95,7 +95,7 @@ gcp_worker_nodes = {
   control_plane      = false
   instance_type      = "n2-standard-4"
   disk_size_gb       = "60"
-  availability_zones = ["us-east1-b"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
+  availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }
 
 ############################
