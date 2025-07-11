@@ -4,7 +4,7 @@
 #####################
 # Palette Settings
 #####################
-palette-project = "REPLACE ME" # The name of your project in Palette.
+palette-project = "Default" # The name of your project in Palette.
 
 ##############################
 # Hello Universe Configuration
@@ -12,8 +12,8 @@ palette-project = "REPLACE ME" # The name of your project in Palette.
 app_namespace   = "hello-universe" # The namespace in which the application will be deployed.
 app_port        = 8080             # The cluster port number on which the service will listen for incoming traffic.
 replicas_number = 1                # The number of pods to be created.
-db_password     = "REPLACE ME"     # The database password to connect to the API database.
-auth_token      = "REPLACE ME"     # The auth token for the API connection.
+db_password     = "cGFzc3dvcmQ="     # The database password to connect to the API database.
+auth_token      = "OTMxQTNCMDItOERDQy01NDNGLUExQjItNjk0MjNEMUEwQjk0"     # The auth token for the API connection.
 
 ###########################
 # AWS Deployment Settings
@@ -75,7 +75,7 @@ azure_worker_nodes = {
 ###########################
 # GCP Deployment Settings
 ############################
-deploy-gcp          = false # Set to true to deploy to GCP.
+deploy-gcp          = true # Set to true to deploy to GCP.
 deploy-gcp-kubecost = false # Set to true to deploy to GCP and include Kubecost to your cluster profile.
 
 gcp-cloud-account-name = "REPLACE ME"
@@ -87,7 +87,7 @@ gcp_control_plane_nodes = {
   control_plane      = true
   instance_type      = "n2-standard-4"
   disk_size_gb       = "60"
-  availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
+  availability_zones = ["us-east1-b"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }
 
 gcp_worker_nodes = {
@@ -95,7 +95,7 @@ gcp_worker_nodes = {
   control_plane      = false
   instance_type      = "n2-standard-4"
   disk_size_gb       = "60"
-  availability_zones = ["REPLACE ME"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
+  availability_zones = ["us-east1-b"] # If you want to deploy to multiple AZs, add them here. Example: ["us-central1-a", "us-central1-b"].
 }
 
 ############################
