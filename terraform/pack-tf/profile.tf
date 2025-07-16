@@ -15,28 +15,28 @@ resource "spectrocloud_cluster_profile" "profile" {
   # Packs below have a static name and tag value. Refer to the HubbleAPI collection before changing these value.
   pack {
     name   = "ubuntu-aws"
-    tag    = "LTS__22.4.x"
+    tag    = "22.04"
     uid    = data.spectrocloud_pack.ubuntu.id
     values = data.spectrocloud_pack.ubuntu.values
   }
 
   pack {
     name   = "kubernetes"
-    tag    = "1.28.x"
+    tag    = "1.32.3"
     uid    = data.spectrocloud_pack.k8s.id
     values = data.spectrocloud_pack.k8s.values
   }
 
   pack {
     name   = "cni-calico"
-    tag    = "3.26.x"
+    tag    = "3.29.3"
     uid    = data.spectrocloud_pack.cni.id
     values = data.spectrocloud_pack.cni.values
   }
 
   pack {
     name   = "csi-aws-ebs"
-    tag    = "1.22.x"
+    tag    = "1.41.0"
     uid    = data.spectrocloud_pack.csi.id
     values = data.spectrocloud_pack.csi.values
   }
@@ -48,7 +48,7 @@ resource "spectrocloud_cluster_profile" "profile" {
   # Custom add-on pack
   pack {
     name   = "hellouniverse"
-    tag    = "1.0.x"
+    tag    = "1.2.0"
     uid    = data.spectrocloud_pack.hellouniverse.id
     values = data.spectrocloud_pack.hellouniverse.values
   }

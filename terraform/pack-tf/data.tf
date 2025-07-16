@@ -22,19 +22,19 @@ data "spectrocloud_pack" "ubuntu" {
 
 data "spectrocloud_pack" "k8s" {
   name         = "kubernetes"
-  version      = "1.28.2"
+  version      = "1.32.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "cni" {
   name         = "cni-calico"
-  version      = "3.26.1"
+  version      = "3.29.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "csi" {
   name         = "csi-aws-ebs"
-  version      = "1.22.0"
+  version      = "1.41.0"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
