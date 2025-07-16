@@ -75,7 +75,7 @@ azure_worker_nodes = {
 ###########################
 # GCP Deployment Settings
 ############################
-deploy-gcp          = true # Set to true to deploy to GCP.
+deploy-gcp          = false # Set to true to deploy to GCP.
 deploy-gcp-kubecost = false # Set to true to deploy to GCP and include Kubecost to your cluster profile.
 
 gcp-cloud-account-name = "REPLACE ME"
