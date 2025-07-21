@@ -3,17 +3,17 @@
 # Test case 15
 
 variables {
-  deploy-vmware = true
-  db_password = "test_password"
-  auth_token = "test_token"
-  metallb_ip         = "REPLACE ME"  
-  pcg_name           = "REPLACE ME" 
-  datacenter_name    = "REPLACE ME" 
-  folder_name        = "REPLACE ME" 
-  search_domain      = "REPLACE ME" 
-  vsphere_cluster    = "REPLACE ME" 
+  deploy-vmware      = true
+  db_password        = "test_password"
+  auth_token         = "test_token"
+  metallb_ip         = "REPLACE ME"
+  pcg_name           = "REPLACE ME"
+  datacenter_name    = "REPLACE ME"
+  folder_name        = "REPLACE ME"
+  search_domain      = "REPLACE ME"
+  vsphere_cluster    = "REPLACE ME"
   datastore_name     = "REPLACE ME"
-  network_name       = "REPLACE ME" 
+  network_name       = "REPLACE ME"
   resource_pool_name = "REPLACE ME"
 }
 

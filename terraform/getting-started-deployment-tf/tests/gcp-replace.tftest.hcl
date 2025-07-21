@@ -3,12 +3,12 @@
 # Test case 12
 
 variables {
-  deploy-gcp = true
-  db_password = "test_password"
-  auth_token = "test_token"
+  deploy-gcp             = true
+  db_password            = "test_password"
+  auth_token             = "test_token"
   gcp-cloud-account-name = "REPLACE ME"
   gcp-region             = "REPLACE ME"
-  gcp_project_name      = "REPLACE ME"
+  gcp_project_name       = "REPLACE ME"
   gcp_control_plane_nodes = {
     count              = "1"
     control_plane      = true

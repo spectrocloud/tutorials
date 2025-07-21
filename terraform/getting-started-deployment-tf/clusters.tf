@@ -7,7 +7,7 @@
 resource "spectrocloud_cluster_aws" "aws-cluster" {
   count = var.deploy-aws ? 1 : 0
 
-  name             = "aws-cluster" 
+  name             = "aws-cluster"
   tags             = concat(var.tags, ["env:aws"])
   cloud_account_id = data.spectrocloud_cloudaccount_aws.account[0].id
 

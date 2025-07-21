@@ -3,9 +3,9 @@
 # Test case 3
 
 variables {
-  deploy-aws = true
-  db_password = "test_password"
-  auth_token = "test_token"
+  deploy-aws             = true
+  db_password            = "test_password"
+  auth_token             = "test_token"
   aws-cloud-account-name = "test-account"
   aws-region             = "test-region"
   aws-key-pair-name      = "test-aws-key-pair"
@@ -33,13 +33,13 @@ run "verify_aws" {
   command = plan
 
   assert {
-        condition     = length(spectrocloud_cluster_profile.aws-profile) == 1
-        error_message = "No AWS cluster profile was created"
-    }
+    condition     = length(spectrocloud_cluster_profile.aws-profile) == 1
+    error_message = "No AWS cluster profile was created"
+  }
 
   assert {
-        condition     = length(spectrocloud_cluster_aws.aws-cluster) == 1
-        error_message = "No AWS cluster was created"
-    }
+    condition     = length(spectrocloud_cluster_aws.aws-cluster) == 1
+    error_message = "No AWS cluster was created"
+  }
 
 }

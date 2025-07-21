@@ -7,7 +7,7 @@ terraform {
       version = ">= 0.16.1"
       source  = "spectrocloud/spectrocloud"
     }
-      aws = {
+    aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }

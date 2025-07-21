@@ -3,8 +3,8 @@
 # Test case 6
 
 variables {
-  deploy-azure = true
-  deploy-azure-var = true
+  deploy-azure             = true
+  deploy-azure-var         = true
   azure-cloud-account-name = "REPLACE ME"
   azure-region             = "REPLACE ME"
   azure_subscription_id    = "REPLACE ME"
