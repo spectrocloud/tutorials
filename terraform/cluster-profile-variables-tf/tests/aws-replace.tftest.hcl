@@ -3,8 +3,8 @@
 # Test case 4
 
 variables {
-  deploy-aws = true
-  deploy-aws-var = true
+  deploy-aws             = true
+  deploy-aws-var         = true
   aws-cloud-account-name = "REPLACE ME"
   aws-region             = "REPLACE ME"
   aws-key-pair-name      = "REPLACE ME"

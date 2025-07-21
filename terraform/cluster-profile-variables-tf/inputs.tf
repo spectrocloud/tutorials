@@ -310,7 +310,7 @@ variable "wordpress_replica" {
   description = "The number of pods to be created."
 
   validation {
-    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_replica != "REPLACE ME" && var.wordpress_replica >=1 : true
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_replica != "REPLACE ME" && var.wordpress_replica >= 1 : true
     error_message = "The number of WordPress replicas must be at least 1 or more."
   }
 }
@@ -331,7 +331,7 @@ variable "wordpress_port" {
   description = "The port for the WordPress application."
 
   validation {
-    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_port != "REPLACE ME" && var.wordpress_port >=1 : true
+    condition     = var.deploy-aws || var.deploy-azure || var.deploy-gcp ? var.wordpress_port != "REPLACE ME" && var.wordpress_port >= 1 : true
     error_message = "Set the port number for WordPress"
   }
 }

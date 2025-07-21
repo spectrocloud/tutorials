@@ -3,9 +3,9 @@
 # Test case 8
 
 variables {
-  deploy-azure = true
-  db_password = "test_password"
-  auth_token = "test_token"
+  deploy-azure             = true
+  db_password              = "test_password"
+  auth_token               = "test_token"
   azure-cloud-account-name = "REPLACE ME"
   azure-region             = "REPLACE ME"
   azure_subscription_id    = "REPLACE ME"

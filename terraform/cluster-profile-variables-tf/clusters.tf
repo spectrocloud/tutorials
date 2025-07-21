@@ -48,7 +48,7 @@ resource "spectrocloud_cluster_aws" "aws-cluster" {
 # Azure Cluster 
 ###############
 resource "spectrocloud_cluster_azure" "azure-cluster" {
- count = var.deploy-azure ? 1 : 0
+  count = var.deploy-azure ? 1 : 0
 
   name             = "azure-cluster-var-tf"
   tags             = concat(var.tags, ["env:azure"])

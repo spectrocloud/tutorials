@@ -3,10 +3,10 @@
 # Test case 2
 
 variables {
-  deploy-aws = true
-  wordpress_namespace = "REPLACE ME"   
-  wordpress_replica = -1  
-  wordpress_port = -1 
+  deploy-aws             = true
+  wordpress_namespace    = "REPLACE ME"
+  wordpress_replica      = -1
+  wordpress_port         = -1
   aws-cloud-account-name = "test-account"
   aws-region             = "test-region"
   aws-key-pair-name      = "test-aws-key-pair"

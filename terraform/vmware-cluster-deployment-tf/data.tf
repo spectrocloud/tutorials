@@ -25,25 +25,25 @@ data "spectrocloud_pack" "ubuntu" {
 
 data "spectrocloud_pack" "k8s" {
   name         = "kubernetes"
-  version      = "1.28.3"
+  version      = "1.32.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "cni" {
   name         = "cni-calico"
-  version      = "3.26.3"
+  version      = "3.29.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "csi" {
   name         = "csi-vsphere-csi"
-  version      = "3.0.2"
+  version      = "3.3.1"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "metallb" {
   name         = "lb-metallb-helm"
-  version      = "0.13.11"
+  version      = "0.14.9"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
@@ -53,7 +53,7 @@ data "spectrocloud_pack" "metallb" {
 
 data "spectrocloud_pack" "hellouniverse" {
   name         = "hello-universe"
-  version      = "1.1.1"
+  version      = "1.2.0"
   registry_uid = data.spectrocloud_registry.community_registry.id
 }
 

@@ -3,12 +3,12 @@
 # Test case 10
 
 variables {
-  deploy-gcp = true
-  db_password = "test_password"
-  auth_token = "test_token"
+  deploy-gcp             = true
+  db_password            = "test_password"
+  auth_token             = "test_token"
   gcp-cloud-account-name = "test-account"
   gcp-region             = "test-region"
-  gcp_project_name      = "test-aws-key-pair"
+  gcp_project_name       = "test-aws-key-pair"
   gcp_control_plane_nodes = {
     count              = "1"
     control_plane      = true
@@ -33,13 +33,13 @@ run "verify_gcp" {
   command = plan
 
   assert {
-        condition     = length(spectrocloud_cluster_profile.gcp-profile) == 1
-        error_message = "No GCP cluster profile was created"
-    }
+    condition     = length(spectrocloud_cluster_profile.gcp-profile) == 1
+    error_message = "No GCP cluster profile was created"
+  }
 
   assert {
-        condition     = length(spectrocloud_cluster_gcp.gcp-cluster) == 1
-        error_message = "No GCP cluster was created"
-    }
+    condition     = length(spectrocloud_cluster_gcp.gcp-cluster) == 1
+    error_message = "No GCP cluster was created"
+  }
 
 }

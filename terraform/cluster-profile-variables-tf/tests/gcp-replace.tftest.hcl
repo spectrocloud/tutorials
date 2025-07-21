@@ -3,11 +3,11 @@
 # Test case 8
 
 variables {
-  deploy-gcp = true
-  deploy-gcp-var = true
+  deploy-gcp             = true
+  deploy-gcp-var         = true
   gcp-cloud-account-name = "REPLACE ME"
   gcp-region             = "REPLACE ME"
-  gcp_project_name      = "REPLACE ME"
+  gcp_project_name       = "REPLACE ME"
   gcp_control_plane_nodes = {
     count              = "1"
     control_plane      = true

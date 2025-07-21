@@ -8,12 +8,12 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
   count = var.deploy-aws ? 1 : 0
 
 
-  name        = "aws-profile-var-tf" 
+  name        = "aws-profile-var-tf"
   description = "A basic cluster profile for AWS"
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
   type        = "cluster"
-  version     = "1.0.0" 
+  version     = "1.0.0"
   pack {
     name   = data.spectrocloud_pack.aws_ubuntu.name
     tag    = data.spectrocloud_pack.aws_ubuntu.version
@@ -45,12 +45,12 @@ resource "spectrocloud_cluster_profile" "aws-profile" {
     values = data.spectrocloud_pack.aws_csi.values
     type   = "spectro"
   }
-    pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+  pack {
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-default.yaml")
-    type = "oci"
+    type   = "oci"
   }
 }
 
@@ -66,7 +66,7 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
   tags        = concat(var.tags, ["env:aws"])
   cloud       = "aws"
   type        = "cluster"
-  version     = "1.1.0" 
+  version     = "1.1.0"
 
   pack {
     name   = data.spectrocloud_pack.aws_ubuntu.name
@@ -101,11 +101,11 @@ resource "spectrocloud_cluster_profile" "aws-profile-var" {
   }
 
   pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-variables.yaml")
-    type = "oci"
+    type   = "oci"
   }
   profile_variables {
     variable {
@@ -181,18 +181,18 @@ resource "spectrocloud_cluster_profile" "azure-profile" {
   }
 
   pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-variables.yaml")
-    type = "oci"
+    type   = "oci"
   }
-pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+  pack {
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-default.yaml")
-    type = "oci"
+    type   = "oci"
   }
 }
 
@@ -242,18 +242,18 @@ resource "spectrocloud_cluster_profile" "azure-profile-var" {
   }
 
   pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-variables.yaml")
-    type = "oci"
+    type   = "oci"
   }
   pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-variables.yaml")
-    type = "oci"
+    type   = "oci"
   }
   profile_variables {
     variable {
@@ -330,11 +330,11 @@ resource "spectrocloud_cluster_profile" "gcp-profile" {
   }
 
   pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-default.yaml")
-    type = "oci"
+    type   = "oci"
   }
 }
 
@@ -384,18 +384,18 @@ resource "spectrocloud_cluster_profile" "gcp-profile-var" {
   }
 
   pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-variables.yaml")
-    type = "oci"
+    type   = "oci"
   }
   pack {
-    name = data.spectrocloud_pack.wordpress_chart.name
-    tag  = data.spectrocloud_pack.wordpress_chart.version
-    uid  = data.spectrocloud_pack.wordpress_chart.id
+    name   = data.spectrocloud_pack.wordpress_chart.name
+    tag    = data.spectrocloud_pack.wordpress_chart.version
+    uid    = data.spectrocloud_pack.wordpress_chart.id
     values = file("manifests/wordpress-variables.yaml")
-    type = "oci"
+    type   = "oci"
   }
   profile_variables {
     variable {

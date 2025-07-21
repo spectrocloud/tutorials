@@ -3,9 +3,9 @@
 # Test case 5
 
 variables {
-  deploy-aws = true
-  db_password = "test_password"
-  auth_token = "test_token"
+  deploy-aws             = true
+  db_password            = "test_password"
+  auth_token             = "test_token"
   aws-cloud-account-name = "REPLACE ME"
   aws-region             = "REPLACE ME"
   aws-key-pair-name      = "REPLACE ME"
