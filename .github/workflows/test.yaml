@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+  packages: write   # <-- needed to push to GHCR
+
 env:
   GITHUB_TOKEN: ${{ github.token }}
   PALETTE_CLI_VERSION: 4.6.6
