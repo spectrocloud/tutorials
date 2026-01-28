@@ -23,19 +23,19 @@ data "spectrocloud_cloudaccount_aws" "account" {
 
 data "spectrocloud_pack" "aws_csi" {
   name         = "csi-aws-ebs"
-  version      = "1.41.0"
+  version      = "1.53.0"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "aws_cni" {
   name         = "cni-calico"
-  version      = "3.29.3"
+  version      = "3.30.3"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "aws_k8s" {
   name         = "kubernetes"
-  version      = "1.32.3"
+  version      = "1.32.10"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
