@@ -1,0 +1,1 @@
+palette_project = "Default"
