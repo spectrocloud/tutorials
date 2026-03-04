@@ -5,8 +5,12 @@ terraform {
       source  = "spectrocloud/spectrocloud"
     }
   }
+
+  required_version = ">= 1.9"
 }
 
+
 provider "spectrocloud" {
-  project_name = var.palette_project
+  # API key set through the environment variable SPECTROCLOUD_APIKEY
+  project_name = var.palette-project
 }
