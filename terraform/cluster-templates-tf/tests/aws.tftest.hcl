@@ -17,3 +17,14 @@ run "verify_aws_profile" {
   }
 
 }
+
+run "verify_aws_template" {
+
+  command = plan
+
+  assert {
+    condition     = length(spectrocloud_cluster_config_template.aws_template) == 1
+    error_message = "No AWS cluster template was created"
+  }
+
+}
