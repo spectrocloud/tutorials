@@ -17,3 +17,14 @@ run "verify_azure_profile" {
   }
 
 }
+
+run "verify_azure_template" {
+
+  command = plan
+
+  assert {
+    condition     = length(spectrocloud_cluster_config_template.azure_template) == 1
+    error_message = "No Azure cluster template was created"
+  }
+
+}
