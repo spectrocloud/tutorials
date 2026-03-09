@@ -1,7 +1,7 @@
 resource "spectrocloud_cluster_config_template" "aws_template" {
   count = var.deploy-aws ? 1 : 0
 
-  name       = "tf-cluster-template"
+  name       = "tf-cluster-template-aws"
   cloud_type = "aws"
   context    = "project"
 
