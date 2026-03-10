@@ -1,6 +1,3 @@
-# Copyright (c) Spectro Cloud
-# SPDX-License-Identifier: Apache-2.0
-
 ########################################
 # Data resources for the cluster profile
 ########################################
@@ -20,6 +17,11 @@ data "spectrocloud_registry" "community_registry" {
 #############
 # AWS
 #############
+
+data "spectrocloud_cloudaccount_aws" "account" {
+  count = var.deploy-aws ? 1 : 0
+  name  = var.aws-cloud-account-name
+}
 
 data "spectrocloud_pack" "aws_ubuntu" {
   name         = "ubuntu-aws"
@@ -48,6 +50,11 @@ data "spectrocloud_pack" "aws_csi" {
 #############
 # Azure
 #############
+
+data "spectrocloud_cloudaccount_azure" "account" {
+  count = var.deploy-azure ? 1 : 0
+  name  = var.azure-cloud-account-name
+}
 
 data "spectrocloud_pack" "azure_ubuntu" {
   name         = "ubuntu-azure"
