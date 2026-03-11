@@ -71,7 +71,7 @@ async def main_async() -> None:
     args = parse_args()
     run_id = uuid.uuid4().hex[:8]
     debug_level = get_debug_level()
-    ensure_local_prerequisites(require_kubectl=False, require_curl=True)
+    ensure_local_prerequisites()
 
     if is_debug_enabled(debug_level, "info"):
         print(f"Debug level: {debug_level}")

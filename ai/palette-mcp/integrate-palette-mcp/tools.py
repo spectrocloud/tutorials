@@ -7,43 +7,11 @@ from __future__ import annotations
 
 import os
 import json
-import re
-import shlex
-import subprocess
 from typing import Any
+import urllib.error
+import urllib.request
 
 from langchain.tools import tool
-
-
-@tool
-def kubectl(command: str) -> str:
-    """Run kubectl locally and return stdout, stderr, and return code."""
-    if not command.strip():
-        return "STDOUT:\n\nSTDERR:\nMissing kubectl command.\nRC: 2"
-
-    try:
-        args = shlex.split(command)
-    except ValueError as exc:
-        return f"STDOUT:\n\nSTDERR:\nInvalid command syntax: {exc}\nRC: 2"
-
-    try:
-        result = subprocess.run(
-            ["kubectl", *args],
-            capture_output=True,
-            text=True,
-            timeout=30,
-            check=False,
-        )
-    except subprocess.TimeoutExpired:
-        return "STDOUT:\n\nSTDERR:\nkubectl command timed out after 30s.\nRC: 124"
-    except OSError as exc:
-        return f"STDOUT:\n\nSTDERR:\nFailed to execute kubectl: {exc}\nRC: 127"
-
-    return (
-        f"STDOUT:\n{result.stdout.rstrip()}\n\n"
-        f"STDERR:\n{result.stderr.rstrip()}\n"
-        f"RC: {result.returncode}"
-    )
 
 
 def _read_env_file(path: str) -> dict[str, str]:
@@ -127,7 +95,7 @@ def _resolve_palette_credentials() -> tuple[str, str, str]:
 
 @tool
 def tag_cluster_for_review(cluster_uid: str) -> str:
-    """Tag a Palette cluster with nginx/review labels via curl."""
+    """Tag a Palette cluster with nginx/review labels via HTTP PATCH."""
     if not cluster_uid.strip():
         return "STDOUT:\n\nSTDERR:\nMissing cluster UID.\nRC: 2"
 
@@ -139,7 +107,7 @@ def tag_cluster_for_review(cluster_uid: str) -> str:
 
 @tool
 def tag_cluster_profile_for_review(cluster_profile_uid: str) -> str:
-    """Tag a Palette cluster profile with nginx/review labels via curl."""
+    """Tag a Palette cluster profile with nginx/review labels via HTTP PATCH."""
     if not cluster_profile_uid.strip():
         return "STDOUT:\n\nSTDERR:\nMissing cluster profile UID.\nRC: 2"
 
@@ -177,48 +145,40 @@ def _patch_palette_metadata(resource_path: str, missing_identifier_error: str) -
         }
     }
     url = f"{host.rstrip('/')}{resource_path}"
-    command = [
-        "curl",
-        "--location",
-        "--silent",
-        "--show-error",
-        "--request",
-        "PATCH",
-        url,
-        "--header",
-        f"ProjectUid: {project_uid}",
-        "--header",
-        "Content-Type: application/json",
-        "--header",
-        f"apiKey: {api_key}",
-        "--data",
-        json.dumps(payload),
-        "--write-out",
-        "\nHTTP_STATUS:%{http_code}",
-    ]
+    request = urllib.request.Request(
+        url=url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "ProjectUid": project_uid,
+            "Content-Type": "application/json",
+            "apiKey": api_key,
+        },
+        method="PATCH",
+    )
 
     try:
-        result = subprocess.run(
-            command,
-            capture_output=True,
-            text=True,
-            timeout=30,
-            check=False,
-        )
-    except subprocess.TimeoutExpired:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            http_status = response.getcode()
+            body_output = response.read().decode("utf-8", errors="replace").rstrip()
+            stderr_output = ""
+            rc = 0
+    except TimeoutError:
         return "STDOUT:\n\nSTDERR:\nTagging request timed out after 30s.\nRC: 124"
+    except urllib.error.HTTPError as exc:
+        http_status = exc.code
+        body_output = exc.read().decode("utf-8", errors="replace").rstrip()
+        stderr_output = str(exc)
+        rc = 0
+    except urllib.error.URLError as exc:
+        return f"STDOUT:\n\nSTDERR:\nFailed to execute HTTP request: {exc.reason}\nRC: 127"
     except OSError as exc:
-        return f"STDOUT:\n\nSTDERR:\nFailed to execute curl: {exc}\nRC: 127"
+        return f"STDOUT:\n\nSTDERR:\nFailed to execute HTTP request: {exc}\nRC: 127"
 
-    stdout_text = result.stdout.rstrip()
-    status_match = re.search(r"HTTP_STATUS:(\d{3})\s*$", stdout_text)
-    http_status = status_match.group(1) if status_match else "unknown"
-    body_output = re.sub(r"\n?HTTP_STATUS:\d{3}\s*$", "", stdout_text).rstrip()
-    is_success = http_status.startswith("2")
+    is_success = str(http_status).startswith("2")
 
     return (
         f"STDOUT:\n{body_output}\n\n"
-        f"STDERR:\n{result.stderr.rstrip()}\n"
+        f"STDERR:\n{stderr_output}\n"
         f"SUCCESS: {str(is_success).lower()}\n"
-        f"RC: {result.returncode}"
+        f"RC: {rc}"
     )

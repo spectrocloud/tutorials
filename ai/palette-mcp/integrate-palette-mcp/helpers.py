@@ -16,6 +16,15 @@ from typing import Any, TextIO
 VALID_DEBUG_LEVELS = {"warn", "info", "verbose"}
 
 
+def resolve_container_runtime() -> str:
+    """Return the preferred local container runtime command."""
+    if shutil.which("docker") is not None:
+        return "docker"
+    if shutil.which("podman") is not None:
+        return "podman"
+    raise RuntimeError("Docker or Podman is not available in PATH.")
+
+
 def get_debug_level() -> str:
     debug_value = os.getenv("DEBUG") or os.getenv("debug") or "warn"
     debug_level = debug_value.strip().lower()
@@ -52,16 +61,8 @@ def suppress_console_output(enabled: bool) -> Any:
         devnull.close()
 
 
-def ensure_local_prerequisites(
-    require_kubectl: bool = True,
-    require_curl: bool = False,
-) -> None:
-    if shutil.which("docker") is None:
-        raise RuntimeError("Docker is not available in PATH.")
-    if require_kubectl and shutil.which("kubectl") is None:
-        raise RuntimeError("kubectl is not available in PATH.")
-    if require_curl and shutil.which("curl") is None:
-        raise RuntimeError("curl is not available in PATH.")
+def ensure_local_prerequisites() -> None:
+    resolve_container_runtime()
     if not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is not set.")
 
@@ -71,6 +72,7 @@ def build_palette_server_config(
     default_kubeconfig_dir: str,
     default_mcp_image: str,
 ) -> dict[str, dict[str, Any]]:
+    container_runtime = resolve_container_runtime()
     env_file = os.getenv("PALETTE_MCP_ENV_FILE", default_env_file)
     kubeconfig_dir = os.getenv("PALETTE_MCP_KUBECONFIG_DIR", default_kubeconfig_dir)
     mcp_image = os.getenv("PALETTE_MCP_IMAGE", default_mcp_image)
@@ -78,7 +80,7 @@ def build_palette_server_config(
     return {
         "palette": {
             "transport": "stdio",
-            "command": "docker",
+            "command": container_runtime,
             "args": [
                 "run",
                 "--rm",
