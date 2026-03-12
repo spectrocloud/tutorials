@@ -6,9 +6,11 @@
 from __future__ import annotations
 
 import importlib
-from typing import Any
+import json
+from typing import Any, Literal
 
-from helpers import extract_text_response
+from pydantic import BaseModel
+
 from tools import tag_cluster_for_review, tag_cluster_profile_for_review
 
 TAGGING_SYSTEM_PROMPT = (
@@ -18,6 +20,36 @@ TAGGING_SYSTEM_PROMPT = (
     "Never tag a cluster if does not have the pack name in the cluster profile."
     "Use the available tagging tools and do not invent UIDs."
 )
+
+
+class ClusterResult(BaseModel):
+    cluster_uid: str
+    tool_call_status: Literal["success", "failed"]
+    tool_output: str
+
+
+class ClusterProfileResult(BaseModel):
+    cluster_profile_uid: str
+    scope: Literal["tenant", "project", "system", "unknown"]
+    tool_call_status: Literal["success", "failed"]
+    tool_output: str
+
+
+class ClusterProfileSkipped(BaseModel):
+    cluster_profile_uid: str
+    scope: str
+    reason: str
+
+
+class TaggingOutput(BaseModel):
+    pack_name: str
+    requested_tags: list[str]
+    clusters_attempted: list[str]
+    cluster_profiles_attempted: list[str]
+    cluster_results: list[ClusterResult]
+    cluster_profile_results: list[ClusterProfileResult]
+    cluster_profile_skipped: list[ClusterProfileSkipped]
+    notes: str
 
 
 async def initialize_tagging_agent(model: str) -> Any:
@@ -32,6 +64,7 @@ async def initialize_tagging_agent(model: str) -> Any:
         model=llm,
         tools=[tag_cluster_for_review, tag_cluster_profile_for_review],
         system_prompt=TAGGING_SYSTEM_PROMPT,
+        response_format=TaggingOutput,
         checkpointer=InMemorySaver(),
     )
 
@@ -45,65 +78,47 @@ async def invoke_tagging_agent(
     run_id: str,
 ) -> str:
     if not tags:
-        return (
-            '{"pack_name": "' + pack_name + '", '
-            '"requested_tags": [], '
-            '"clusters_attempted": [], '
-            '"cluster_profiles_attempted": [], '
-            '"cluster_results": [], '
-            '"cluster_profile_results": [], '
-            '"cluster_profile_skipped": [], '
-            '"notes": "No tags provided by user. Tagging skipped."}'
-        )
+        return TaggingOutput(
+            pack_name=pack_name,
+            requested_tags=[],
+            clusters_attempted=[],
+            cluster_profiles_attempted=[],
+            cluster_results=[],
+            cluster_profile_results=[],
+            cluster_profile_skipped=[],
+            notes="No tags provided by user. Tagging skipped.",
+        ).model_dump_json()
 
-    tags_repr = str(tags)
+    schema = json.dumps(TaggingOutput.model_json_schema(), indent=2)
     tagging_prompt = (
         f"Given this profile discovery output for pack '{pack_name}':\n"
         f"{profile_discovery_output}\n\n"
         f"Given this active cluster mapping output for pack '{pack_name}':\n"
         f"{active_cluster_output}\n\n"
-        f"Apply these tags: {tags_repr}\n\n"
+        f"Apply these tags: {tags}\n\n"
         "Task:\n"
         "1) Extract unique cluster UIDs from active_clusters_using_matched_profiles.\n"
         "2) Extract unique cluster profile UIDs and scope values from matched_profiles.\n"
-        f"3) For each cluster UID, call tag_cluster_for_review with cluster_uid=<uid> and tags={tags_repr}.\n"
-        f"4) For each cluster profile UID, call tag_cluster_profile_for_review with cluster_profile_uid=<uid> and tags={tags_repr}, only if scope is not 'system'.\n"
+        f"3) For each cluster UID, call tag_cluster_for_review with cluster_uid=<uid> and tags={tags}.\n"
+        f"4) For each cluster profile UID, call tag_cluster_profile_for_review with cluster_profile_uid=<uid> and tags={tags}, only if scope is not 'system'.\n"
         "5) For scope='system' profiles, skip tagging and record skip reason.\n"
-        "6) Return JSON with this shape:\n"
-        "{\n"
-        '  "pack_name": "<pack>",\n'
-        f'  "requested_tags": {tags_repr},\n'
-        '  "clusters_attempted": ["<uid1>", "<uid2>"],\n'
-        '  "cluster_profiles_attempted": ["<profile_uid1>", "<profile_uid2>"],\n'
-        '  "cluster_results": [\n'
-        "    {\n"
-        '      "cluster_uid": "<uid>",\n'
-        '      "tool_call_status": "<success|failed>",\n'
-        '      "tool_output": "<raw tool output>"\n'
-        "    }\n"
-        "  ],\n"
-        '  "cluster_profile_results": [\n'
-        "    {\n"
-        '      "cluster_profile_uid": "<uid>",\n'
-        '      "scope": "<tenant|project|system|unknown>",\n'
-        '      "tool_call_status": "<success|failed>",\n'
-        '      "tool_output": "<raw tool output>"\n'
-        "    }\n"
-        "  ],\n"
-        '  "cluster_profile_skipped": [\n'
-        "    {\n"
-        '      "cluster_profile_uid": "<uid>",\n'
-        '      "scope": "system",\n'
-        '      "reason": "scope system is not taggable"\n'
-        "    }\n"
-        "  ],\n"
-        '  "notes": "<short note>"\n'
-        "}\n"
+        "6) Return a response that conforms to this JSON schema:\n"
+        f"{schema}\n"
         "If there are no resources to tag, return empty arrays and explain in notes."
     )
-    run_config = {"configurable": {"thread_id": f"tagging:{pack_name.lower()}:{run_id}"}}
+    run_config = {
+        "configurable": {"thread_id": f"tagging:{pack_name.lower()}:{run_id}"}
+    }
     result = await agent.ainvoke(
         {"messages": [{"role": "user", "content": tagging_prompt}]},
         config=run_config,
     )
-    return extract_text_response(result)
+    structured = result.get("structured_response")
+    if isinstance(structured, TaggingOutput):
+        return structured.model_dump_json()
+    messages = result.get("messages", [])
+    for message in reversed(messages):
+        content = getattr(message, "content", None)
+        if isinstance(content, str) and content.strip():
+            return content
+    return str(result)

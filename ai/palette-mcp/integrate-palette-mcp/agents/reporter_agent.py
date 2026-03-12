@@ -15,6 +15,7 @@ REPORTER_SYSTEM_PROMPT = (
     "Do not invent data. If discovery data is uncertain, call that out clearly."
 )
 
+
 async def initialize_reporter_agent(model: str) -> Any:
     from langchain.agents import create_agent
     from langchain_openai import ChatOpenAI
@@ -99,7 +100,9 @@ async def invoke_reporter_agent(
         "- Remove any '(repeat ...)' lines from the final output.\n"
         "- Remove the '---' delimiters from the final output.\n"
     )
-    run_config = {"configurable": {"thread_id": f"reporter:{pack_name.lower()}:{run_id}"}}
+    run_config = {
+        "configurable": {"thread_id": f"reporter:{pack_name.lower()}:{run_id}"}
+    }
     result = await agent.ainvoke(
         {
             "messages": [

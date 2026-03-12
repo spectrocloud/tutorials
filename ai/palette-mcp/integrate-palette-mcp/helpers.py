@@ -113,7 +113,9 @@ def has_matches(profile_discovery_output: str, active_cluster_output: str) -> bo
     return False
 
 
-def prompt_for_tags(profile_discovery_output: str, active_cluster_output: str) -> list[str] | None:
+def prompt_for_tags(
+    profile_discovery_output: str, active_cluster_output: str
+) -> list[str] | None:
     """Prompt the user for tags if matches were found.
 
     Returns a list of tag strings (possibly empty if the user skips),
@@ -122,7 +124,9 @@ def prompt_for_tags(profile_discovery_output: str, active_cluster_output: str) -
     if not has_matches(profile_discovery_output, active_cluster_output):
         return None
 
-    print("\nMatches found. Enter tags to apply to matched cluster profiles and active clusters.")
+    print(
+        "\nMatches found. Enter tags to apply to matched cluster profiles and active clusters."
+    )
     print("Supported formats:")
     print("  key:value  ->  nginx:found, date:2026-03-11")
     print("  single     ->  review")

@@ -142,7 +142,9 @@ def tag_cluster_profile_for_review(cluster_profile_uid: str, tags: list[str]) ->
     )
 
 
-def _patch_palette_metadata(resource_path: str, missing_identifier_error: str, tags: list[str]) -> str:
+def _patch_palette_metadata(
+    resource_path: str, missing_identifier_error: str, tags: list[str]
+) -> str:
     if not resource_path.strip():
         return f"STDOUT:\n\nSTDERR:\n{missing_identifier_error}\nRC: 2"
 
@@ -192,7 +194,9 @@ def _patch_palette_metadata(resource_path: str, missing_identifier_error: str, t
         stderr_output = str(exc)
         rc = 0
     except urllib.error.URLError as exc:
-        return f"STDOUT:\n\nSTDERR:\nFailed to execute HTTP request: {exc.reason}\nRC: 127"
+        return (
+            f"STDOUT:\n\nSTDERR:\nFailed to execute HTTP request: {exc.reason}\nRC: 127"
+        )
     except OSError as exc:
         return f"STDOUT:\n\nSTDERR:\nFailed to execute HTTP request: {exc}\nRC: 127"
 

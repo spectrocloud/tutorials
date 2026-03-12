@@ -6,13 +6,12 @@
 from __future__ import annotations
 
 import importlib
-from typing import Any
+import json
+from typing import Any, Literal
 
-from helpers import (
-    build_palette_server_config,
-    extract_text_response,
-    suppress_console_output,
-)
+from pydantic import BaseModel
+
+from helpers import suppress_console_output
 
 PROFILE_FINDER_SYSTEM_PROMPT = (
     "You are a Palette profile discovery specialist. "
@@ -22,12 +21,25 @@ PROFILE_FINDER_SYSTEM_PROMPT = (
     "Return factual results only."
 )
 
+
+class MatchedProfile(BaseModel):
+    uid: str
+    name: str
+    scope: Literal["tenant", "project", "system", "unknown"]
+    pack_references: list[str]
+    evidence: str
+
+
+class ProfileDiscoveryOutput(BaseModel):
+    pack_name: str
+    total_profiles_scanned: int
+    matched_profiles: list[MatchedProfile]
+    notes: str
+
+
 async def initialize_profile_finder_agent(
     model: str,
-    debug_level: str,
-    default_env_file: str,
-    default_kubeconfig_dir: str,
-    default_mcp_image: str,
+    mcp_tools: list,
 ) -> Any:
     from langchain.agents import create_agent
     from langchain_openai import ChatOpenAI
@@ -35,29 +47,12 @@ async def initialize_profile_finder_agent(
     checkpoint_module = importlib.import_module("langgraph.checkpoint.memory")
     InMemorySaver = checkpoint_module.InMemorySaver
 
-    try:
-        mcp_client_module = importlib.import_module("langchain_mcp_adapters.client")
-        MultiServerMCPClient = mcp_client_module.MultiServerMCPClient
-    except (ImportError, AttributeError):
-        mcp_module = importlib.import_module("langchain_mcp_adapters")
-        MultiServerMCPClient = mcp_module.MultiServerMCPClient
-
-    mcp_client = MultiServerMCPClient(
-        build_palette_server_config(
-            default_env_file=default_env_file,
-            default_kubeconfig_dir=default_kubeconfig_dir,
-            default_mcp_image=default_mcp_image,
-        )
-    )
-    hide_mcp_output = debug_level != "verbose"
-    with suppress_console_output(hide_mcp_output):
-        mcp_tools = await mcp_client.get_tools()
-
     llm = ChatOpenAI(model=model)
     return create_agent(
         model=llm,
         tools=mcp_tools,
         system_prompt=PROFILE_FINDER_SYSTEM_PROMPT,
+        response_format=ProfileDiscoveryOutput,
         checkpointer=InMemorySaver(),
     )
 
@@ -69,6 +64,7 @@ async def invoke_profile_finder_agent(
     run_id: str,
 ) -> str:
     hide_mcp_output = debug_level != "verbose"
+    schema = json.dumps(ProfileDiscoveryOutput.model_json_schema(), indent=2)
     profile_finder_prompt = (
         "Find all cluster profiles in Palette that use the pack named "
         f"'{pack_name}'. Use Palette MCP tools only.\n\n"
@@ -80,21 +76,8 @@ async def invoke_profile_finder_agent(
         "5) If scope is missing, set scope to 'unknown' and mention in notes.\n\n"
         "Important:\n"
         "- Return only profile-level results. Do not query clusters in this agent.\n\n"
-        "Return JSON with this shape:\n"
-        "{\n"
-        '  "pack_name": "<pack>",\n'
-        '  "total_profiles_scanned": <int>,\n'
-        '  "matched_profiles": [\n'
-        "    {\n"
-        '      "uid": "<uid>",\n'
-        '      "name": "<name>",\n'
-        '      "scope": "<tenant|project|system|unknown>",\n'
-        '      "pack_references": ["<ref1>", "<ref2>"],\n'
-        '      "evidence": "<short evidence>"\n'
-        "    }\n"
-        "  ],\n"
-        '  "notes": "<short note>"\n'
-        "}\n"
+        "Return a response that conforms to this JSON schema:\n"
+        f"{schema}\n"
     )
     run_config = {
         "configurable": {"thread_id": f"profile-finder:{pack_name.lower()}:{run_id}"}
@@ -104,4 +87,12 @@ async def invoke_profile_finder_agent(
             {"messages": [{"role": "user", "content": profile_finder_prompt}]},
             config=run_config,
         )
-    return extract_text_response(result)
+    structured = result.get("structured_response")
+    if isinstance(structured, ProfileDiscoveryOutput):
+        return structured.model_dump_json()
+    messages = result.get("messages", [])
+    for message in reversed(messages):
+        content = getattr(message, "content", None)
+        if isinstance(content, str) and content.strip():
+            return content
+    return str(result)
