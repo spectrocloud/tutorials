@@ -93,31 +93,56 @@ def _resolve_palette_credentials() -> tuple[str, str, str]:
     return project_uid, api_key, host
 
 
+def _build_labels(tags: list[str]) -> dict[str, str]:
+    """Convert a list of tag strings into a Palette labels dict.
+
+    Supported formats:
+      - "key:value"  ->  {"key": "value"}
+      - "single"     ->  {"single": "true"}
+    """
+    labels: dict[str, str] = {}
+    for tag in tags:
+        if ":" in tag:
+            key, _, value = tag.partition(":")
+            labels[key.strip()] = value.strip()
+        else:
+            labels[tag.strip()] = "true"
+    return labels
+
+
 @tool
-def tag_cluster_for_review(cluster_uid: str) -> str:
-    """Tag a Palette cluster with nginx/review labels via HTTP PATCH."""
+def tag_cluster_for_review(cluster_uid: str, tags: list[str]) -> str:
+    """Tag a Palette cluster with the provided labels via HTTP PATCH.
+
+    tags: list of strings in 'key:value' or 'single' format.
+    """
     if not cluster_uid.strip():
         return "STDOUT:\n\nSTDERR:\nMissing cluster UID.\nRC: 2"
 
     return _patch_palette_metadata(
         resource_path=f"/v1/spectroclusters/{cluster_uid}/metadata",
         missing_identifier_error="Missing cluster UID.",
+        tags=tags,
     )
 
 
 @tool
-def tag_cluster_profile_for_review(cluster_profile_uid: str) -> str:
-    """Tag a Palette cluster profile with nginx/review labels via HTTP PATCH."""
+def tag_cluster_profile_for_review(cluster_profile_uid: str, tags: list[str]) -> str:
+    """Tag a Palette cluster profile with the provided labels via HTTP PATCH.
+
+    tags: list of strings in 'key:value' or 'single' format.
+    """
     if not cluster_profile_uid.strip():
         return "STDOUT:\n\nSTDERR:\nMissing cluster profile UID.\nRC: 2"
 
     return _patch_palette_metadata(
         resource_path=f"/v1/clusterprofiles/{cluster_profile_uid}/metadata",
         missing_identifier_error="Missing cluster profile UID.",
+        tags=tags,
     )
 
 
-def _patch_palette_metadata(resource_path: str, missing_identifier_error: str) -> str:
+def _patch_palette_metadata(resource_path: str, missing_identifier_error: str, tags: list[str]) -> str:
     if not resource_path.strip():
         return f"STDOUT:\n\nSTDERR:\n{missing_identifier_error}\nRC: 2"
 
@@ -138,10 +163,7 @@ def _patch_palette_metadata(resource_path: str, missing_identifier_error: str) -
 
     payload: dict[str, Any] = {
         "metadata": {
-            "labels": {
-                "nginx": "present",
-                "review": "required",
-            }
+            "labels": _build_labels(tags),
         }
     }
     url = f"{host.rstrip('/')}{resource_path}"

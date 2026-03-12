@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
+import json
 import os
 import shutil
 import sys
@@ -93,6 +94,55 @@ def build_palette_server_config(
             ],
         }
     }
+
+
+def has_matches(profile_discovery_output: str, active_cluster_output: str) -> bool:
+    """Return True if either agent found at least one matched profile or active cluster."""
+    try:
+        profile_data = json.loads(profile_discovery_output)
+        if profile_data.get("matched_profiles"):
+            return True
+    except (json.JSONDecodeError, AttributeError):
+        pass
+    try:
+        cluster_data = json.loads(active_cluster_output)
+        if cluster_data.get("active_clusters_using_matched_profiles"):
+            return True
+    except (json.JSONDecodeError, AttributeError):
+        pass
+    return False
+
+
+def prompt_for_tags(profile_discovery_output: str, active_cluster_output: str) -> list[str] | None:
+    """Prompt the user for tags if matches were found.
+
+    Returns a list of tag strings (possibly empty if the user skips),
+    or None if there are no matches and tagging should be skipped entirely.
+    """
+    if not has_matches(profile_discovery_output, active_cluster_output):
+        return None
+
+    print("\nMatches found. Enter tags to apply to matched cluster profiles and active clusters.")
+    print("Supported formats:")
+    print("  key:value  ->  nginx:found, date:2026-03-11")
+    print("  single     ->  review")
+    print("Press Enter with no input to skip tagging.")
+    raw = input("Tags: ").strip()
+
+    if not raw:
+        return []
+
+    tags: list[str] = []
+    for token in raw.split(","):
+        tag = token.strip()
+        if not tag:
+            continue
+        if " " in tag:
+            print(f"  Warning: skipping invalid tag (contains spaces): {tag!r}")
+            continue
+        tags.append(tag)
+
+    return tags
 
 
 def extract_text_response(result: dict[str, Any]) -> str:
