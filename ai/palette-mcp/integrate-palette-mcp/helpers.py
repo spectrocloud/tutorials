@@ -14,7 +14,7 @@ import sys
 from collections.abc import Awaitable
 from typing import Any, TextIO
 
-VALID_DEBUG_LEVELS = {"warn", "info", "verbose"}
+VALID_DEBUG_LEVELS = {"warn", "info", "debug", "verbose"}
 
 
 def resolve_container_runtime() -> str:
@@ -26,17 +26,19 @@ def resolve_container_runtime() -> str:
     raise RuntimeError("Docker or Podman is not available in PATH.")
 
 
-def get_debug_level() -> str:
-    debug_value = os.getenv("DEBUG") or os.getenv("debug") or "warn"
+def get_debug_level(cli_level: str | None = None) -> str:
+    if cli_level is not None:
+        return cli_level
+    debug_value = os.getenv("DEBUG") or os.getenv("debug") or "info"
     debug_level = debug_value.strip().lower()
     if debug_level not in VALID_DEBUG_LEVELS:
-        print(f"Warning: invalid DEBUG='{debug_value}'. Falling back to 'warn'.")
-        return "warn"
+        print(f"Warning: invalid DEBUG='{debug_value}'. Falling back to 'info'.")
+        return "info"
     return debug_level
 
 
 def is_debug_enabled(current_level: str, min_level: str) -> bool:
-    levels = {"warn": 1, "info": 2, "verbose": 3}
+    levels = {"warn": 1, "info": 2, "debug": 3, "verbose": 4}
     return levels[current_level] >= levels[min_level]
 
 

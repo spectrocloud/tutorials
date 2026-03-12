@@ -32,7 +32,7 @@ from agents.palette_profile_agent import (
 from agents.reporter_agent import initialize_reporter_agent, invoke_reporter_agent
 from agents.tagging_agent import initialize_tagging_agent, invoke_tagging_agent
 
-DEFAULT_MODEL = "gpt-5-nano-2025-08-07"
+DEFAULT_MODEL = "gpt-5.4"
 DEFAULT_MCP_IMAGE = "public.ecr.aws/palette-ai/palette-mcp-server:latest"
 DEFAULT_ENV_FILE = os.path.expanduser("~/.palette/.env-mcp")
 DEFAULT_KUBECONFIG_DIR = os.path.expanduser("~/projects/spectro-cloud/mcp-kubeconfig")
@@ -72,13 +72,19 @@ def parse_args() -> argparse.Namespace:
         default=os.getenv("OPENAI_TAGGING_MODEL", resolved_model),
         help="Model for the tagging agent (default: --model).",
     )
+    parser.add_argument(
+        "--log-level",
+        default=None,
+        choices=["warn", "info", "debug", "verbose"],
+        help="Set the log level (warn, info, debug, verbose). Overrides the DEBUG env var.",
+    )
     return parser.parse_args()
 
 
 async def main_async() -> None:
     args = parse_args()
     run_id = uuid.uuid4().hex[:8]
-    debug_level = get_debug_level()
+    debug_level = get_debug_level(cli_level=args.log_level)
     ensure_local_prerequisites()
 
     if not args.pack:
@@ -88,7 +94,7 @@ async def main_async() -> None:
         )
         sys.exit(1)
 
-    if is_debug_enabled(debug_level, "info"):
+    if is_debug_enabled(debug_level, "debug"):
         print(f"Debug level: {debug_level}")
         print(f"Run ID: {run_id}")
         print("Options:")
@@ -114,7 +120,7 @@ async def main_async() -> None:
     with suppress_console_output(hide_mcp_output):
         mcp_tools = await mcp_client.get_tools()
 
-    if is_debug_enabled(debug_level, "info"):
+    if is_debug_enabled(debug_level, "debug"):
         print("Initializing profile finder agent...")
 
     profile_finder_agent = await initialize_profile_finder_agent(
@@ -128,7 +134,7 @@ async def main_async() -> None:
     tagging_agent = await initialize_tagging_agent(model=args.tagging_model)
     reporter_agent = await initialize_reporter_agent(model=args.reporter_model)
 
-    if is_debug_enabled(debug_level, "info"):
+    if is_debug_enabled(debug_level, "debug"):
         print(f"Running profile discovery for pack: {args.pack}")
 
     profile_discovery_output = await run_with_thinking_indicator(
@@ -137,7 +143,7 @@ async def main_async() -> None:
         )
     )
 
-    if is_debug_enabled(debug_level, "info"):
+    if is_debug_enabled(debug_level, "debug"):
         print("Finding active clusters using matched profiles...")
 
     active_cluster_output = await run_with_thinking_indicator(
@@ -153,11 +159,11 @@ async def main_async() -> None:
     user_tags = prompt_for_tags(profile_discovery_output, active_cluster_output)
 
     if user_tags is None:
-        if is_debug_enabled(debug_level, "info"):
+        if is_debug_enabled(debug_level, "debug"):
             print("No matches found. Skipping tagging.")
         tagging_output = '{"skipped": true, "reason": "no matched profiles or active clusters found"}'
     else:
-        if is_debug_enabled(debug_level, "info"):
+        if is_debug_enabled(debug_level, "debug"):
             if user_tags:
                 print(f"Tagging with: {user_tags}")
             else:
@@ -173,7 +179,7 @@ async def main_async() -> None:
             )
         )
 
-    if is_debug_enabled(debug_level, "info"):
+    if is_debug_enabled(debug_level, "debug"):
         print("Formatting report...")
 
     final_report = await run_with_thinking_indicator(
