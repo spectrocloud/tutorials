@@ -1,7 +1,7 @@
 resource "spectrocloud_cluster_profile" "aws_profile" {
   count = var.deploy-aws ? 1 : 0
 
-  name        = "tf-cluster-template-profile"
+  name        = "tf-cluster-template-profile-aws"
   description = "Cluster profile for the cluster templates tutorial"
   cloud       = "aws"
   type        = "cluster"
@@ -64,7 +64,7 @@ resource "spectrocloud_cluster_profile" "aws_profile" {
 resource "spectrocloud_cluster_profile" "azure_profile" {
   count = var.deploy-azure ? 1 : 0
 
-  name        = "tf-cluster-template-profile"
+  name        = "tf-cluster-template-profile-azure"
   description = "Cluster profile for the cluster templates tutorial"
   cloud       = "azure"
   type        = "cluster"
