@@ -49,7 +49,7 @@ azure_control_plane_nodes = {
   control_plane       = true
   instance_type       = "Standard_D4s_v5"
   disk_size_gb        = "60"
-  azs                 = ["1"]
+  azs                 = "REPLACE ME"
   is_system_node_pool = false
 }
 
@@ -58,6 +58,6 @@ azure_worker_nodes = {
   control_plane       = false
   instance_type       = "Standard_D4s_v5"
   disk_size_gb        = "60"
-  azs                 = ["1"]
+  azs                 = "REPLACE ME"
   is_system_node_pool = false
 }
