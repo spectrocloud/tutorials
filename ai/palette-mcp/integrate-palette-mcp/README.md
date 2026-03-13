@@ -1,6 +1,14 @@
 # Integrate Palette MCP
 
-This folder contains the demo code for the Integrate Palette MCP tutorial. The user will learn how to integrate Palette MCP into a LangChain agent workflow.
+This folder contains the demo code for the Integrate Palette MCP in an Agentic Workflow tutorial. The user will learn how to integrate Palette MCP into a LangChain agent workflow.
+
+The workflow is as follows: it identifies if a specific pack is present in your environment's cluster profiles and deployed clusters. If the pack is present, the workflow will ask you what tags you want to apply to the cluster profiles containing the pack and any active clusters using cluster
+profiles containing the pack. This will allow to more readily identify the cluster profiles and active clusters that are
+using the pack.
+
+## Get Started
+
+Follow the instructions in the tutorial to get started.
 
 ## Environment Variables
 
