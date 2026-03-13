@@ -72,28 +72,24 @@ def ensure_local_prerequisites() -> None:
 
 def build_palette_server_config(
     default_env_file: str,
-    default_kubeconfig_dir: str,
+    default_kubeconfig_dir: str | None,
     default_mcp_image: str,
 ) -> dict[str, dict[str, Any]]:
     container_runtime = resolve_container_runtime()
     env_file = os.getenv("PALETTE_MCP_ENV_FILE", default_env_file)
-    kubeconfig_dir = os.getenv("PALETTE_MCP_KUBECONFIG_DIR", default_kubeconfig_dir)
+    kubeconfig_dir = os.getenv("PALETTE_MCP_KUBECONFIG_DIR") or default_kubeconfig_dir
     mcp_image = os.getenv("PALETTE_MCP_IMAGE", default_mcp_image)
+
+    args: list[str] = ["run", "--rm", "-i"]
+    if kubeconfig_dir:
+        args += ["--mount", f"type=bind,source={kubeconfig_dir},target=/tmp/kubeconfig"]
+    args += ["--env-file", env_file, mcp_image]
 
     return {
         "palette": {
             "transport": "stdio",
             "command": container_runtime,
-            "args": [
-                "run",
-                "--rm",
-                "-i",
-                "--mount",
-                f"type=bind,source={kubeconfig_dir},target=/tmp/kubeconfig",
-                "--env-file",
-                env_file,
-                mcp_image,
-            ],
+            "args": args,
         }
     }
 
