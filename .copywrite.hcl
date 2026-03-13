@@ -11,5 +11,7 @@ project {
   header_ignore = [
     # "vendors/**",
     # "**autogen**",
+    ".venv",
+    "__pycache__"
   ]
 }

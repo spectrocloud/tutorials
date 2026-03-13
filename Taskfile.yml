@@ -1,0 +1,39 @@
+# Copyright (c) Spectro Cloud
+# SPDX-License-Identifier: Apache-2.0
+
+version: "3"
+
+dotenv: [".env"]
+
+tasks:
+  init:
+    desc: Install dependencies and setup the project
+    cmds:
+      - echo "initializing npm dependencies"
+      - npm ci
+      - npx husky install
+
+  help:
+    desc: Display this help
+    cmds:
+      - task --list
+
+  build-docker:
+    desc: Build docker image
+    cmds:
+      - echo "Building docker image"
+      - |
+        docker build --build-arg PALETTE_VERSION=$PALETTE_VERSION \
+         --build-arg PALETTE_CLI_VERSION=$PALETTE_CLI_VERION \
+        --build-arg PALETTE_EDGE_VERSION=$PALETTE_EDGE_VERSION \
+        --build-arg PACKER_VERSION=$PACKER_VERSION \
+        --build-arg ORAS_VERSION=$ORAS_VERSION \
+        --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION \
+        --build-arg K9S_VERSION=$K9S_VERSION \
+         -t tutorials .
+
+  license:
+    desc: Adds a license header to all files. Reference https://github.com/hashicorp/copywrite to learn more.
+    cmds:
+      - echo "Applying license headers..."
+      - copywrite headers
