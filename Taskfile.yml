@@ -3,6 +3,8 @@
 
 version: "3"
 
+dotenv: [".env"]
+
 tasks:
   init:
     desc: Install dependencies and setup the project
