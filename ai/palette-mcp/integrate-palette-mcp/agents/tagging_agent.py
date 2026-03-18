@@ -11,7 +11,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel
 
-from tools import tag_cluster_for_review, tag_cluster_profile_for_review
+from helpers import suppress_console_output
 
 TAGGING_SYSTEM_PROMPT = (
     "You are a cluster tagging specialist. "
@@ -52,7 +52,7 @@ class TaggingOutput(BaseModel):
     notes: str
 
 
-# async def initialize_tagging_agent(model: str) -> Any:
+# async def initialize_tagging_agent(model: str, mcp_tools: list) -> Any:
 #     from langchain.agents import create_agent
 #     from langchain_openai import ChatOpenAI
 
@@ -62,7 +62,7 @@ class TaggingOutput(BaseModel):
 #     llm = ChatOpenAI(model=model)
 #     return create_agent(
 #         model=llm,
-#         tools=[tag_cluster_for_review, tag_cluster_profile_for_review],
+#         tools=mcp_tools,
 #         system_prompt=TAGGING_SYSTEM_PROMPT,
 #         response_format=TaggingOutput,
 #         checkpointer=InMemorySaver(),
@@ -75,6 +75,7 @@ class TaggingOutput(BaseModel):
 #     profile_discovery_output: str,
 #     active_cluster_output: str,
 #     tags: list[str],
+#     debug_level: str,
 #     run_id: str,
 # ) -> str:
 #     if not tags:
@@ -99,20 +100,22 @@ class TaggingOutput(BaseModel):
 #         "Task:\n"
 #         "1) Extract unique cluster UIDs from active_clusters_using_matched_profiles.\n"
 #         "2) Extract unique cluster profile UIDs and scope values from matched_profiles.\n"
-#         f"3) For each cluster UID, call tag_cluster_for_review with cluster_uid=<uid> and tags={tags}.\n"
-#         f"4) For each cluster profile UID, call tag_cluster_profile_for_review with cluster_profile_uid=<uid> and tags={tags}, only if scope is not 'system'.\n"
+#         f"3) For each cluster UID, call manage_resource_tags with action='create', resource_type='spectroclusters', uid=<uid>, tags={tags}.\n"
+#         f"4) For each cluster profile UID, call manage_resource_tags with action='create', resource_type='clusterprofiles', uid=<uid>, tags={tags}, only if scope is not 'system'.\n"
 #         "5) For scope='system' profiles, skip tagging and record skip reason.\n"
 #         "6) Return a response that conforms to this JSON schema:\n"
 #         f"{schema}\n"
 #         "If there are no resources to tag, return empty arrays and explain in notes."
 #     )
+#     hide_mcp_output = debug_level != "verbose"
 #     run_config = {
 #         "configurable": {"thread_id": f"tagging:{pack_name.lower()}:{run_id}"}
 #     }
-#     result = await agent.ainvoke(
-#         {"messages": [{"role": "user", "content": tagging_prompt}]},
-#         config=run_config,
-#     )
+#     with suppress_console_output(hide_mcp_output):
+#         result = await agent.ainvoke(
+#             {"messages": [{"role": "user", "content": tagging_prompt}]},
+#             config=run_config,
+#         )
 #     structured = result.get("structured_response")
 #     if isinstance(structured, TaggingOutput):
 #         return structured.model_dump_json()

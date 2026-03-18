@@ -131,7 +131,7 @@ def parse_args() -> argparse.Namespace:
 #         model=args.active_cluster_model,
 #         mcp_tools=mcp_tools,
 #     )
-#     tagging_agent = await initialize_tagging_agent(model=args.tagging_model)
+#     tagging_agent = await initialize_tagging_agent(model=args.tagging_model, mcp_tools=mcp_tools)
 #     reporter_agent = await initialize_reporter_agent(model=args.reporter_model)
 
 #     if is_debug_enabled(debug_level, "debug"):
@@ -175,6 +175,7 @@ def parse_args() -> argparse.Namespace:
 #                 profile_discovery_output,
 #                 active_cluster_output,
 #                 user_tags,
+#                 debug_level,
 #                 run_id,
 #             )
 #         )
