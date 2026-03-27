@@ -16,8 +16,8 @@ Follow the instructions in the tutorial to get started.
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | `OPENAI_API_KEY`              | OpenAI API key. Required.                                                                                              | `sk-...`                                              |
 | `OPENAI_MODEL`                | Default model used for all agents. Overridden per-agent by the model-specific variables below.                         | `gpt-4o`                                              |
-| `OPENAI_ACTIVE_CLUSTER_MODEL` | Model for the active cluster finder agent. Falls back to `OPENAI_MODEL`.                                               | `gpt-4o-mini`                                         |
-| `OPENAI_REPORTER_MODEL`       | Model for the reporter agent. Falls back to `OPENAI_MODEL`.                                                            | `gpt-4o-mini`                                         |
+| `OPENAI_ACTIVE_CLUSTER_MODEL` | Model for the active cluster finder agent. Defaults to `gpt-5.4-nano`. Falls back to `OPENAI_MODEL`.                   | `gpt-4o-mini`                                         |
+| `OPENAI_REPORTER_MODEL`       | Model for the reporter agent. Defaults to `gpt-5.4-mini`. Falls back to `OPENAI_MODEL`.                                | `gpt-4o-mini`                                         |
 | `OPENAI_TAGGING_MODEL`        | Model for the tagging agent. Falls back to `OPENAI_MODEL`.                                                             | `gpt-4o-mini`                                         |
 | `PACK_NAME`                   | Target pack name to search for in cluster profiles. Can also be set via `--pack`.                                      | `nginx`                                               |
 | `DEBUG`                       | Log level. Accepted values: `warn`, `info`, `debug`, `verbose`. Defaults to `info`. Can also be set via `--log-level`. | `debug`                                               |
