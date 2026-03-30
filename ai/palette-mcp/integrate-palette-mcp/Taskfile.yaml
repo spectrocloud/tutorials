@@ -1,0 +1,13 @@
+version: "3"
+
+dotenv: [".env", "../../../.env"]
+
+tasks:
+  start-agent:
+    desc: "Start the Palette MCP LangChain agent. Usage: task start-agent -- --pack <name> [--model <model>]"
+    env:
+      DEBUG: "info"
+      PACK_NAME: "{{.PACK_NAME}}"
+      OPENAI_MODEL: "{{.OPENAI_MODEL}}"
+    cmds:
+      - uv run python main.py {{.CLI_ARGS}}

@@ -1,0 +1,11 @@
+[project]
+name = "integrate-palette-mcp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=1.2.10",
+    "langchain-mcp-adapters>=0.2.1",
+    "langchain-openai>=1.1.10",
+]
