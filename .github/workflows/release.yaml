@@ -75,7 +75,7 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{steps.dependencies.outputs.VERSION}}
 
-      - uses: sigstore/cosign-installer@v4.0.0
+      - uses: sigstore/cosign-installer@v4.1.1
 
       - name: Image Signing
         if: ${{ steps.dependencies.outputs.VERSION != ''}}
