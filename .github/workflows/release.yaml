@@ -58,7 +58,7 @@ jobs:
 
       - name: Build and push
         if: ${{ steps.dependencies.outputs.VERSION != ''}}
-        uses: docker/build-push-action@v6.19.2
+        uses: docker/build-push-action@v7.1.0
         id: build-and-push
         with:
           context: .
