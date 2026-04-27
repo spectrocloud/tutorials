@@ -92,3 +92,14 @@ data "spectrocloud_pack" "hellouniverse" {
   version      = "1.3.0"
   registry_uid = data.spectrocloud_registry.community_registry.id
 }
+
+###########
+# Kubecost
+###########
+
+data "spectrocloud_pack" "kubecost" {
+  count        = var.create_new_profile_version ? 1 : 0
+  name         = "cost-analyzer"
+  version      = "1.103.3"
+  registry_uid = data.spectrocloud_registry.community_registry.id
+}
