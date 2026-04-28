@@ -50,4 +50,14 @@ run "verify_aws" {
     error_message = "AWS cluster timezone is not set to UTC"
   }
 
+  assert {
+    condition     = length(spectrocloud_cluster_aws.prod_cluster) == 1
+    error_message = "No AWS prod cluster was created"
+  }
+
+  assert {
+    condition     = spectrocloud_cluster_aws.prod_cluster[0].cluster_timezone == "UTC"
+    error_message = "AWS prod cluster timezone is not set to UTC"
+  }
+
 }
