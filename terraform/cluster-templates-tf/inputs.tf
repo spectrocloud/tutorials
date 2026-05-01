@@ -21,6 +21,12 @@ variable "app_port" {
   description = "The cluster port number on which the service will listen for incoming traffic."
 }
 
+variable "create_new_profile_version" {
+  type        = bool
+  description = "Create cluster profile version 1.1.0 with Kubecost added. Set to true after the initial clusters are deployed."
+  default     = false
+}
+
 #######
 # AWS
 #######

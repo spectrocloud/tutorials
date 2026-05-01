@@ -8,6 +8,8 @@ palette-project = "Default" # The name of your project in Palette.
 ##############################
 app_port = 8080 # The cluster port number on which the service will listen for incoming traffic.
 
+create_new_profile_version = false # Set to true to create cluster profile version 1.1.0 with Kubecost.
+
 ###########################
 # AWS Deployment Settings
 ############################
