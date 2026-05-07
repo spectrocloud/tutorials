@@ -61,3 +61,45 @@ run "verify_aws" {
   }
 
 }
+
+run "verify_profile_v110_planned" {
+
+  command = plan
+
+  variables {
+    create_new_profile_version      = true
+    update_template_profile_version = false
+  }
+
+  assert {
+    condition     = length(spectrocloud_cluster_profile.aws_profile_v110) == 1
+    error_message = "AWS cluster profile v1.1.0 was not planned for creation"
+  }
+
+  assert {
+    condition     = length(spectrocloud_cluster_config_template.aws_template) == 1
+    error_message = "AWS cluster template was not planned"
+  }
+
+}
+
+run "verify_template_updated_to_v110" {
+
+  command = plan
+
+  variables {
+    create_new_profile_version      = true
+    update_template_profile_version = true
+  }
+
+  assert {
+    condition     = length(spectrocloud_cluster_profile.aws_profile_v110) == 1
+    error_message = "AWS cluster profile v1.1.0 was not planned for creation"
+  }
+
+  assert {
+    condition     = length(spectrocloud_cluster_config_template.aws_template) == 1
+    error_message = "AWS cluster template was not planned for update"
+  }
+
+}

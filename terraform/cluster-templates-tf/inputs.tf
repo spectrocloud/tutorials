@@ -27,6 +27,12 @@ variable "create_new_profile_version" {
   default     = false
 }
 
+variable "update_template_profile_version" {
+  type        = bool
+  description = "Update the cluster template to reference cluster profile version 1.1.0. Requires create_new_profile_version to be true and already applied."
+  default     = false
+}
+
 #######
 # AWS
 #######

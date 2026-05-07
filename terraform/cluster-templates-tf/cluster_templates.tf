@@ -6,7 +6,7 @@ resource "spectrocloud_cluster_config_template" "aws_template" {
   context    = "project"
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.aws_profile[0].id
+    id = (var.create_new_profile_version && var.update_template_profile_version) ? spectrocloud_cluster_profile.aws_profile_v110[0].id : spectrocloud_cluster_profile.aws_profile[0].id
   }
 
   policy {
@@ -23,7 +23,7 @@ resource "spectrocloud_cluster_config_template" "azure_template" {
   context    = "project"
 
   cluster_profile {
-    id = spectrocloud_cluster_profile.azure_profile[0].id
+    id = (var.create_new_profile_version && var.update_template_profile_version) ? spectrocloud_cluster_profile.azure_profile_v110[0].id : spectrocloud_cluster_profile.azure_profile[0].id
   }
 
   policy {

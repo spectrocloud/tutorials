@@ -10,6 +10,8 @@ app_port = 8080 # The cluster port number on which the service will listen for i
 
 create_new_profile_version = false # Set to true to create cluster profile version 1.1.0 with Kubecost.
 
+update_template_profile_version = false # Set to true after profile v1.1.0 is created to update the cluster template.
+
 ###########################
 # AWS Deployment Settings
 ############################
