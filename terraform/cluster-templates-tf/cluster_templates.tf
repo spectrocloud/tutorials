@@ -13,6 +13,8 @@ resource "spectrocloud_cluster_config_template" "aws_template" {
     id   = spectrocloud_cluster_config_policy.maintenance.id
     kind = "maintenance"
   }
+
+  upgrade_now = var.upgrade_now_timestamp != "" ? var.upgrade_now_timestamp : null
 }
 
 resource "spectrocloud_cluster_config_template" "azure_template" {
@@ -30,4 +32,6 @@ resource "spectrocloud_cluster_config_template" "azure_template" {
     id   = spectrocloud_cluster_config_policy.maintenance.id
     kind = "maintenance"
   }
+
+  upgrade_now = var.upgrade_now_timestamp != "" ? var.upgrade_now_timestamp : null
 }
