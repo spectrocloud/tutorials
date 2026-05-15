@@ -35,7 +35,7 @@ variable "update_template_profile_version" {
 
 variable "upgrade_now_timestamp" {
   type        = string
-  description = "RFC3339 timestamp that triggers an immediate upgrade of all clusters launched from the template. The upgrade executes when this value changes, not at the time specified. Set to a new timestamp each time you want to fire an upgrade. Leave empty to skip."
+  description = "RFC3339 timestamp that triggers an immediate upgrade on all template clusters when changed. Set a new timestamp to re-trigger the upgrade. Leave empty to skip."
   default     = ""
 }
 
