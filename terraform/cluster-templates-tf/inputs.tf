@@ -33,6 +33,12 @@ variable "update_template_profile_version" {
   default     = false
 }
 
+variable "upgrade_now_timestamp" {
+  type        = string
+  description = "RFC3339 timestamp that triggers an immediate upgrade on all template clusters when changed. Set a new timestamp to re-trigger the upgrade. Leave empty to skip."
+  default     = ""
+}
+
 #######
 # AWS
 #######

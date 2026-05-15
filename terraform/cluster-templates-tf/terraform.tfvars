@@ -12,6 +12,8 @@ create_new_profile_version = false # Set to true to create cluster profile versi
 
 update_template_profile_version = false # Set to true after profile v1.1.0 is created to update the cluster template.
 
+upgrade_now_timestamp = "" # Set to the current RFC3339 timestamp (for example, "2026-05-12T14:30:00Z") to trigger an immediate upgrade of all clusters launched from the template. Change the value each time you want to re-trigger an upgrade.
+
 ###########################
 # AWS Deployment Settings
 ############################
