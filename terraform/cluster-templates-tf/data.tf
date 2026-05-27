@@ -34,19 +34,19 @@ data "spectrocloud_pack" "aws_ubuntu" {
 
 data "spectrocloud_pack" "aws_k8s" {
   name         = "kubernetes"
-  version      = "1.33.6"
+  version      = "1.35.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "aws_cni" {
   name         = "cni-calico"
-  version      = "3.31.2"
+  version      = "3.31.4"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "aws_csi" {
   name         = "csi-aws-ebs"
-  version      = "1.46.0"
+  version      = "1.59.0"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
@@ -67,19 +67,19 @@ data "spectrocloud_pack" "azure_ubuntu" {
 
 data "spectrocloud_pack" "azure_k8s" {
   name         = "kubernetes"
-  version      = "1.33.6"
+  version      = "1.35.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "azure_cni" {
   name         = "cni-calico-azure"
-  version      = "3.31.2"
+  version      = "3.31.4"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
 data "spectrocloud_pack" "azure_csi" {
   name         = "csi-azure"
-  version      = "1.31.2-rev2"
+  version      = "1.34.2"
   registry_uid = data.spectrocloud_registry.public_registry.id
 }
 
