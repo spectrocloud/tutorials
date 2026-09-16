@@ -9,7 +9,7 @@
     "devDependencies": {
         "semantic-release": "^25.0.8",
         "standard-version": "^9.5.0",
-        "@semantic-release/changelog": "^6.0.3",
+        "@semantic-release/changelog": "^7.0.0",
         "husky": "^9.1.7",
         "@semantic-release/exec": "^7.1.0",
         "@commitlint/cli": "^21.2.0",
